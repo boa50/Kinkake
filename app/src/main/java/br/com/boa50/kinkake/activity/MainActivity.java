@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import br.com.boa50.kinkake.R;
+import br.com.boa50.kinkake.fragment.CantoresFragment;
 import br.com.boa50.kinkake.fragment.MusicasFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         MusicasFragment musicasFragment = new MusicasFragment();
+//        CantoresFragment cantoresFragment = new CantoresFragment();
         fragmentTransaction.add(R.id.ll_fragmentos_main, musicasFragment);
         fragmentTransaction.commit();
     }

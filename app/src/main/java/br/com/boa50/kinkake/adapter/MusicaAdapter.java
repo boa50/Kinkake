@@ -50,7 +50,7 @@ public class MusicaAdapter extends ArrayAdapter<Musica> {
                 mudaIconeFavorito(favorito, musica.isFavorito());
             }
         });
-        
+
         return view;
     }
 

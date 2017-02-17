@@ -3,11 +3,12 @@ package br.com.boa50.kinkake.model;
 import java.util.ArrayList;
 
 public class Musica {
-    private Long codigo;
+    private Long codigo;//TODO verificar se o código vai ser Long mesmo
     private String nome;
     private String letra;
     private boolean favorito;
 
+    //TODO para remover
     public static ArrayList<Musica> getListaMusicasTeste(){
         ArrayList<Musica> musicas = new ArrayList<>();
 
