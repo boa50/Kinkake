@@ -1,9 +1,57 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="br.com.boa50.kinkake.fragment.DetalhamentoFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <TextView
+            android:text="Código: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_padrao"
+            android:paddingRight="@dimen/padding_padrao"
+            android:paddingBottom="@dimen/padding_padrao"
+            android:textSize="@dimen/font_size_padrao"
+            />
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv_detalhamento_musica_codigo"
+            android:text="00000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_padrao"
+            android:layout_weight="1"
+            android:textSize="@dimen/font_size_padrao"
+            />
+
+        <ImageButton
+            android:id="@+id/ib_detalhamento_musica_favorto"
+            android:layout_width="@dimen/icone_quadrado_lado"
+            android:layout_height="@dimen/icone_quadrado_lado"
+            android:layout_margin="@dimen/padding_padrao"
+            />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/padding_padrao">
+
+        <TextView
+            android:id="@+id/tv_detalhamento_musica_letra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="letra da música"
+            android:textSize="@dimen/font_size_padrao"
+            />
+
+    </ScrollView>
+
+</LinearLayout>

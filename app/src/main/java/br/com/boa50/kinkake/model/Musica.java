@@ -1,12 +1,85 @@
 package br.com.boa50.kinkake.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Musica {
+public class Musica implements Parcelable {
     private Long codigo;//TODO verificar se o código vai ser Long mesmo
     private String nome;
     private String letra;
     private boolean favorito;
+
+    private static final String LETRA_TESTE =
+            "Esse meu jeito de viver\n" +
+            "Ninguém nunca foi igual\n" +
+            "A minha vida é fazer\n" +
+            "O bem vencer o mal\n" +
+            "\n" +
+            "Pelo mundo viajarei\n" +
+            "Tentando encontrar\n" +
+            "Um Pokémon e com o seu poder\n" +
+            "Tudo transformar\n" +
+            "\n" +
+            "Pokémon! (Temos que pegá-los)\n" +
+            "Isso eu sei\n" +
+            "Pegá-los eu tentarei! (Pokémon!)\n" +
+            "Juntos teremos que\n" +
+            "O mundo defender!\n" +
+            "\n" +
+            "Pokémon! (Temos que pegá-los)\n" +
+            "Isso eu sei\n" +
+            "Pegá-los eu tentarei\n" +
+            "Vai ser grande a emoção\n" +
+            "Pokémon!\n" +
+            "\n" +
+            "Temos que pegar\n" +
+            "Temos que pegar!\n" +
+            "\n" +
+            "Desafios vou encontrar\n" +
+            "E os enfrentarei\n" +
+            "Lutando pelo meu lugar\n" +
+            "Todo dia estarei!\n" +
+            "\n" +
+            "Vem comigo, vamos formar\n" +
+            "Sempre a melhor equipe\n" +
+            "E sempre juntos vamos vencer\n" +
+            "O sonho é poder\n" +
+            "\n" +
+            "Pokémon! (Temos que pegá-los)\n" +
+            "Isso eu sei\n" +
+            "Pegá-los eu tentarei! (Pokémon!)\n" +
+            "Juntos teremos que\n" +
+            "O mundo defender!\n" +
+            "\n" +
+            "Pokémon! (Temos que pegá-los)\n" +
+            "Isso eu sei\n" +
+            "Pegá-los eu tentarei!\n" +
+            "Vai ser grande a emoção! Pokémon!\n" +
+            "(Temos que pegar)\n" +
+            "Temos que pegar\n" +
+            "\n" +
+            "Temos que pegar\n" +
+            "Temos que pegar\n" +
+            "\n" +
+            "Pokémon! (Temos que pegá-los)\n" +
+            "Isso eu sei\n" +
+            "Pegá-los eu tentarei! (Pokémon!)\n" +
+            "Juntos teremos que\n" +
+            "O mundo defender!\n" +
+            "\n" +
+            "Pokémon! (Temos que pegá-los)\n" +
+            "Isso eu sei\n" +
+            "Pegá-los eu tentarei!\n" +
+            "Vai ser grande a emoção!\n" +
+            "Pokémon!\n" +
+            "Temos que pegar\n" +
+            "(Temos que pegar)\n" +
+            "Temos que pegar\n" +
+            "\n" +
+            "Pokémon!";
 
     //TODO para remover
     public static ArrayList<Musica> getListaMusicasTeste(){
@@ -16,7 +89,7 @@ public class Musica {
             Musica musica = new Musica();
             musica.codigo = Long.parseLong(i + "000");
             musica.nome = "Nome " + i;
-            musica.letra = "Teste da letra " + i;
+            musica.letra = LETRA_TESTE;
 
             if(i%2 == 0)
                 musica.favorito = false;
@@ -28,6 +101,8 @@ public class Musica {
 
         return musicas;
     }
+
+    public Musica (){}
 
     public Long getCodigo() {
         return codigo;
@@ -59,5 +134,37 @@ public class Musica {
 
     public void setFavorito(boolean favorito) {
         this.favorito = favorito;
+    }
+
+    protected Musica(Parcel in) {
+        codigo = in.readLong();
+        nome = in.readString();
+        letra = in.readString();
+        favorito = in.readByte() != 0;
+    }
+
+    public static final Creator<Musica> CREATOR = new Creator<Musica>() {
+        @Override
+        public Musica createFromParcel(Parcel in) {
+            return new Musica(in);
+        }
+
+        @Override
+        public Musica[] newArray(int size) {
+            return new Musica[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(codigo);
+        parcel.writeString(nome);
+        parcel.writeString(letra);
+        parcel.writeByte((byte) (favorito ? 1 : 0));
     }
 }
