@@ -1,6 +1,6 @@
 package br.com.boa50.kinkake.activity;
 
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -20,7 +20,7 @@ public class MusicasCantorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_musicas_cantor);
 
         Cantor cantor = new Cantor();
         Bundle extras = getIntent().getExtras();
@@ -32,11 +32,11 @@ public class MusicasCantorActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tb_main);
         toolbar.setTitle(cantor.getNome());
 
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         MusicasFragment musicasFragment = new MusicasFragment();
         musicasFragment.setCantor(cantor);
-        fragmentTransaction.add(R.id.ll_fragmentos_main, musicasFragment);
+        fragmentTransaction.add(R.id.fl_fragmento_musicas_cantor, musicasFragment);
         fragmentTransaction.commit();
     }
 }
