@@ -17,18 +17,21 @@ import java.util.ArrayList;
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.activity.DetalhamentoActivity;
 import br.com.boa50.kinkake.adapter.MusicaAdapter;
+import br.com.boa50.kinkake.model.Cantor;
 import br.com.boa50.kinkake.model.Musica;
+import br.com.boa50.kinkake.util.ExtrasNomes;
+import br.com.boa50.kinkake.util.MusicaUtil;
 
 public class MusicasFragment extends Fragment {
 
     private ListView listView;
-    private ArrayAdapter adapter;
+    public static ArrayAdapter adapter;
     private ArrayList<Musica> musicas;
+    private Cantor cantor;
 
     public MusicasFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +39,11 @@ public class MusicasFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_musicas, container, false);
 
-        musicas = Musica.getListaMusicasTeste();
+        if(musicas == null)
+            musicas = Musica.getListaMusicasTeste();
+        if(cantor != null) {
+            musicas = MusicaUtil.listaMusicasPorCantor(musicas, cantor);
+        }
 
         listView = (ListView) view.findViewById(R.id.lv_musicas);
         adapter = new MusicaAdapter(getActivity(), musicas);
@@ -48,7 +55,7 @@ public class MusicasFragment extends Fragment {
                 Musica musica = musicas.get(i);
 
                 Intent intent = new Intent(getActivity(), DetalhamentoActivity.class);
-                intent.putExtra("musica", musica);
+                intent.putExtra(ExtrasNomes.MUSICA.getValor(), musica);
                 startActivity(intent);
             }
         });
@@ -56,4 +63,7 @@ public class MusicasFragment extends Fragment {
         return view;
     }
 
+    public void setCantor(Cantor cantor) {
+        this.cantor = cantor;
+    }
 }

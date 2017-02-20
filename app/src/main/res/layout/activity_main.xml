@@ -7,11 +7,17 @@
     android:background="@color/indigo50"
     tools:context="br.com.boa50.kinkake.activity.MainActivity">
 
+    <include
+        android:id="@+id/tb_main"
+        layout="@layout/toolbar"
+        />
+
     <LinearLayout
         android:id="@+id/ll_fragmentos_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
+        android:layout_below="@id/tb_main"
         />
 
 </RelativeLayout>

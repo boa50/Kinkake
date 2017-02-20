@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.model.Musica;
+import br.com.boa50.kinkake.util.MusicaUtil;
 
 public class DetalhamentoFragment extends Fragment {
 
@@ -35,21 +36,14 @@ public class DetalhamentoFragment extends Fragment {
         favorito = (ImageButton) view.findViewById(R.id.ib_detalhamento_musica_favorto);
 
 
-        if(musica.getCodigo() != null)
-            codigo.setText(musica.getCodigo().toString());
-        else
-            Log.d("QWERTY", "Código: " + musica.getCodigo());
+        codigo.setText(MusicaUtil.transformaCodigoString(musica.getCodigo()));
         letra.setText(musica.getLetra());
-        mudaIconeFavorito(favorito, musica.isFavorito());
+        MusicaUtil.mudaIconeFavorito(favorito, musica.isFavorito());
+
+        //TODO tentar deixar que o favorito seja alterado aqui
+//        favorito.setOnClickListener(MusicaUtil.favoritoClickListener(musica, favorito));
 
         return view;
-    }
-
-    private void mudaIconeFavorito(ImageButton ibFavorito, boolean favorito){
-        if(favorito)
-            ibFavorito.setBackgroundResource(R.drawable.ic_favorite);
-        else
-            ibFavorito.setBackgroundResource(R.drawable.ic_favorite_border);
     }
 
     public void setMusica(Musica musica) {

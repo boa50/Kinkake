@@ -6,8 +6,10 @@ import android.os.Parcelable;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import br.com.boa50.kinkake.util.MusicaUtil;
+
 public class Musica implements Parcelable {
-    private Long codigo;//TODO verificar se o código vai ser Long mesmo
+    private Integer codigo;//TODO verificar se o código vai ser Long mesmo
     private String nome;
     private String letra;
     private boolean favorito;
@@ -87,7 +89,7 @@ public class Musica implements Parcelable {
 
         for(int i = 1 ; i < 21 ; i++){
             Musica musica = new Musica();
-            musica.codigo = Long.parseLong(i + "000");
+            musica.codigo = i;
             musica.nome = "Nome " + i;
             musica.letra = LETRA_TESTE;
 
@@ -99,16 +101,16 @@ public class Musica implements Parcelable {
             musicas.add(musica);
         }
 
-        return musicas;
+        return MusicaUtil.ordenaMusicasPorNome(musicas);
     }
 
     public Musica (){}
 
-    public Long getCodigo() {
+    public Integer getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Long codigo) {
+    public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }
 
@@ -137,7 +139,7 @@ public class Musica implements Parcelable {
     }
 
     protected Musica(Parcel in) {
-        codigo = in.readLong();
+        codigo = in.readInt();
         nome = in.readString();
         letra = in.readString();
         favorito = in.readByte() != 0;
@@ -162,7 +164,7 @@ public class Musica implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeLong(codigo);
+        parcel.writeInt(codigo);
         parcel.writeString(nome);
         parcel.writeString(letra);
         parcel.writeByte((byte) (favorito ? 1 : 0));

@@ -8,7 +8,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/indigo50"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:elevation="2dp">
 
         <TextView
             android:text="Código: "
@@ -17,7 +20,6 @@
             android:paddingTop="@dimen/padding_padrao"
             android:paddingRight="@dimen/padding_padrao"
             android:paddingBottom="@dimen/padding_padrao"
-            android:textSize="@dimen/font_size_padrao"
             />
 
         <TextView
@@ -27,7 +29,6 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_padrao"
             android:layout_weight="1"
-            android:textSize="@dimen/font_size_padrao"
             />
 
         <ImageButton
@@ -42,14 +43,15 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/padding_padrao">
+        android:background="@color/indigo50">
 
         <TextView
             android:id="@+id/tv_detalhamento_musica_letra"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="letra da música"
-            android:textSize="@dimen/font_size_padrao"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             />
 
     </ScrollView>

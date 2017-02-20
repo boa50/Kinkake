@@ -8,4 +8,7 @@
     android:theme="?attr/actionBarTheme"
     android:minHeight="?attr/actionBarSize"
     android:id="@+id/toolbar_principal"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    android:elevation="8dp"
+    app:titleTextColor="@color/white"
+    />

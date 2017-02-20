@@ -2,17 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     android:orientation="horizontal">
 
     <TextView
         android:id="@+id/tv_lista_cantores_quantidade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00000"
-        android:paddingRight="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:textSize="@dimen/font_size_padrao"
+        android:text="00"
+        android:width="30dp"
+        android:textAlignment="textEnd"
+        android:paddingRight="@dimen/padding_padrao"
+        android:paddingTop="@dimen/padding_padrao"
+        android:paddingBottom="@dimen/padding_padrao"
         />
 
     <TextView
@@ -20,8 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="testeNome"
-        android:padding="8dp"
-        android:textSize="@dimen/font_size_padrao"
+        android:padding="@dimen/padding_padrao"
         android:layout_weight="1"
         />
 

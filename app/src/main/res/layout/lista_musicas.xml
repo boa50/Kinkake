@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal">
 
@@ -11,10 +11,9 @@
         android:id="@+id/tv_lista_musica_codigo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="8dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:textSize="20sp"
+        android:paddingRight="@dimen/padding_padrao"
+        android:paddingTop="@dimen/padding_padrao"
+        android:paddingBottom="@dimen/padding_padrao"
         android:text="00000"
         />
 
@@ -22,19 +21,18 @@
         android:id="@+id/tv_lista_musica_nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:textSize="20sp"
+        android:padding="@dimen/padding_padrao"
         android:layout_weight="1"
         android:text="Algum nome legal"
         />
 
     <ImageButton
         android:id="@+id/ib_lista_musica_favorto"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="@dimen/icone_quadrado_lado"
+        android:layout_height="@dimen/icone_quadrado_lado"
+        android:layout_marginLeft="@dimen/padding_padrao"
+        android:layout_marginTop="@dimen/padding_padrao"
+        android:layout_marginBottom="@dimen/padding_padrao"
         />
 
 </LinearLayout>
