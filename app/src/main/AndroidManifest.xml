@@ -20,7 +20,14 @@
         <activity
             android:name=".activity.DetalhamentoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.MusicasCantorActivity"></activity>
+        <activity android:name=".activity.MusicasCantorActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activity.MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

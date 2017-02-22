@@ -14,8 +14,8 @@
         android:width="30dp"
         android:textAlignment="textEnd"
         android:paddingRight="@dimen/padding_padrao"
-        android:paddingTop="@dimen/padding_padrao"
-        android:paddingBottom="@dimen/padding_padrao"
+        android:paddingTop="10dp"
+        android:paddingBottom="9dp"
         />
 
     <TextView
