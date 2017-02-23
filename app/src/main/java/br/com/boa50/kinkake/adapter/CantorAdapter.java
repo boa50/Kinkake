@@ -9,7 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.model.Cantor;

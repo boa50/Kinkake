@@ -1,22 +1,18 @@
 package br.com.boa50.kinkake.activity;
 
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.adapter.TabAdapter;
+import br.com.boa50.kinkake.fragment.CantoresFragment;
+import br.com.boa50.kinkake.fragment.MusicasFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +38,31 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem busca = menu.findItem(R.id.item_busca);
+        SearchView searchView = (SearchView) busca.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                CantoresFragment cantoresFragment = (CantoresFragment) adapter.getItem(0);
+                MusicasFragment musicasFragment = (MusicasFragment) adapter.getItem(1);
+
+                if(viewPager.getCurrentItem() == 0){
+                    cantoresFragment.filtrar(newText);
+                    musicasFragment.filtrar("");
+                }else{
+                    musicasFragment.filtrar(newText);
+                    cantoresFragment.filtrar("");
+                }
+                return true;
+            }
+        });
+
         return true;
     }
 

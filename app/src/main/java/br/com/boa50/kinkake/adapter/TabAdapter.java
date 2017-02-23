@@ -9,8 +9,13 @@ import br.com.boa50.kinkake.fragment.MusicasFragment;
 
 public class TabAdapter extends FragmentStatePagerAdapter{
 
+    private CantoresFragment cantoresFragment;
+    private MusicasFragment musicasFragment;
+
     public TabAdapter(FragmentManager fm) {
         super(fm);
+        cantoresFragment = new CantoresFragment();
+        musicasFragment = new MusicasFragment();
     }
 
     @Override
@@ -18,11 +23,11 @@ public class TabAdapter extends FragmentStatePagerAdapter{
 
         switch(position) {
             case 0:
-                return new CantoresFragment();
+                return cantoresFragment;
             case 1:
-                return new MusicasFragment();
+                return musicasFragment;
             default:
-                return new CantoresFragment();
+                return cantoresFragment;
         }
 
     }

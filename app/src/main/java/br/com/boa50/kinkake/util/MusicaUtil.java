@@ -13,6 +13,8 @@ import br.com.boa50.kinkake.model.Musica;
 
 public class MusicaUtil {
 
+    private static ArrayList<Musica> todasMusicas;
+
     public static View.OnClickListener favoritoClickListener(Musica musica, ImageButton ibFavorito){
 
         final Musica musicaTemp = musica;
@@ -67,5 +69,27 @@ public class MusicaUtil {
         });
 
         return musicas;
+    }
+
+    public static ArrayList<Musica> getTodasMusicas(){
+        if(todasMusicas == null){
+            todasMusicas = Musica.getListaMusicasTeste();
+        }
+
+        return todasMusicas;
+    }
+
+    public static ArrayList<Musica> filtrar(String texto){
+        ArrayList<Musica> retorno = new ArrayList<>();
+
+        if(texto.isEmpty())
+            return todasMusicas;
+
+        for(Musica musica : todasMusicas){
+            if(musica.getNome().toLowerCase().contains(texto.toLowerCase()))
+                retorno.add(musica);
+        }
+
+        return retorno;
     }
 }

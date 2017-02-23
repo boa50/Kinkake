@@ -38,8 +38,11 @@ public class MusicasFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_musicas, container, false);
 
-        if(musicas == null)
-            musicas = Musica.getListaMusicasTeste();
+        if(musicas == null){
+            musicas = new ArrayList<>();
+            musicas.addAll(MusicaUtil.getTodasMusicas());
+        }
+
         if(cantor != null) {
             musicas = MusicaUtil.listaMusicasPorCantor(musicas, cantor);
         }
@@ -60,6 +63,14 @@ public class MusicasFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void filtrar(String texto){
+        if(musicas != null){
+            musicas.clear();
+            musicas.addAll(MusicaUtil.filtrar(texto));
+            adapter.notifyDataSetChanged();
+        }
     }
 
     public void setCantor(Cantor cantor) {

@@ -8,6 +8,8 @@ import br.com.boa50.kinkake.model.Cantor;
 
 public class CantorUtil {
 
+    private static ArrayList<Cantor> todosCantores;
+
     public static ArrayList<Cantor> ordenaCantoresPorNome(ArrayList<Cantor> cantores){
         Collections.sort(cantores, new Comparator<Cantor>() {
             @Override
@@ -17,6 +19,29 @@ public class CantorUtil {
         });
 
         return cantores;
+    }
+
+    public static ArrayList<Cantor> filtrar(String texto){
+        ArrayList<Cantor> retorno = new ArrayList<>();
+
+        if(texto.isEmpty())
+            return todosCantores;
+
+        for(Cantor cantor : todosCantores){
+            if(cantor.getNome().toLowerCase().contains(texto.toLowerCase())){
+                retorno.add(cantor);
+            }
+        }
+
+        return retorno;
+    }
+
+    public static ArrayList<Cantor> getTodosCantores(){
+        if(todosCantores == null){
+            todosCantores = Cantor.getCantoresListaTeste();
+        }
+
+        return todosCantores;
     }
 
 }
