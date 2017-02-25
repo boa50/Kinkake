@@ -58,10 +58,10 @@ public class CantoresFragment extends Fragment {
         return view;
     }
 
-    public void filtrar(String texto){
+    public void filtrar(String texto, boolean apenasFavoritas){
         if(cantores != null){
             cantores.clear();
-            cantores.addAll(CantorUtil.filtrar(texto));
+            cantores.addAll(CantorUtil.filtrar(texto, apenasFavoritas));
             adapter.notifyDataSetChanged();
         }
     }

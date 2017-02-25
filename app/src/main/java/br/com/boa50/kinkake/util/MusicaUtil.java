@@ -92,4 +92,13 @@ public class MusicaUtil {
 
         return retorno;
     }
+
+    public static Musica getMusicaPorCodigo(Integer codigo){
+        for(Musica musica : getTodasMusicas()){
+            if(codigo.intValue() == musica.getCodigo().intValue())
+                return musica;
+        }
+
+        return null;
+    }
 }

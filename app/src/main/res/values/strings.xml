@@ -3,4 +3,6 @@
 
     <string name="busca">Busca</string>
     <string name="filtro">Filtro</string>
+
+    <string name="filtroFavorito">Apenas Favoritas:</string>
 </resources>

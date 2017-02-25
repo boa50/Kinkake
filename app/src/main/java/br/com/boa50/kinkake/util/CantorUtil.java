@@ -21,19 +21,62 @@ public class CantorUtil {
         return cantores;
     }
 
-    public static ArrayList<Cantor> filtrar(String texto){
+    public static ArrayList<Cantor> filtrar(String texto, boolean apenasFavoritas){
         ArrayList<Cantor> retorno = new ArrayList<>();
 
-        if(texto.isEmpty())
+        if(texto.isEmpty() && apenasFavoritas == false){
             return todosCantores;
+        }else if(texto.isEmpty() && apenasFavoritas == true){
+            for(Cantor cantor : todosCantores){
+                ArrayList<Integer> codigosMusicas = getCodigosMusicasFavoritas(cantor);
 
-        for(Cantor cantor : todosCantores){
-            if(cantor.getNome().toLowerCase().contains(texto.toLowerCase())){
-                retorno.add(cantor);
+                if(codigosMusicas != null){
+                    Cantor cantorTemp = new Cantor(
+                            cantor.getId(),
+                            cantor.getNome(),
+                            codigosMusicas
+                    );
+                    retorno.add(cantorTemp);
+                }
+            }
+        }else if(!texto.isEmpty() && apenasFavoritas == false){
+            for(Cantor cantor : todosCantores){
+                if(cantor.getNome().toLowerCase().contains(texto.toLowerCase())){
+                    retorno.add(cantor);
+                }
+            }
+        }else{
+            for(Cantor cantor : todosCantores){
+                if(cantor.getNome().toLowerCase().contains(texto.toLowerCase())){
+                    ArrayList<Integer> codigosMusicas = getCodigosMusicasFavoritas(cantor);
+
+                    if(codigosMusicas != null){
+                        Cantor cantorTemp = new Cantor(
+                                cantor.getId(),
+                                cantor.getNome(),
+                                codigosMusicas
+                        );
+                        retorno.add(cantorTemp);
+                    }
+                }
             }
         }
 
         return retorno;
+    }
+
+    private static ArrayList<Integer> getCodigosMusicasFavoritas(Cantor cantor){
+        ArrayList<Integer> retorno = new ArrayList<>();
+
+        for(Integer codigo : cantor.getCodigosMusicas()){
+            if(MusicaUtil.getMusicaPorCodigo(codigo).isFavorito())
+                retorno.add(codigo);
+        }
+
+        if(!retorno.isEmpty())
+            return retorno;
+        else
+            return null;
     }
 
     public static ArrayList<Cantor> getTodosCantores(){

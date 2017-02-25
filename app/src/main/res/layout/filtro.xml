@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/indigo50">
+
+    <include
+        android:id="@+id/tb_filtro"
+        layout="@layout/toolbar"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/tb_filtro"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/activity_vertical_margin"
+        >
+
+        <TextView
+            android:text="@string/filtroFavorito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_padrao"
+            />
+
+        <CheckBox
+            android:id="@+id/cb_filtro_favorito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

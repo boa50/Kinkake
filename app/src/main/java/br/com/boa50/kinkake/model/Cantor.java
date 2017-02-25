@@ -39,6 +39,14 @@ public class Cantor {
         return CantorUtil.ordenaCantoresPorNome(cantores);
     }
 
+    public Cantor(){}
+
+    public Cantor(Integer id, String nome, ArrayList<Integer> codigosMusicas){
+        this.id = id;
+        this.nome = nome;
+        this.codigosMusicas = codigosMusicas;
+    }
+
     public Integer getId() {
         return id;
     }
