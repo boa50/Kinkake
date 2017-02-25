@@ -79,15 +79,27 @@ public class MusicaUtil {
         return todasMusicas;
     }
 
-    public static ArrayList<Musica> filtrar(String texto){
+    public static ArrayList<Musica> filtrar(String texto, boolean apenasFavoritas){
         ArrayList<Musica> retorno = new ArrayList<>();
 
-        if(texto.isEmpty())
+        if(texto.isEmpty() && apenasFavoritas == false){
             return todasMusicas;
-
-        for(Musica musica : todasMusicas){
-            if(musica.getNome().toLowerCase().contains(texto.toLowerCase()))
-                retorno.add(musica);
+        }else if(texto.isEmpty() && apenasFavoritas == true){
+            for(Musica musica : todasMusicas){
+                if(musica.isFavorito())
+                    retorno.add(musica);
+            }
+        }else if(!texto.isEmpty() && apenasFavoritas == false){
+            for(Musica musica : todasMusicas){
+                if(musica.getNome().toLowerCase().contains(texto.toLowerCase()))
+                    retorno.add(musica);
+            }
+        }else if(!texto.isEmpty() && apenasFavoritas == true){
+            for(Musica musica : todasMusicas){
+                if(musica.getNome().toLowerCase().contains(texto.toLowerCase()))
+                    if(musica.isFavorito())
+                        retorno.add(musica);
+            }
         }
 
         return retorno;

@@ -65,10 +65,10 @@ public class MusicasFragment extends Fragment {
         return view;
     }
 
-    public void filtrar(String texto){
+    public void filtrar(String texto, boolean apenasFavoritas){
         if(musicas != null){
             musicas.clear();
-            musicas.addAll(MusicaUtil.filtrar(texto));
+            musicas.addAll(MusicaUtil.filtrar(texto, apenasFavoritas));
             adapter.notifyDataSetChanged();
         }
     }

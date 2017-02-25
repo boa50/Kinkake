@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         if(position == 0){
             cantoresFragment.filtrar(buscaFiltro, favoritoFiltro);
         }else{
-            musicasFragment.filtrar(buscaFiltro);
+            musicasFragment.filtrar(buscaFiltro, favoritoFiltro);
         }
     }
 }
