@@ -6,7 +6,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +16,7 @@ import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.adapter.TabAdapter;
 import br.com.boa50.kinkake.fragment.CantoresFragment;
 import br.com.boa50.kinkake.fragment.MusicasFragment;
+import br.com.boa50.kinkake.util.FiltroUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,14 +25,13 @@ public class MainActivity extends AppCompatActivity {
     private TabAdapter adapter;
 
     private String buscaFiltro;
-    private boolean favoritoFiltro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        favoritoFiltro = false;
+        FiltroUtil.setFavoritoFiltro(false);
         buscaFiltro = "";
 
         toolbar = (Toolbar) findViewById(R.id.tb_main);
@@ -106,12 +105,12 @@ public class MainActivity extends AppCompatActivity {
         CheckBox favorito = (CheckBox) viewFiltro.findViewById(R.id.cb_filtro_favorito);
         toolbarFiltro.setTitle("Filtro");
 
-        favorito.setChecked(favoritoFiltro);
+        favorito.setChecked(FiltroUtil.isFavoritoFiltro());
 
         favorito.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                favoritoFiltro = b;
+                FiltroUtil.setFavoritoFiltro(b);
                 gerenciarBusca(viewPager.getCurrentItem());
             }
         });
@@ -126,9 +125,9 @@ public class MainActivity extends AppCompatActivity {
         MusicasFragment musicasFragment = (MusicasFragment) adapter.getItem(1);
 
         if(position == 0){
-            cantoresFragment.filtrar(buscaFiltro, favoritoFiltro);
+            cantoresFragment.filtrar(buscaFiltro, FiltroUtil.isFavoritoFiltro());
         }else{
-            musicasFragment.filtrar(buscaFiltro, favoritoFiltro);
+            musicasFragment.filtrar(buscaFiltro, FiltroUtil.isFavoritoFiltro());
         }
     }
 }
