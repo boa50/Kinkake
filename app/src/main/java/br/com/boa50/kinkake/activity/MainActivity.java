@@ -1,12 +1,12 @@
 package br.com.boa50.kinkake.activity;
 
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,10 +18,12 @@ import br.com.boa50.kinkake.adapter.TabAdapter;
 import br.com.boa50.kinkake.fragment.CantoresFragment;
 import br.com.boa50.kinkake.fragment.MusicasFragment;
 import br.com.boa50.kinkake.util.FiltroUtil;
+import br.com.boa50.kinkake.util.SlidingTabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private SlidingTabLayout slidingTabLayout;
     private ViewPager viewPager;
     private TabAdapter adapter;
 
@@ -37,12 +39,18 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.tb_main);
         viewPager = (ViewPager) findViewById(R.id.vp_fragmentos_main);
+        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.stl_main);
 
         toolbar.setTitle(getResources().getString(R.string.app_name));
         setSupportActionBar(toolbar);
 
-        adapter = new TabAdapter(getSupportFragmentManager());
+        adapter = new TabAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(adapter);
+
+        slidingTabLayout.setCustomTabView(R.layout.tab_view, R.id.text_item_tab);
+        slidingTabLayout.setDistributeEvenly(true);
+        slidingTabLayout.setSelectedIndicatorColors(ContextCompat.getColor(this, R.color.white));
+        slidingTabLayout.setViewPager(viewPager);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -52,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                gerenciarBusca(position);
+                gerenciarBusca(position);//TODO tentar mudar isso
             }
 
             @Override
