@@ -24,7 +24,7 @@ import br.com.boa50.kinkake.util.MusicaUtil;
 public class MusicasFragment extends Fragment {
 
     private ListView listView;
-    public static ArrayAdapter adapter;
+    private ArrayAdapter adapter;
     private ArrayList<Musica> musicas;
     private Cantor cantor;
 
@@ -44,7 +44,7 @@ public class MusicasFragment extends Fragment {
         }
 
         if(cantor != null) {
-            musicas = MusicaUtil.listaMusicasPorCantor(musicas, cantor);
+            musicas = MusicaUtil.listaMusicasPorCantor(cantor);
         }
 
         listView = (ListView) view.findViewById(R.id.lv_musicas);
@@ -66,11 +66,23 @@ public class MusicasFragment extends Fragment {
     }
 
     public void filtrar(String texto, boolean apenasFavoritas){
-        if(musicas != null){
-            musicas.clear();
-            musicas.addAll(MusicaUtil.filtrar(texto, apenasFavoritas));
-            adapter.notifyDataSetChanged();
-        }
+        if(musicas == null)
+            musicas = new ArrayList<>();
+
+        musicas.clear();
+        musicas.addAll(MusicaUtil.filtrar(texto, apenasFavoritas));
+        adapter.notifyDataSetChanged();
+
+    }
+
+    public void filtrar(Integer idCantor, boolean apenasFavoritas){
+        if(musicas == null)
+            musicas = new ArrayList<>();
+
+        musicas.clear();
+        musicas.addAll(MusicaUtil.filtrar(idCantor, apenasFavoritas));
+        adapter.notifyDataSetChanged();
+
     }
 
     public void setCantor(Cantor cantor) {

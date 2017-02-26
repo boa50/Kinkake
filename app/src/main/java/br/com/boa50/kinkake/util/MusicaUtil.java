@@ -47,11 +47,11 @@ public class MusicaUtil {
         return retorno;
     }
 
-    public static ArrayList<Musica> listaMusicasPorCantor(ArrayList<Musica> musicas, Cantor cantor){
+    public static ArrayList<Musica> listaMusicasPorCantor(Cantor cantor){
         ArrayList<Musica> musicasCantor = new ArrayList<>();
 
         for(Integer idMusica : cantor.getCodigosMusicas()){
-            for(Musica musica : musicas){
+            for(Musica musica : getTodasMusicas()){
                 if(idMusica == musica.getCodigo())
                     musicasCantor.add(musica);
             }
@@ -82,23 +82,41 @@ public class MusicaUtil {
     public static ArrayList<Musica> filtrar(String texto, boolean apenasFavoritas){
         ArrayList<Musica> retorno = new ArrayList<>();
 
-        if(texto.isEmpty() && apenasFavoritas == false){
-            return todasMusicas;
-        }else if(texto.isEmpty() && apenasFavoritas == true){
-            for(Musica musica : todasMusicas){
+        if(texto.isEmpty() && !apenasFavoritas){
+            return getTodasMusicas();
+        }else if(texto.isEmpty() && apenasFavoritas){
+            for(Musica musica : getTodasMusicas()){
                 if(musica.isFavorito())
                     retorno.add(musica);
             }
-        }else if(!texto.isEmpty() && apenasFavoritas == false){
-            for(Musica musica : todasMusicas){
+        }else if(!texto.isEmpty() && !apenasFavoritas){
+            for(Musica musica : getTodasMusicas()){
                 if(musica.getNome().toLowerCase().contains(texto.toLowerCase()))
                     retorno.add(musica);
             }
-        }else if(!texto.isEmpty() && apenasFavoritas == true){
-            for(Musica musica : todasMusicas){
+        }else{
+            for(Musica musica : getTodasMusicas()){
                 if(musica.getNome().toLowerCase().contains(texto.toLowerCase()))
                     if(musica.isFavorito())
                         retorno.add(musica);
+            }
+        }
+
+        return retorno;
+    }
+
+    public static ArrayList<Musica> filtrar(Integer idCantor, boolean apenasFavoritas){
+        ArrayList<Musica> retorno = new ArrayList<>();
+        Cantor cantor = CantorUtil.getCantorPorId(idCantor);
+
+        if(cantor != null){
+            if(apenasFavoritas){
+                for(Musica musica : listaMusicasPorCantor(cantor)){
+                    if(musica.isFavorito())
+                        retorno.add(musica);
+                }
+            }else{
+                retorno.addAll(listaMusicasPorCantor(cantor));
             }
         }
 

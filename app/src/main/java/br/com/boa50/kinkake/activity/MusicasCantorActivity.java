@@ -20,6 +20,8 @@ import br.com.boa50.kinkake.util.FiltroUtil;
 public class MusicasCantorActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private MusicasFragment musicasFragment;
+    private Integer idCantor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,8 @@ public class MusicasCantorActivity extends AppCompatActivity {
         Cantor cantor = new Cantor();
         Bundle extras = getIntent().getExtras();
         if(extras != null){
+            cantor.setId(extras.getInt(ExtrasNomes.ID_CANTOR.getValor()));
+            idCantor = cantor.getId();
             cantor.setNome(extras.getString(ExtrasNomes.NOME_CANTOR.getValor()));
             cantor.setCodigosMusicas(extras.getIntegerArrayList(ExtrasNomes.LISTA_MUSICAS_CANTOR.getValor()));
         }
@@ -41,7 +45,7 @@ public class MusicasCantorActivity extends AppCompatActivity {
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
-        MusicasFragment musicasFragment = new MusicasFragment();
+        musicasFragment = new MusicasFragment();
         musicasFragment.setCantor(cantor);
         fragmentTransaction.add(R.id.fl_fragmento_musicas_cantor, musicasFragment);
         fragmentTransaction.commit();
@@ -87,6 +91,7 @@ public class MusicasCantorActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 FiltroUtil.setFavoritoFiltro(b);
+                musicasFragment.filtrar(idCantor, b);
             }
         });
 

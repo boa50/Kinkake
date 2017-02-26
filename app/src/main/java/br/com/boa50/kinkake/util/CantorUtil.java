@@ -24,10 +24,10 @@ public class CantorUtil {
     public static ArrayList<Cantor> filtrar(String texto, boolean apenasFavoritas){
         ArrayList<Cantor> retorno = new ArrayList<>();
 
-        if(texto.isEmpty() && apenasFavoritas == false){
-            return todosCantores;
-        }else if(texto.isEmpty() && apenasFavoritas == true){
-            for(Cantor cantor : todosCantores){
+        if(texto.isEmpty() && !apenasFavoritas){
+            return getTodosCantores();
+        }else if(texto.isEmpty() && apenasFavoritas){
+            for(Cantor cantor : getTodosCantores()){
                 ArrayList<Integer> codigosMusicas = getCodigosMusicasFavoritas(cantor);
 
                 if(codigosMusicas != null){
@@ -39,14 +39,14 @@ public class CantorUtil {
                     retorno.add(cantorTemp);
                 }
             }
-        }else if(!texto.isEmpty() && apenasFavoritas == false){
-            for(Cantor cantor : todosCantores){
+        }else if(!texto.isEmpty() && !apenasFavoritas){
+            for(Cantor cantor : getTodosCantores()){
                 if(cantor.getNome().toLowerCase().contains(texto.toLowerCase())){
                     retorno.add(cantor);
                 }
             }
         }else{
-            for(Cantor cantor : todosCantores){
+            for(Cantor cantor : getTodosCantores()){
                 if(cantor.getNome().toLowerCase().contains(texto.toLowerCase())){
                     ArrayList<Integer> codigosMusicas = getCodigosMusicasFavoritas(cantor);
 
@@ -85,6 +85,15 @@ public class CantorUtil {
         }
 
         return todosCantores;
+    }
+
+    public static Cantor getCantorPorId(Integer id){
+        for(Cantor cantor : getTodosCantores()){
+            if(id.intValue() == cantor.getId().intValue())
+                return cantor;
+        }
+
+        return null;
     }
 
 }

@@ -49,6 +49,7 @@ public class CantoresFragment extends Fragment {
                 Cantor cantor = cantores.get(i);
 
                 Intent intent = new Intent(getActivity(), MusicasCantorActivity.class);
+                intent.putExtra(ExtrasNomes.ID_CANTOR.getValor(), cantor.getId());
                 intent.putExtra(ExtrasNomes.NOME_CANTOR.getValor(), cantor.getNome());
                 intent.putExtra(ExtrasNomes.LISTA_MUSICAS_CANTOR.getValor(), cantor.getCodigosMusicas());
                 startActivity(intent);
@@ -59,11 +60,12 @@ public class CantoresFragment extends Fragment {
     }
 
     public void filtrar(String texto, boolean apenasFavoritas){
-        if(cantores != null){
-            cantores.clear();
-            cantores.addAll(CantorUtil.filtrar(texto, apenasFavoritas));
-            adapter.notifyDataSetChanged();
-        }
+        if(cantores == null)
+            cantores = new ArrayList<>();
+
+        cantores.clear();
+        cantores.addAll(CantorUtil.filtrar(texto, apenasFavoritas));
+        adapter.notifyDataSetChanged();
     }
 
 }
