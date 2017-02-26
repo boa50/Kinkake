@@ -27,7 +27,7 @@ public class TabAdapter extends FragmentStatePagerAdapter{
         cantoresFragment = new CantoresFragment();
         musicasFragment = new MusicasFragment();
         double escala = this.context.getResources().getDisplayMetrics().density;
-        tamanhoIcone = (int) (36 * escala);
+        tamanhoIcone = (int) (32 * escala);
     }
 
     @Override
