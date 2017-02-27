@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import br.com.boa50.kinkake.R;
+import br.com.boa50.kinkake.application.MusicaQueries;
 import br.com.boa50.kinkake.model.Cantor;
 import br.com.boa50.kinkake.model.Musica;
 
@@ -73,7 +74,7 @@ public class MusicaUtil {
 
     public static ArrayList<Musica> getTodasMusicas(){
         if(todasMusicas == null){
-            todasMusicas = Musica.getListaMusicasTeste();
+            todasMusicas = MusicaQueries.getTodasMusicas();
         }
 
         return todasMusicas;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import br.com.boa50.kinkake.application.CantorQueries;
 import br.com.boa50.kinkake.model.Cantor;
 
 public class CantorUtil {
@@ -81,7 +82,7 @@ public class CantorUtil {
 
     public static ArrayList<Cantor> getTodosCantores(){
         if(todosCantores == null){
-            todosCantores = Cantor.getCantoresListaTeste();
+            todosCantores = CantorQueries.getTodosCantores();
         }
 
         return todosCantores;
