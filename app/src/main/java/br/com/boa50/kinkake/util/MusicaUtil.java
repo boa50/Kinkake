@@ -1,13 +1,21 @@
 package br.com.boa50.kinkake.util;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 import br.com.boa50.kinkake.R;
+import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
 import br.com.boa50.kinkake.model.Cantor;
 import br.com.boa50.kinkake.model.Musica;
 
@@ -20,10 +28,34 @@ public class MusicaUtil {
         final Musica musicaTemp = musica;
         final ImageButton favoritoTemp = ibFavorito;
 
+        final DatabaseReference databaseReference = ConfiguracaoFirebase.getDatabaseReference();
+
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 musicaTemp.setFavorito(!musicaTemp.isFavorito());
+                databaseReference.orderByChild("codigo").equalTo(musicaTemp.getCodigo())
+                        .addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                databaseReference
+                                        .child(dataSnapshot.getKey())
+                                        .child("favorito")
+                                        .setValue(musicaTemp.isFavorito());
+                            }
+
+                            @Override
+                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+
+                            @Override
+                            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+
+                            @Override
+                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {}
+                        });
                 mudaIconeFavorito(favoritoTemp, musicaTemp.isFavorito());
             }
         };
