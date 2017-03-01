@@ -11,11 +11,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.ArrayList;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.activity.MusicasCantorActivity;
 import br.com.boa50.kinkake.adapter.CantorAdapter;
+import br.com.boa50.kinkake.application.CantorQueries;
+import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
 import br.com.boa50.kinkake.model.Cantor;
 import br.com.boa50.kinkake.util.CantorUtil;
 import br.com.boa50.kinkake.util.ExtrasNomes;
@@ -25,6 +29,8 @@ public class CantoresFragment extends Fragment {
     private ListView listView;
     private ArrayAdapter adapter;
     private ArrayList<Cantor> cantores;
+
+    private DatabaseReference databaseReference;
 
     public CantoresFragment() {
         // Required empty public constructor
@@ -37,11 +43,13 @@ public class CantoresFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_cantores, container, false);
 
         cantores = new ArrayList<>();
-        cantores.addAll(CantorUtil.getTodosCantores());
 
         listView = (ListView) view.findViewById(R.id.lv_cantores);
         adapter = new CantorAdapter(getActivity(), cantores);
         listView.setAdapter(adapter);
+
+        databaseReference = ConfiguracaoFirebase.getDatabaseReference();
+        databaseReference.addListenerForSingleValueEvent(CantorQueries.getListenerCantores(cantores, adapter));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

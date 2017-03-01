@@ -11,11 +11,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.ArrayList;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.activity.DetalhamentoActivity;
 import br.com.boa50.kinkake.adapter.MusicaAdapter;
+import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
+import br.com.boa50.kinkake.application.MusicaQueries;
 import br.com.boa50.kinkake.model.Cantor;
 import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.util.ExtrasNomes;
@@ -27,6 +31,8 @@ public class MusicasFragment extends Fragment {
     private ArrayAdapter adapter;
     private ArrayList<Musica> musicas;
     private Cantor cantor;
+
+    private DatabaseReference databaseReference;
 
     public MusicasFragment() {
         // Required empty public constructor
@@ -40,7 +46,6 @@ public class MusicasFragment extends Fragment {
 
         if(musicas == null){
             musicas = new ArrayList<>();
-            musicas.addAll(MusicaUtil.getTodasMusicas());
         }
 
         if(cantor != null) {
@@ -50,6 +55,11 @@ public class MusicasFragment extends Fragment {
         listView = (ListView) view.findViewById(R.id.lv_musicas);
         adapter = new MusicaAdapter(getActivity(), musicas);
         listView.setAdapter(adapter);
+
+        if(musicas.isEmpty()){
+            databaseReference = ConfiguracaoFirebase.getDatabaseReference();
+            databaseReference.addListenerForSingleValueEvent(MusicaQueries.getListenerMusicas(musicas, adapter));
+        }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

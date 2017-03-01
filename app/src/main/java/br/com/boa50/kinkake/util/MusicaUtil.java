@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import br.com.boa50.kinkake.R;
-import br.com.boa50.kinkake.application.MusicaQueries;
 import br.com.boa50.kinkake.model.Cantor;
 import br.com.boa50.kinkake.model.Musica;
 
@@ -52,8 +51,8 @@ public class MusicaUtil {
         ArrayList<Musica> musicasCantor = new ArrayList<>();
 
         for(Integer idMusica : cantor.getCodigosMusicas()){
-            for(Musica musica : getTodasMusicas()){
-                if(idMusica == musica.getCodigo())
+            for(Musica musica : todasMusicas){
+                if(idMusica.equals(musica.getCodigo()))
                     musicasCantor.add(musica);
             }
         }
@@ -72,31 +71,28 @@ public class MusicaUtil {
         return musicas;
     }
 
-    public static ArrayList<Musica> getTodasMusicas(){
-        if(todasMusicas == null){
-            todasMusicas = MusicaQueries.getTodasMusicas();
-        }
-
-        return todasMusicas;
+    public static void preencheTodasMusicas(ArrayList<Musica> musicas){
+        todasMusicas = new ArrayList<>();
+        todasMusicas.addAll(musicas);
     }
 
     public static ArrayList<Musica> filtrar(String texto, boolean apenasFavoritas){
         ArrayList<Musica> retorno = new ArrayList<>();
 
         if(texto.isEmpty() && !apenasFavoritas){
-            return getTodasMusicas();
+            return todasMusicas;
         }else if(texto.isEmpty() && apenasFavoritas){
-            for(Musica musica : getTodasMusicas()){
+            for(Musica musica : todasMusicas){
                 if(musica.isFavorito())
                     retorno.add(musica);
             }
         }else if(!texto.isEmpty() && !apenasFavoritas){
-            for(Musica musica : getTodasMusicas()){
+            for(Musica musica : todasMusicas){
                 if(musica.getNome().toLowerCase().contains(texto.toLowerCase()))
                     retorno.add(musica);
             }
         }else{
-            for(Musica musica : getTodasMusicas()){
+            for(Musica musica : todasMusicas){
                 if(musica.getNome().toLowerCase().contains(texto.toLowerCase()))
                     if(musica.isFavorito())
                         retorno.add(musica);
@@ -125,7 +121,7 @@ public class MusicaUtil {
     }
 
     public static Musica getMusicaPorCodigo(Integer codigo){
-        for(Musica musica : getTodasMusicas()){
+        for(Musica musica : todasMusicas){
             if(codigo.intValue() == musica.getCodigo().intValue())
                 return musica;
         }

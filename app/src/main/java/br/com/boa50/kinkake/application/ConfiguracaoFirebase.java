@@ -8,7 +8,7 @@ public final class ConfiguracaoFirebase {
 
     public static DatabaseReference getDatabaseReference(){
         if(databaseReference == null)
-            databaseReference = FirebaseDatabase.getInstance().getReference();
+            databaseReference = FirebaseDatabase.getInstance().getReference().child("musica");
 
         return databaseReference;
     }

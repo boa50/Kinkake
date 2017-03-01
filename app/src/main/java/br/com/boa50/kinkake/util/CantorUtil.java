@@ -11,11 +11,12 @@ public class CantorUtil {
 
     private static ArrayList<Cantor> todosCantores;
 
-    public static ArrayList<Cantor> ordenaCantoresPorNome(ArrayList<Cantor> cantores){
+    private static ArrayList<Cantor> ordenaCantoresPorNome(ArrayList<Cantor> cantores){
         Collections.sort(cantores, new Comparator<Cantor>() {
             @Override
             public int compare(Cantor c0, Cantor c1) {
-                return c0.getNome().compareToIgnoreCase(c1.getNome());
+                return StringUtil.removerAcentos(c0.getNome())
+                        .compareToIgnoreCase(StringUtil.removerAcentos(c1.getNome()));
             }
         });
 
@@ -26,9 +27,9 @@ public class CantorUtil {
         ArrayList<Cantor> retorno = new ArrayList<>();
 
         if(texto.isEmpty() && !apenasFavoritas){
-            return getTodosCantores();
+            return todosCantores;
         }else if(texto.isEmpty() && apenasFavoritas){
-            for(Cantor cantor : getTodosCantores()){
+            for(Cantor cantor : todosCantores){
                 ArrayList<Integer> codigosMusicas = getCodigosMusicasFavoritas(cantor);
 
                 if(codigosMusicas != null){
@@ -41,13 +42,13 @@ public class CantorUtil {
                 }
             }
         }else if(!texto.isEmpty() && !apenasFavoritas){
-            for(Cantor cantor : getTodosCantores()){
+            for(Cantor cantor : todosCantores){
                 if(cantor.getNome().toLowerCase().contains(texto.toLowerCase())){
                     retorno.add(cantor);
                 }
             }
         }else{
-            for(Cantor cantor : getTodosCantores()){
+            for(Cantor cantor : todosCantores){
                 if(cantor.getNome().toLowerCase().contains(texto.toLowerCase())){
                     ArrayList<Integer> codigosMusicas = getCodigosMusicasFavoritas(cantor);
 
@@ -80,16 +81,13 @@ public class CantorUtil {
             return null;
     }
 
-    public static ArrayList<Cantor> getTodosCantores(){
-        if(todosCantores == null){
-            todosCantores = CantorQueries.getTodosCantores();
-        }
-
-        return todosCantores;
+    public static void preencheTodosCantores(ArrayList<Cantor> cantores){
+        todosCantores = new ArrayList<>();
+        todosCantores.addAll(ordenaCantoresPorNome(cantores));
     }
 
     public static Cantor getCantorPorId(Integer id){
-        for(Cantor cantor : getTodosCantores()){
+        for(Cantor cantor : todosCantores){
             if(id.intValue() == cantor.getId().intValue())
                 return cantor;
         }

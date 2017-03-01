@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                gerenciarBusca(position);//TODO verificar desempenho disso
+                gerenciarBusca(position);
             }
 
             @Override
