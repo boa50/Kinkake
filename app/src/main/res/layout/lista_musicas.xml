@@ -15,6 +15,7 @@
         android:paddingTop="@dimen/padding_padrao"
         android:paddingBottom="@dimen/padding_padrao"
         android:text="00000"
+        android:layout_gravity="center"
         />
 
     <TextView
@@ -33,6 +34,7 @@
         android:layout_marginLeft="@dimen/padding_padrao"
         android:layout_marginTop="@dimen/padding_padrao"
         android:layout_marginBottom="@dimen/padding_padrao"
+        android:layout_gravity="center"
         />
 
 </LinearLayout>
