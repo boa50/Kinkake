@@ -65,17 +65,6 @@ public class MusicaUtil {
         return musicasCantor;
     }
 
-    public static ArrayList<Musica> ordenaMusicasPorNome(ArrayList<Musica> musicas){
-        Collections.sort(musicas, new Comparator<Musica>() {
-            @Override
-            public int compare(Musica m0, Musica m1) {
-                return m0.getNome().compareToIgnoreCase(m1.getNome());
-            }
-        });
-
-        return musicas;
-    }
-
     public static ArrayList<Musica> getTodasMusicas(){
         return todasMusicas;
     }
@@ -139,5 +128,9 @@ public class MusicaUtil {
         }
 
         return null;
+    }
+
+    public static Musica getMusicaPorKey(String key){
+        return todasMusicas.get(Integer.valueOf(key) - 1);
     }
 }

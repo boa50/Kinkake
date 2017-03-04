@@ -62,25 +62,17 @@ public class MusicaListeners {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                DatabaseReference databaseReference = ConfiguracaoFirebase.getDatabaseReference();
-
-                Musica musica = null;
+                Musica musica = MusicaUtil.getMusicaPorKey(dataSnapshot.getKey());
                 boolean favorito = false;
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    if(snapshot.getKey().equals("codigo"))
-                        musica = MusicaUtil.getMusicaPorCodigo(snapshot.getValue(Integer.class));
                     if(snapshot.getKey().equals("favorito"))
                         favorito = snapshot.getValue(Boolean.class);
                 }
 
-                if(musica != null)
-                    musica.setFavorito(favorito);
+                musica.setFavorito(favorito);
 
                 adapter.notifyDataSetChanged();
-
-                //TODO verificar o excesso de conexões
-                Log.i("QWERTY_CH", dataSnapshot.getValue().toString());
             }
 
             @Override
