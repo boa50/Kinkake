@@ -20,7 +20,7 @@ import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.activity.DetalhamentoActivity;
 import br.com.boa50.kinkake.adapter.MusicaAdapter;
 import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
-import br.com.boa50.kinkake.application.MusicaQueries;
+import br.com.boa50.kinkake.application.MusicaListeners;
 import br.com.boa50.kinkake.model.Cantor;
 import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.util.ExtrasNomes;
@@ -50,27 +50,18 @@ public class MusicasFragment extends Fragment {
             musicas = new ArrayList<>();
         }
 
-//        if(cantor != null) {
-//            musicas.clear();
-//            musicas.addAll(MusicaUtil.listaMusicasPorCantor(cantor));
-//        }
+        if(cantor != null) {
+            musicas.addAll(MusicaUtil.listaMusicasPorCantor(cantor));
+        }else{
+            musicas.addAll(MusicaUtil.getTodasMusicas());
+        }
 
         listView = (ListView) view.findViewById(R.id.lv_musicas);
         adapter = new MusicaAdapter(getActivity(), musicas);
         listView.setAdapter(adapter);
 
         databaseReference = ConfiguracaoFirebase.getDatabaseReference();
-
-        if(cantor == null){
-            databaseReference.addValueEventListener(MusicaQueries.getListenerMusicas(musicas, adapter));
-        }else if(cantor != null){
-            listenerMusicasCantor = MusicaQueries.getListenerMusicasCantor(musicas, adapter);
-            musicas.clear();
-            databaseReference
-                    .orderByChild("cantor")
-                    .equalTo(cantor.getNome())
-                    .addChildEventListener(listenerMusicasCantor);
-        }
+        databaseReference.addChildEventListener(MusicaListeners.getListenerMusicas(adapter));
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

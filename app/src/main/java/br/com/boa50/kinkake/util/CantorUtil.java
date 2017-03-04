@@ -80,6 +80,10 @@ public class CantorUtil {
             return null;
     }
 
+    public static ArrayList<Cantor> getTodosCantores(){
+        return todosCantores;
+    }
+
     public static void preencheTodosCantores(ArrayList<Cantor> cantores){
         todosCantores = new ArrayList<>();
         todosCantores.addAll(ordenaCantoresPorNome(cantores));

@@ -1,6 +1,7 @@
 package br.com.boa50.kinkake.application;
 
-import android.widget.ArrayAdapter;
+import android.app.Activity;
+import android.content.Intent;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,17 +12,20 @@ import java.util.ArrayList;
 import br.com.boa50.kinkake.model.Cantor;
 import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.util.CantorUtil;
+import br.com.boa50.kinkake.util.MusicaUtil;
 
-public class CantorQueries {
-    public static ValueEventListener getListenerCantores(final ArrayList<Cantor> cantores, final ArrayAdapter adapter){
+public class AppListeners {
+    public static ValueEventListener getListenerPreencher(final Intent intent, final Activity activity){
         return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<String> cantoresIncluidos = new ArrayList<>();
-                cantores.clear();
+                ArrayList<Cantor> cantores = new ArrayList<>();
+                ArrayList<Musica> musicas = new ArrayList<>();
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Musica musica = snapshot.getValue(Musica.class);
+                    musicas.add(musica);
 
                     if(cantoresIncluidos.contains(musica.getCantor())){
                         for(Cantor cantor : cantores){
@@ -44,8 +48,11 @@ public class CantorQueries {
                     }
                 }
 
+                MusicaUtil.preencheTodasMusicas(musicas);
                 CantorUtil.preencheTodosCantores(cantores);
-                adapter.notifyDataSetChanged();
+
+                activity.startActivity(intent);
+                activity.finish();
             }
 
             @Override

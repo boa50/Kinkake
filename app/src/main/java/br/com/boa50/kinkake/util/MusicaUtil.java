@@ -3,9 +3,6 @@ package br.com.boa50.kinkake.util;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
@@ -14,7 +11,7 @@ import java.util.Comparator;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
-import br.com.boa50.kinkake.application.MusicaQueries;
+import br.com.boa50.kinkake.application.MusicaListeners;
 import br.com.boa50.kinkake.model.Cantor;
 import br.com.boa50.kinkake.model.Musica;
 
@@ -31,7 +28,7 @@ public class MusicaUtil {
             public void onClick(View view) {
                 musica.setFavorito(!musica.isFavorito());
                 databaseReference.orderByChild("codigo").equalTo(musica.getCodigo())
-                        .addChildEventListener(MusicaQueries.getListenerMusicaFavorito(musica.isFavorito()));
+                        .addChildEventListener(MusicaListeners.getListenerMusicaFavorito(musica.isFavorito()));
                 mudaIconeFavorito(ibFavorito, musica.isFavorito());
             }
         };
@@ -77,6 +74,10 @@ public class MusicaUtil {
         });
 
         return musicas;
+    }
+
+    public static ArrayList<Musica> getTodasMusicas(){
+        return todasMusicas;
     }
 
     public static void preencheTodasMusicas(ArrayList<Musica> musicas){
