@@ -40,8 +40,7 @@ public class DetalhamentoFragment extends Fragment {
         letra.setText(musica.getLetra());
         MusicaUtil.mudaIconeFavorito(favorito, musica.isFavorito());
 
-        //TODO tentar deixar que o favorito seja alterado aqui
-//        favorito.setOnClickListener(MusicaUtil.favoritoClickListener(musica, favorito));
+        favorito.setOnClickListener(MusicaUtil.favoritoClickListener(musica, favorito));
 
         return view;
     }

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class MusicasFragment extends Fragment {
     private Cantor cantor;
 
     private DatabaseReference databaseReference;
+    private ChildEventListener listenerMusicasCantor;
 
     public MusicasFragment() {
         // Required empty public constructor
@@ -48,17 +50,26 @@ public class MusicasFragment extends Fragment {
             musicas = new ArrayList<>();
         }
 
-        if(cantor != null) {
-            musicas = MusicaUtil.listaMusicasPorCantor(cantor);
-        }
+//        if(cantor != null) {
+//            musicas.clear();
+//            musicas.addAll(MusicaUtil.listaMusicasPorCantor(cantor));
+//        }
 
         listView = (ListView) view.findViewById(R.id.lv_musicas);
         adapter = new MusicaAdapter(getActivity(), musicas);
         listView.setAdapter(adapter);
 
-        if(musicas.isEmpty()){
-            databaseReference = ConfiguracaoFirebase.getDatabaseReference();
-            databaseReference.addListenerForSingleValueEvent(MusicaQueries.getListenerMusicas(musicas, adapter));
+        databaseReference = ConfiguracaoFirebase.getDatabaseReference();
+
+        if(cantor == null){
+            databaseReference.addValueEventListener(MusicaQueries.getListenerMusicas(musicas, adapter));
+        }else if(cantor != null){
+            listenerMusicasCantor = MusicaQueries.getListenerMusicasCantor(musicas, adapter);
+            musicas.clear();
+            databaseReference
+                    .orderByChild("cantor")
+                    .equalTo(cantor.getNome())
+                    .addChildEventListener(listenerMusicasCantor);
         }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -82,7 +93,6 @@ public class MusicasFragment extends Fragment {
         musicas.clear();
         musicas.addAll(MusicaUtil.filtrar(texto, apenasFavoritas));
         adapter.notifyDataSetChanged();
-
     }
 
     public void filtrar(Integer idCantor, boolean apenasFavoritas){
@@ -92,7 +102,6 @@ public class MusicasFragment extends Fragment {
         musicas.clear();
         musicas.addAll(MusicaUtil.filtrar(idCantor, apenasFavoritas));
         adapter.notifyDataSetChanged();
-
     }
 
     public void setCantor(Cantor cantor) {

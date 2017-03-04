@@ -43,10 +43,10 @@ public class MusicasCantorActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
         musicasFragment = new MusicasFragment();
         musicasFragment.setCantor(cantor);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.fl_fragmento_musicas_cantor, musicasFragment);
         fragmentTransaction.commit();
     }

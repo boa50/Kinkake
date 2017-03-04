@@ -14,6 +14,7 @@ import java.util.Comparator;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
+import br.com.boa50.kinkake.application.MusicaQueries;
 import br.com.boa50.kinkake.model.Cantor;
 import br.com.boa50.kinkake.model.Musica;
 
@@ -21,40 +22,17 @@ public class MusicaUtil {
 
     private static ArrayList<Musica> todasMusicas;
 
-    public static View.OnClickListener favoritoClickListener(Musica musica, ImageButton ibFavorito){
-
-        final Musica musicaTemp = musica;
-        final ImageButton favoritoTemp = ibFavorito;
+    public static View.OnClickListener favoritoClickListener(final Musica musica, final ImageButton ibFavorito){
 
         final DatabaseReference databaseReference = ConfiguracaoFirebase.getDatabaseReference();
 
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                musicaTemp.setFavorito(!musicaTemp.isFavorito());
-                databaseReference.orderByChild("codigo").equalTo(musicaTemp.getCodigo())
-                        .addChildEventListener(new ChildEventListener() {
-                            @Override
-                            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                databaseReference
-                                        .child(dataSnapshot.getKey())
-                                        .child("favorito")
-                                        .setValue(musicaTemp.isFavorito());
-                            }
-
-                            @Override
-                            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-
-                            @Override
-                            public void onChildRemoved(DataSnapshot dataSnapshot) {}
-
-                            @Override
-                            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {}
-                        });
-                mudaIconeFavorito(favoritoTemp, musicaTemp.isFavorito());
+                musica.setFavorito(!musica.isFavorito());
+                databaseReference.orderByChild("codigo").equalTo(musica.getCodigo())
+                        .addChildEventListener(MusicaQueries.getListenerMusicaFavorito(musica.isFavorito()));
+                mudaIconeFavorito(ibFavorito, musica.isFavorito());
             }
         };
 
@@ -109,6 +87,9 @@ public class MusicaUtil {
     public static ArrayList<Musica> filtrar(String texto, boolean apenasFavoritas){
         ArrayList<Musica> retorno = new ArrayList<>();
 
+        if(!texto.isEmpty())
+            texto = StringUtil.removerAcentos(texto).toUpperCase();
+
         if(texto.isEmpty() && !apenasFavoritas){
             return todasMusicas;
         }else if(texto.isEmpty() && apenasFavoritas){
@@ -118,12 +99,12 @@ public class MusicaUtil {
             }
         }else if(!texto.isEmpty() && !apenasFavoritas){
             for(Musica musica : todasMusicas){
-                if(musica.getNome().toLowerCase().contains(texto.toLowerCase()))
+                if(StringUtil.removerAcentos(musica.getNome()).contains(texto))
                     retorno.add(musica);
             }
         }else{
             for(Musica musica : todasMusicas){
-                if(musica.getNome().toLowerCase().contains(texto.toLowerCase()))
+                if(StringUtil.removerAcentos(musica.getNome()).contains(texto))
                     if(musica.isFavorito())
                         retorno.add(musica);
             }
