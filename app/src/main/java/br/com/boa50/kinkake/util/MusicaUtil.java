@@ -1,15 +1,12 @@
 package br.com.boa50.kinkake.util;
 
+import android.graphics.drawable.TransitionDrawable;
 import android.view.View;
-import android.widget.ImageButton;
 
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
-import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
 import br.com.boa50.kinkake.application.MusicaListeners;
 import br.com.boa50.kinkake.model.Cantor;
@@ -19,27 +16,29 @@ public class MusicaUtil {
 
     private static ArrayList<Musica> todasMusicas;
 
-    public static View.OnClickListener favoritoClickListener(final Musica musica, final ImageButton ibFavorito){
-
-        final DatabaseReference databaseReference = ConfiguracaoFirebase.getDatabaseReference();
+    public static View.OnClickListener favoritoClickListener(final Musica musica, final TransitionDrawable td){
 
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 musica.setFavorito(!musica.isFavorito());
+                mudaIconeFavorito(td, musica.isFavorito());
+
+                DatabaseReference databaseReference = ConfiguracaoFirebase.getDatabaseReference();
                 databaseReference.orderByChild("codigo").equalTo(musica.getCodigo())
-                        .addChildEventListener(MusicaListeners.getListenerMusicaFavorito(musica.isFavorito()));
-                mudaIconeFavorito(ibFavorito, musica.isFavorito());
+                        .addListenerForSingleValueEvent(MusicaListeners.getListenerMusicaFavorito());
             }
         };
-
     }
 
-    public static void mudaIconeFavorito(ImageButton ibFavorito, boolean favorito){
-        if(favorito)
-            ibFavorito.setBackgroundResource(R.drawable.ic_favorite);
-        else
-            ibFavorito.setBackgroundResource(R.drawable.ic_favorite_border);
+    public static void mudaIconeFavorito(TransitionDrawable td, boolean favorito){
+        int tempoTransition = 500;
+
+        if(favorito){
+            td.startTransition(tempoTransition);
+        }else{
+            td.reverseTransition(tempoTransition);
+        }
     }
 
     public static String transformaCodigoString(Integer codigo){

@@ -31,10 +31,13 @@
         android:id="@+id/ib_lista_musica_favorto"
         android:layout_width="@dimen/icone_quadrado_lado"
         android:layout_height="@dimen/icone_quadrado_lado"
-        android:paddingStart="@dimen/padding_padrao"
-        android:paddingTop="@dimen/padding_padrao"
-        android:paddingBottom="@dimen/padding_padrao"
+        android:layout_marginStart="@dimen/padding_padrao"
+        android:layout_marginTop="@dimen/padding_padrao"
+        android:layout_marginBottom="@dimen/padding_padrao"
         android:layout_gravity="center"
+        android:src="@drawable/transition_favorito"
+        android:scaleType="fitCenter"
+        android:background="@null"
         />
 
 </LinearLayout>

@@ -1,9 +1,9 @@
 package br.com.boa50.kinkake.fragment;
 
 
-import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
+import android.graphics.drawable.TransitionDrawable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,13 +34,16 @@ public class DetalhamentoFragment extends Fragment {
         codigo = (TextView) view.findViewById(R.id.tv_detalhamento_musica_codigo);
         letra = (TextView) view.findViewById(R.id.tv_detalhamento_musica_letra);
         favorito = (ImageButton) view.findViewById(R.id.ib_detalhamento_musica_favorto);
-
+        TransitionDrawable td = (TransitionDrawable) favorito.getDrawable();
+        favorito.setImageDrawable(td);
 
         codigo.setText(MusicaUtil.transformaCodigoString(musica.getCodigo()));
         letra.setText(musica.getLetra());
-        MusicaUtil.mudaIconeFavorito(favorito, musica.isFavorito());
 
-        favorito.setOnClickListener(MusicaUtil.favoritoClickListener(musica, favorito));
+        if(musica.isFavorito())
+            td.startTransition(0);
+
+        favorito.setOnClickListener(MusicaUtil.favoritoClickListener(musica, td));
 
         return view;
     }

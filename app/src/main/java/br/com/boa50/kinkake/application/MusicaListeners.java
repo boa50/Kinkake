@@ -1,7 +1,6 @@
 package br.com.boa50.kinkake.application;
 
 
-import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.google.firebase.database.ChildEventListener;
@@ -10,40 +9,29 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
-import br.com.boa50.kinkake.model.Cantor;
 import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.util.MusicaUtil;
 
 public class MusicaListeners {
 
-    public static ChildEventListener getListenerMusicaFavorito(final boolean favorito){
-
-        return new ChildEventListener() {
+    public static ValueEventListener getListenerMusicaFavorito(){
+        return new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 DatabaseReference databaseReference = ConfiguracaoFirebase.getDatabaseReference();
+                boolean favorito = false;
 
-                databaseReference
-                        .child(dataSnapshot.getKey())
-                        .child("favorito")
-                        .setValue(favorito);
-            }
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    for(DataSnapshot snapshotCampo : snapshot.getChildren()){
+                        if(snapshotCampo.getKey().equals("favorito"))
+                            favorito = snapshotCampo.getValue(Boolean.class);
+                    }
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                    databaseReference
+                            .child(snapshot.getKey())
+                            .child("favorito")
+                            .setValue(!favorito);
+                }
             }
 
             @Override

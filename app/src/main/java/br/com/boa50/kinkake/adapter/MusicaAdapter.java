@@ -1,6 +1,7 @@
 package br.com.boa50.kinkake.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.TransitionDrawable;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,14 +38,17 @@ public class MusicaAdapter extends ArrayAdapter<Musica> {
         TextView codigo = (TextView) view.findViewById(R.id.tv_lista_musica_codigo);
         TextView nome = (TextView) view.findViewById(R.id.tv_lista_musica_nome);
         ImageButton favorito = (ImageButton) view.findViewById(R.id.ib_lista_musica_favorto);
+        TransitionDrawable td = (TransitionDrawable) favorito.getDrawable();
+        favorito.setImageDrawable(td);
 
         Musica musica = musicas.get(position);
 
         codigo.setText(MusicaUtil.transformaCodigoString(musica.getCodigo()));
         nome.setText(musica.getNome());
-        MusicaUtil.mudaIconeFavorito(favorito, musica.isFavorito());
+        if(musica.isFavorito())
+            td.startTransition(0);
 
-        favorito.setOnClickListener(MusicaUtil.favoritoClickListener(musica, favorito));
+        favorito.setOnClickListener(MusicaUtil.favoritoClickListener(musica, td));
 
         return view;
     }
