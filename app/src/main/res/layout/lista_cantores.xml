@@ -13,14 +13,15 @@
         android:text="00"
         android:width="30dp"
         android:textAlignment="textEnd"
-        android:paddingRight="@dimen/padding_padrao"
+        android:paddingEnd="@dimen/padding_padrao"
         android:paddingTop="10dp"
         android:paddingBottom="9dp"
+        android:layout_gravity="center|end"
         />
 
     <TextView
         android:id="@+id/tv_lista_cantores_nome"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="testeNome"
         android:padding="@dimen/padding_padrao"
