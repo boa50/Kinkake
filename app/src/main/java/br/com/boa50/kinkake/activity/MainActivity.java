@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,7 +61,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                gerenciarBusca(position);
+                MenuItem busca = toolbar.getMenu().findItem(R.id.item_busca);
+                MenuItem filtro = toolbar.getMenu().findItem(R.id.item_filtro);
+
+                if(((TabAdapter) viewPager.getAdapter()).getNomeFragment(position).equals("musicasReservadasFragment")){
+                    busca.setVisible(false);
+                    busca.collapseActionView();
+                    filtro.setVisible(false);
+                }else {
+                    busca.setVisible(true);
+                    filtro.setVisible(true);
+                    gerenciarBusca(position);
+                }
             }
 
             @Override
@@ -112,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbarFiltro = (Toolbar) viewFiltro.findViewById(R.id.tb_filtro);
         CheckBox favorito = (CheckBox) viewFiltro.findViewById(R.id.cb_filtro_favorito);
-        toolbarFiltro.setTitle("Filtro");
+        toolbarFiltro.setTitle(getResources().getString(R.string.filtroTitulo));
 
         favorito.setChecked(FiltroUtil.isFavoritoFiltro());
 
@@ -138,10 +150,5 @@ public class MainActivity extends AppCompatActivity {
         }else{
             musicasFragment.filtrar(buscaFiltro, FiltroUtil.isFavoritoFiltro());
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 }

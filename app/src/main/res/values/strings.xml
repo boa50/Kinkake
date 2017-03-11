@@ -4,5 +4,14 @@
     <string name="busca">Busca</string>
     <string name="filtro">Filtro</string>
 
+    <string name="filtroTitulo">Filtro</string>
     <string name="filtroFavorito">Apenas Favoritas:</string>
+
+    <string name="addPessoaTitulo">Adicionar Pessoa</string>
+    <string name="addPessoaLabelNome">Nome:</string>
+    <string name="addPessoaHintNome">Seu nome</string>
+
+    <string name="btConfirmar">Ok</string>
+    <string name="btAdicionar">Adicionar</string>
+    <string name="btCancelar">Cancelar</string>
 </resources>
