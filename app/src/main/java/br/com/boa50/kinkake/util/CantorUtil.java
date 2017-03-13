@@ -25,6 +25,9 @@ public class CantorUtil {
     public static ArrayList<Cantor> filtrar(String texto, boolean apenasFavoritas){
         ArrayList<Cantor> retorno = new ArrayList<>();
 
+        if(!texto.isEmpty())
+            texto = StringUtil.removerAcentos(texto).toLowerCase();
+
         if(texto.isEmpty() && !apenasFavoritas){
             return todosCantores;
         }else if(texto.isEmpty() && apenasFavoritas){
@@ -42,13 +45,13 @@ public class CantorUtil {
             }
         }else if(!texto.isEmpty() && !apenasFavoritas){
             for(Cantor cantor : todosCantores){
-                if(cantor.getNome().toLowerCase().contains(texto.toLowerCase())){
+                if(StringUtil.removerAcentos(cantor.getNome()).toLowerCase().contains(texto)){
                     retorno.add(cantor);
                 }
             }
         }else{
             for(Cantor cantor : todosCantores){
-                if(cantor.getNome().toLowerCase().contains(texto.toLowerCase())){
+                if(StringUtil.removerAcentos(cantor.getNome()).toLowerCase().contains(texto)){
                     ArrayList<Integer> codigosMusicas = getCodigosMusicasFavoritas(cantor);
 
                     if(codigosMusicas != null){
