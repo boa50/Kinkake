@@ -34,7 +34,7 @@ public class PessoaAdapter extends ArrayAdapter<Pessoa>{
         TextView nome = (TextView) view.findViewById(R.id.tv_lista_pessoas_nome);
         Pessoa pessoa = pessoas.get(position);
 
-        quantidade.setText(String.valueOf(pessoa.getIdMusicas().size()));
+        quantidade.setText(String.valueOf(pessoa.getCodigosMusicas().size()));
         nome.setText(pessoa.getNome());
 
         return view;

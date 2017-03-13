@@ -7,15 +7,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import br.com.boa50.kinkake.R;
-import br.com.boa50.kinkake.fragment.MusicasPorPessoaFragment;
-import br.com.boa50.kinkake.fragment.MusicasReservadasFragment;
-import br.com.boa50.kinkake.model.Pessoa;
-import br.com.boa50.kinkake.util.ExtrasNomes;
+import br.com.boa50.kinkake.fragment.AdicionaMusicaPessoaFragment;
 
-public class MusicasReservadasActivity extends AppCompatActivity {
+public class MusicasAdicionarActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private MusicasPorPessoaFragment musicasPorPessoaFragment;
+    private AdicionaMusicaPessoaFragment adicionaMusicaPessoaFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,22 +20,15 @@ public class MusicasReservadasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_one_fragment);
 
         toolbar = (Toolbar) findViewById(R.id.tb_fragmento);
-        musicasPorPessoaFragment = new MusicasPorPessoaFragment();
+        adicionaMusicaPessoaFragment = new AdicionaMusicaPessoaFragment();
 
-        Pessoa pessoa = new Pessoa();
-        Bundle extras = getIntent().getExtras();
-        if(extras != null){
-            pessoa.setNome(extras.getString(ExtrasNomes.NOME_PESSOA.getValor()));
-            pessoa.setCodigosMusicas(extras.getIntegerArrayList(ExtrasNomes.LISTA_MUSICAS_PESSOA.getValor()));
-        }
-
-        toolbar.setTitle("Músicas de " + pessoa.getNome());
+        toolbar.setTitle("Selecione as músicas:");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.fl_fragmento, musicasPorPessoaFragment);
+        fragmentTransaction.add(R.id.fl_fragmento, adicionaMusicaPessoaFragment);
         fragmentTransaction.commit();
     }
 

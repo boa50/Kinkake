@@ -8,14 +8,15 @@
     <include layout="@layout/fragment_list" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_add"
+        android:id="@+id/fab_confirma"
         android:layout_width="@dimen/fab_size"
         android:layout_height="@dimen/fab_size"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_action_add"
+        app:srcCompat="@drawable/ic_check"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:theme="@style/FabConfirmaTheme"
         />
 
 </android.support.constraint.ConstraintLayout>

@@ -4,11 +4,15 @@ import java.util.ArrayList;
 
 public class Pessoa {
     private String nome;
-    private ArrayList<String> idMusicas;
+    private ArrayList<Integer> codigosMusicas;
+
+    public Pessoa(){
+
+    }
 
     public Pessoa(String nome){
         this.nome = nome;
-        this.idMusicas = new ArrayList<>();
+        this.codigosMusicas = new ArrayList<>();
     }
 
     public String getNome() {
@@ -19,11 +23,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public ArrayList<String> getIdMusicas() {
-        return idMusicas;
+    public ArrayList<Integer> getCodigosMusicas() {
+        return codigosMusicas;
     }
 
-    public void setIdMusicas(ArrayList<String> idMusicas) {
-        this.idMusicas = idMusicas;
+    public void setCodigosMusicas(ArrayList<Integer> codigosMusicas) {
+        this.codigosMusicas = codigosMusicas;
     }
 }
