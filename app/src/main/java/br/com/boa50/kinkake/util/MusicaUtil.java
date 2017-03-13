@@ -1,6 +1,7 @@
 package br.com.boa50.kinkake.util;
 
 import android.graphics.drawable.TransitionDrawable;
+import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.database.DatabaseReference;
@@ -127,6 +128,42 @@ public class MusicaUtil {
         }
 
         return null;
+    }
+
+    public static ArrayList<Musica> getMusicasPorCodigos(ArrayList<Integer> codigosMusicas){
+        ArrayList<Musica> musicas = new ArrayList<>();
+
+        for(Musica musica : todasMusicas){
+            for(Integer codigo : codigosMusicas){
+                if(codigo.intValue() == musica.getCodigo().intValue())
+                    musicas.add(musica);
+            }
+        }
+
+        return musicas;
+    }
+
+    public static ArrayList<Musica> getMusicasDiferentesPorCodigos(ArrayList<Integer> codigosMusicas){
+        ArrayList<Musica> musicas = new ArrayList<>();
+        boolean adicionaMusica;
+
+        if(codigosMusicas.isEmpty())
+            musicas.addAll(todasMusicas);
+        else{
+            for(Musica musica : todasMusicas){
+                adicionaMusica = true;
+                for(Integer codigo : codigosMusicas){
+                    if(codigo.intValue() == musica.getCodigo().intValue()){
+                        adicionaMusica = false;
+                        break;
+                    }
+                }
+                if(adicionaMusica)
+                    musicas.add(musica);
+            }
+        }
+
+        return musicas;
     }
 
     public static Musica getMusicaPorKey(String key){

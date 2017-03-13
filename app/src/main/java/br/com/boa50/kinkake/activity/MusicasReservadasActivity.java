@@ -11,6 +11,7 @@ import br.com.boa50.kinkake.fragment.MusicasPorPessoaFragment;
 import br.com.boa50.kinkake.fragment.MusicasReservadasFragment;
 import br.com.boa50.kinkake.model.Pessoa;
 import br.com.boa50.kinkake.util.ExtrasNomes;
+import br.com.boa50.kinkake.util.PessoaUtil;
 
 public class MusicasReservadasActivity extends AppCompatActivity {
 
@@ -25,12 +26,13 @@ public class MusicasReservadasActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tb_fragmento);
         musicasPorPessoaFragment = new MusicasPorPessoaFragment();
 
-        Pessoa pessoa = new Pessoa();
-        Bundle extras = getIntent().getExtras();
-        if(extras != null){
-            pessoa.setNome(extras.getString(ExtrasNomes.NOME_PESSOA.getValor()));
-            pessoa.setCodigosMusicas(extras.getIntegerArrayList(ExtrasNomes.LISTA_MUSICAS_PESSOA.getValor()));
-        }
+//        Pessoa pessoa = new Pessoa();
+//        Bundle extras = getIntent().getExtras();
+//        if(extras != null){
+//            pessoa.setNome(extras.getString(ExtrasNomes.NOME_PESSOA.getValor()));
+//            pessoa.setCodigosMusicas(extras.getIntegerArrayList(ExtrasNomes.LISTA_MUSICAS_PESSOA.getValor()));
+//        }
+        Pessoa pessoa = PessoaUtil.getPessoaAtiva();
 
         toolbar.setTitle("Músicas de " + pessoa.getNome());
 

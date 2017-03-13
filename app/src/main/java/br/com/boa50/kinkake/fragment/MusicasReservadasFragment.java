@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -48,6 +49,8 @@ public class MusicasReservadasFragment extends Fragment {
         pessoas = PessoaUtil.getTodasPessoas();
         adapter = new PessoaAdapter(getActivity(), pessoas);
 
+        PessoaUtil.setAdapterPessoa(adapter);
+
         listView.setAdapter(adapter);
 
         fabAddPessoa.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +66,11 @@ public class MusicasReservadasFragment extends Fragment {
                 Pessoa pessoa = pessoas.get(i);
 
                 Intent intent = new Intent(getActivity(), MusicasReservadasActivity.class);
-                intent.putExtra(ExtrasNomes.NOME_PESSOA.getValor(), pessoa.getNome());
-                intent.putExtra(ExtrasNomes.LISTA_MUSICAS_PESSOA.getValor(), pessoa.getCodigosMusicas());
+                //TODO verificar a melhor maneira de fazer isso
+//                intent.putExtra(ExtrasNomes.NOME_PESSOA.getValor(), pessoa.getNome());
+//                intent.putExtra(ExtrasNomes.LISTA_MUSICAS_PESSOA.getValor(), pessoa.getCodigosMusicas());
+                MusicasPorPessoaFragment.setMusicas(pessoa.getCodigosMusicas());
+                PessoaUtil.setPessoaAtiva(pessoa);
                 startActivity(intent);
             }
         });
@@ -85,7 +91,14 @@ public class MusicasReservadasFragment extends Fragment {
         dialogAddPessoa.setPositiveButton(R.string.btAdicionar, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (textoNome.getText() != null && textoNome.getText().length() > 0) {
+                if(textoNome.getText() == null || textoNome.getText().toString().isEmpty()){
+                    Snackbar snackbar = Snackbar.make(getView(), "Insira um nome", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }else if(PessoaUtil.isNomePessoaExistente(textoNome.getText().toString())){
+                    Snackbar snackbar = Snackbar.make(getView(), "Esse nome já existe", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                    textoNome.setText("");
+                }else if (textoNome.getText() != null && textoNome.getText().length() > 0) {
                     pessoas.add(new Pessoa(textoNome.getText().toString()));
                     adapter.notifyDataSetChanged();
                     textoNome.setText("");

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,9 @@ import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.adapter.AdicionarMusicaAdapter;
 import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.model.MusicaSelecao;
+import br.com.boa50.kinkake.model.Pessoa;
 import br.com.boa50.kinkake.util.MusicaUtil;
+import br.com.boa50.kinkake.util.PessoaUtil;
 
 public class AdicionaMusicaPessoaFragment extends Fragment{
 
@@ -29,6 +32,7 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
     private ArrayList<Musica> musicas;
     private ArrayList<MusicaSelecao> musicasSelecao;
     private FloatingActionButton fabConfirma;
+    private Pessoa pessoaAtiva;
 
     public AdicionaMusicaPessoaFragment(){}
 
@@ -39,11 +43,14 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
 
         listView = (ListView) view.findViewById(R.id.lv_fragmento);
         fabConfirma = (FloatingActionButton) view.findViewById(R.id.fab_confirma);
-        musicas = new ArrayList<>();
-        musicas.addAll(MusicaUtil.getTodasMusicas());
         musicasSelecao = new ArrayList<>();
+        pessoaAtiva = PessoaUtil.getPessoaAtiva();
+
+        musicas = MusicaUtil.getMusicasDiferentesPorCodigos(pessoaAtiva.getCodigosMusicas());
 
         preencherMusicasSelecao();
+
+        Log.i("qwerty", String.valueOf(musicas.size()));
 
         adapter = new AdicionarMusicaAdapter(getActivity(), musicasSelecao);
         listView.setAdapter(adapter);
@@ -51,7 +58,13 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
         fabConfirma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                for(MusicaSelecao selecao : musicasSelecao){
+                    if(selecao.isSelecao())
+                        pessoaAtiva.getCodigosMusicas().add(selecao.getMusica().getCodigo());
+                }
 
+                MusicasPorPessoaFragment.setMusicas(pessoaAtiva.getCodigosMusicas());
+                getActivity().onBackPressed();
             }
         });
 

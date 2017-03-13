@@ -17,12 +17,14 @@ import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.activity.MusicasAdicionarActivity;
 import br.com.boa50.kinkake.adapter.MusicaReservadaAdapter;
 import br.com.boa50.kinkake.model.Musica;
+import br.com.boa50.kinkake.util.MusicaUtil;
+import br.com.boa50.kinkake.util.PessoaUtil;
 
 public class MusicasPorPessoaFragment extends Fragment{
 
     private ListView listView;
     private ArrayAdapter adapter;
-    private ArrayList<Musica> musicas;
+    private static ArrayList<Musica> musicas;
     private FloatingActionButton fabAddMusica;
 
     public MusicasPorPessoaFragment(){}
@@ -34,9 +36,12 @@ public class MusicasPorPessoaFragment extends Fragment{
 
         listView = (ListView) view.findViewById(R.id.lv_fragmento);
         fabAddMusica = (FloatingActionButton) view.findViewById(R.id.fab_add);
-        musicas = new ArrayList<>();
+        if(musicas == null)
+            musicas = new ArrayList<>();
         adapter = new MusicaReservadaAdapter(getActivity(), musicas);
         listView.setAdapter(adapter);
+
+        PessoaUtil.setAdapterMusicasPessoa(adapter);
 
         fabAddMusica.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,5 +52,18 @@ public class MusicasPorPessoaFragment extends Fragment{
         });
 
         return view;
+    }
+
+    public static void setMusicas(ArrayList<Integer> codigosMusicas){
+        if(musicas == null)
+            musicas = new ArrayList<>();
+        else
+            musicas.clear();
+
+        musicas.addAll(MusicaUtil.getMusicasPorCodigos(codigosMusicas));
+        if(PessoaUtil.getAdapterMusicasPessoa() != null)
+            PessoaUtil.getAdapterMusicasPessoa().notifyDataSetChanged();
+        if(PessoaUtil.getAdapterPessoa() != null)
+            PessoaUtil.getAdapterPessoa().notifyDataSetChanged();
     }
 }
