@@ -45,14 +45,4 @@ public class MusicasReservadasActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch(item.getItemId()){
-//            case android.R.id.home:
-//                super.onBackPressed();
-//                return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 }

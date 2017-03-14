@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -31,6 +35,9 @@ public class MusicasReservadasFragment extends Fragment {
     private ArrayAdapter adapter;
     private ArrayList<Pessoa> pessoas;
     private FloatingActionButton fabAddPessoa;
+    private MenuItem itemExcluir;
+    private ArrayList<Pessoa> pessoasParaExcluir;
+    private ArrayList<Integer> posicoesViewsSelecionadas;
 
     public MusicasReservadasFragment() {
         // Required empty public constructor
@@ -44,19 +51,32 @@ public class MusicasReservadasFragment extends Fragment {
 
         listView = (ListView) view.findViewById(R.id.lv_fragmento);
         fabAddPessoa = (FloatingActionButton) view.findViewById(R.id.fab_add);
-//        pessoas = new ArrayList<>();
-//        pessoas.addAll(PessoaUtil.getTodasPessoas());
         pessoas = PessoaUtil.getTodasPessoas();
         adapter = new PessoaAdapter(getActivity(), pessoas);
+        pessoasParaExcluir = new ArrayList<>();
+        posicoesViewsSelecionadas = new ArrayList<>();
 
         PessoaUtil.setAdapterPessoa(adapter);
 
         listView.setAdapter(adapter);
 
+        setHasOptionsMenu(true);
+
         fabAddPessoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 abrirDialogoAddPessoa();
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green800));
+                posicoesViewsSelecionadas.add(position);
+                pessoasParaExcluir.add(pessoas.get(position));
+                itemExcluir.setVisible(true);
+                return true;
             }
         });
 
@@ -119,6 +139,17 @@ public class MusicasReservadasFragment extends Fragment {
         dialogAddPessoa.create();
         dialogAddPessoa.show();
 
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_reservadas, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+        itemExcluir = menu.findItem(R.id.item_excluir);
+        menu.findItem(R.id.item_busca).setVisible(false);
+        menu.findItem(R.id.item_busca).collapseActionView();
+        menu.findItem(R.id.item_filtro).setVisible(false);
+        itemExcluir.setVisible(false);
     }
 }
