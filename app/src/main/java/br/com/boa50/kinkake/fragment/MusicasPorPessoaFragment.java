@@ -5,9 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -26,6 +33,8 @@ public class MusicasPorPessoaFragment extends Fragment{
     private ArrayAdapter adapter;
     private static ArrayList<Musica> musicas;
     private FloatingActionButton fabAddMusica;
+    private ArrayList<Musica> musicasParaExclusao;
+    private MenuItem itemExcluir;
 
     public MusicasPorPessoaFragment(){}
 
@@ -40,8 +49,21 @@ public class MusicasPorPessoaFragment extends Fragment{
             musicas = new ArrayList<>();
         adapter = new MusicaReservadaAdapter(getActivity(), musicas);
         listView.setAdapter(adapter);
+        musicasParaExclusao = new ArrayList<>();
+
+        setHasOptionsMenu(true);
 
         PessoaUtil.setAdapterMusicasPessoa(adapter);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green800));
+                musicasParaExclusao.add(musicas.get(i));
+                itemExcluir.setVisible(true);
+                return false;
+            }
+        });
 
         fabAddMusica.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +74,15 @@ public class MusicasPorPessoaFragment extends Fragment{
         });
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_reservadas, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+        itemExcluir = menu.findItem(R.id.item_excluir);
+        itemExcluir.setVisible(false);
     }
 
     public static void setMusicas(ArrayList<Integer> codigosMusicas){

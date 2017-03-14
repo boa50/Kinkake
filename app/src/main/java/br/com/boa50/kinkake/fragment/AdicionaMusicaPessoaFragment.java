@@ -50,8 +50,6 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
 
         preencherMusicasSelecao();
 
-        Log.i("qwerty", String.valueOf(musicas.size()));
-
         adapter = new AdicionarMusicaAdapter(getActivity(), musicasSelecao);
         listView.setAdapter(adapter);
 
