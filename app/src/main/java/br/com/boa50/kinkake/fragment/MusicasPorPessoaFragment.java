@@ -35,6 +35,7 @@ public class MusicasPorPessoaFragment extends Fragment{
     private FloatingActionButton fabAddMusica;
     private ArrayList<Musica> musicasParaExclusao;
     private MenuItem itemExcluir;
+    private ArrayList<Integer> posicoesViewsSelecionadas;
 
     public MusicasPorPessoaFragment(){}
 
@@ -50,6 +51,7 @@ public class MusicasPorPessoaFragment extends Fragment{
         adapter = new MusicaReservadaAdapter(getActivity(), musicas);
         listView.setAdapter(adapter);
         musicasParaExclusao = new ArrayList<>();
+        posicoesViewsSelecionadas = new ArrayList<>();
 
         setHasOptionsMenu(true);
 
@@ -59,9 +61,22 @@ public class MusicasPorPessoaFragment extends Fragment{
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green800));
+                posicoesViewsSelecionadas.add(i);
                 musicasParaExclusao.add(musicas.get(i));
                 itemExcluir.setVisible(true);
-                return false;
+                return true;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(!musicasParaExclusao.isEmpty()){
+                    view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.green800));
+                    posicoesViewsSelecionadas.add(position);
+                    musicasParaExclusao.add(musicas.get(position));
+                    itemExcluir.setVisible(true);
+                }
             }
         });
 
@@ -83,6 +98,41 @@ public class MusicasPorPessoaFragment extends Fragment{
 
         itemExcluir = menu.findItem(R.id.item_excluir);
         itemExcluir.setVisible(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.item_excluir:
+                excluirMusicasSelecionadas();
+                return true;
+            case android.R.id.home:
+                gerenciarVoltar();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void excluirMusicasSelecionadas(){
+        musicas.removeAll(musicasParaExclusao);
+        PessoaUtil.removerMusicasPessoaAtiva(musicasParaExclusao);
+        musicasParaExclusao.clear();
+        adapter.notifyDataSetChanged();
+        PessoaUtil.getAdapterPessoa().notifyDataSetChanged();
+        itemExcluir.setVisible(false);
+    }
+
+    private void gerenciarVoltar(){
+        if(musicasParaExclusao.isEmpty()){
+            getActivity().onBackPressed();
+        }else{
+            musicasParaExclusao.clear();
+            itemExcluir.setVisible(false);
+            for(Integer posicao : posicoesViewsSelecionadas){
+                listView.getChildAt(posicao).setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.indigo50));
+            }
+        }
     }
 
     public static void setMusicas(ArrayList<Integer> codigosMusicas){

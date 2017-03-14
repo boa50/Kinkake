@@ -4,6 +4,7 @@ import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 
+import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.model.Pessoa;
 
 public class PessoaUtil {
@@ -41,6 +42,12 @@ public class PessoaUtil {
         }
 
         return false;
+    }
+
+    public static void removerMusicasPessoaAtiva(ArrayList<Musica> musicas){
+        for(Musica musica : musicas){
+            pessoaAtiva.getCodigosMusicas().remove(musica.getCodigo());
+        }
     }
 
     public static void setPessoaAtiva(Pessoa pessoa){
