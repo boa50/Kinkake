@@ -28,7 +28,6 @@ import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.activity.MusicasReservadasActivity;
 import br.com.boa50.kinkake.adapter.PessoaAdapter;
 import br.com.boa50.kinkake.model.Pessoa;
-import br.com.boa50.kinkake.util.ExtrasNomes;
 import br.com.boa50.kinkake.util.PessoaUtil;
 
 public class MusicasReservadasFragment extends Fragment {

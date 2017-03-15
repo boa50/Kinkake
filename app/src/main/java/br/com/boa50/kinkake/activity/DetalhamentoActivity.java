@@ -2,15 +2,13 @@ package br.com.boa50.kinkake.activity;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.fragment.DetalhamentoFragment;
-import br.com.boa50.kinkake.fragment.MusicasFragment;
 import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.util.ExtrasNomes;
 

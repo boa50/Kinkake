@@ -1,17 +1,13 @@
 package br.com.boa50.kinkake.activity;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.fragment.MusicasPorPessoaFragment;
-import br.com.boa50.kinkake.fragment.MusicasReservadasFragment;
 import br.com.boa50.kinkake.model.Pessoa;
-import br.com.boa50.kinkake.util.ExtrasNomes;
 import br.com.boa50.kinkake.util.PessoaUtil;
 
 public class MusicasReservadasActivity extends AppCompatActivity {

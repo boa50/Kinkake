@@ -1,7 +1,6 @@
 package br.com.boa50.kinkake.util;
 
 import android.graphics.drawable.TransitionDrawable;
-import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.database.DatabaseReference;
