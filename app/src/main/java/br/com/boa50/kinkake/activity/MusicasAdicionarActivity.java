@@ -22,7 +22,7 @@ public class MusicasAdicionarActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tb_fragmento);
         adicionaMusicaPessoaFragment = new AdicionaMusicaPessoaFragment();
 
-        toolbar.setTitle("Selecione as músicas:");
+        toolbar.setTitle(R.string.tituloMusicasPessoaAdicionar);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -38,8 +38,8 @@ public class MusicasAdicionarActivity extends AppCompatActivity {
             case android.R.id.home:
                 super.onBackPressed();
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }
