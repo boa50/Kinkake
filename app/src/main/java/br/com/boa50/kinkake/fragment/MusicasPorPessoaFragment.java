@@ -33,12 +33,12 @@ public class MusicasPorPessoaFragment extends Fragment{
 
     private ListView listView;
     private ArrayAdapter adapter;
-    private static ArrayList<Musica> musicas;
     private FloatingActionButton fabAddMusica;
+    private static ArrayList<Musica> musicas;
     private ArrayList<Musica> musicasParaExcluir;
-    private MenuItem itemExcluir;
     private ArrayList<Integer> posicoesViewsSelecionadas;
     private ActionBar toolbar;
+    private MenuItem itemExcluir;
 
     public MusicasPorPessoaFragment(){}
 
@@ -64,9 +64,7 @@ public class MusicasPorPessoaFragment extends Fragment{
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.highlightList));
-                posicoesViewsSelecionadas.add(position);
-                musicasParaExcluir.add(musicas.get(position));
+                adicionarMusicaExcluir(view, position);
                 itemExcluir.setVisible(true);
                 toolbar.setTitle(R.string.tituloMusicasPessoaExcluir);
                 return true;
@@ -78,13 +76,11 @@ public class MusicasPorPessoaFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(!musicasParaExcluir.isEmpty()){
                     if(posicoesViewsSelecionadas.contains(position)){
-                        view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
-                        posicoesViewsSelecionadas.remove(position);
-                        musicasParaExcluir.remove(musicas.get(position));
+                        removerPessoasExcluir(view, position);
+                        if(musicasParaExcluir.isEmpty())
+                            voltarEstadoTela();
                     }else{
-                        view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.highlightList));
-                        posicoesViewsSelecionadas.add(position);
-                        musicasParaExcluir.add(musicas.get(position));
+                        adicionarMusicaExcluir(view, position);
                     }
                 }
             }
@@ -127,24 +123,39 @@ public class MusicasPorPessoaFragment extends Fragment{
     private void excluirMusicasSelecionadas(){
         musicas.removeAll(musicasParaExcluir);
         PessoaUtil.removerMusicasPessoaAtiva(musicasParaExcluir);
-        musicasParaExcluir.clear();
         adapter.notifyDataSetChanged();
         PessoaUtil.getAdapterPessoa().notifyDataSetChanged();
-        itemExcluir.setVisible(false);
-        toolbar.setTitle("Músicas de " + PessoaUtil.getPessoaAtiva().getNome());
+        voltarEstadoTela();
     }
 
     private void gerenciarVoltar(){
         if(musicasParaExcluir.isEmpty()){
             getActivity().onBackPressed();
         }else{
-            musicasParaExcluir.clear();
-            itemExcluir.setVisible(false);
-            toolbar.setTitle("Músicas de " + PessoaUtil.getPessoaAtiva().getNome());
+            voltarEstadoTela();
             for(Integer posicao : posicoesViewsSelecionadas){
                 listView.getChildAt(posicao).setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
             }
         }
+    }
+
+    private void voltarEstadoTela(){
+        musicasParaExcluir.clear();
+        posicoesViewsSelecionadas.clear();
+        itemExcluir.setVisible(false);
+        toolbar.setTitle("Músicas de " + PessoaUtil.getPessoaAtiva().getNome());
+    }
+
+    private void adicionarMusicaExcluir(View view, int position){
+        view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.highlightList));
+        posicoesViewsSelecionadas.add(position);
+        musicasParaExcluir.add(musicas.get(position));
+    }
+
+    private void removerPessoasExcluir(View view, int position){
+        view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
+        posicoesViewsSelecionadas.remove(Integer.valueOf(position));
+        musicasParaExcluir.remove(musicas.get(position));
     }
 
     public static void setMusicas(ArrayList<Integer> codigosMusicas){

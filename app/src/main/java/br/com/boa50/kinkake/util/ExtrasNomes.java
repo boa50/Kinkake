@@ -4,9 +4,7 @@ public enum ExtrasNomes {
     ID_CANTOR("idCantor"),
     NOME_CANTOR("nomeCantor"),
     LISTA_MUSICAS_CANTOR("listaMusicasCantor"),
-    MUSICA("musica"),
-    NOME_PESSOA("nomePessoa"),
-    LISTA_MUSICAS_PESSOA("listaMusicasPessoa");
+    MUSICA("musica");
 
     private final String valor;
 

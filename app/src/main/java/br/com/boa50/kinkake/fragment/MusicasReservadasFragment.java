@@ -35,12 +35,12 @@ public class MusicasReservadasFragment extends Fragment {
 
     private ListView listView;
     private ArrayAdapter adapter;
-    private ArrayList<Pessoa> pessoas;
     private FloatingActionButton fabAddPessoa;
-    private MenuItem itemExcluir;
+    private ArrayList<Pessoa> pessoas;
     private ArrayList<Pessoa> pessoasParaExcluir;
     private ArrayList<Integer> posicoesViewsSelecionadas;
     private ActionBar toolbar;
+    private MenuItem itemExcluir;
 
     public MusicasReservadasFragment() {}
 
@@ -72,9 +72,7 @@ public class MusicasReservadasFragment extends Fragment {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.highlightList));
-                posicoesViewsSelecionadas.add(position);
-                pessoasParaExcluir.add(pessoas.get(position));
+                adicionarPessoaExcluir(view, position);
                 itemExcluir.setVisible(true);
                 toolbar.setTitle(R.string.tituloPessoasExcluir);
                 toolbar.setDisplayHomeAsUpEnabled(true);
@@ -88,21 +86,16 @@ public class MusicasReservadasFragment extends Fragment {
                 if(pessoasParaExcluir.isEmpty()){
                     Pessoa pessoa = pessoas.get(position);
                     Intent intent = new Intent(getActivity(), MusicasReservadasActivity.class);
-                    //TODO verificar a melhor maneira de fazer isso
-//                intent.putExtra(ExtrasNomes.NOME_PESSOA.getValor(), pessoa.getNome());
-//                intent.putExtra(ExtrasNomes.LISTA_MUSICAS_PESSOA.getValor(), pessoa.getCodigosMusicas());
                     MusicasPorPessoaFragment.setMusicas(pessoa.getCodigosMusicas());
                     PessoaUtil.setPessoaAtiva(pessoa);
                     startActivity(intent);
                 }else{
                     if(posicoesViewsSelecionadas.contains(position)){
-                        view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
-                        posicoesViewsSelecionadas.remove(position);
-                        pessoasParaExcluir.remove(pessoas.get(position));
+                        removerPessoaExcluir(view, position);
+                        if(pessoasParaExcluir.isEmpty())
+                            voltarEstadoTela();
                     }else{
-                        view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.highlightList));
-                        posicoesViewsSelecionadas.add(position);
-                        pessoasParaExcluir.add(pessoas.get(position));
+                        adicionarPessoaExcluir(view, position);
                     }
                 }
             }
@@ -178,20 +171,34 @@ public class MusicasReservadasFragment extends Fragment {
 
     private void removerPessoasSelecionadas(){
         pessoas.removeAll(pessoasParaExcluir);
-        pessoasParaExcluir.clear();
         adapter.notifyDataSetChanged();
-        itemExcluir.setVisible(false);
-        toolbar.setTitle(R.string.app_name);
-        toolbar.setDisplayHomeAsUpEnabled(false);
+        voltarEstadoTela();
     }
 
     private void limparListaExclusao(){
-        pessoasParaExcluir.clear();
-        itemExcluir.setVisible(false);
-        toolbar.setTitle(R.string.app_name);
-        toolbar.setDisplayHomeAsUpEnabled(false);
+        voltarEstadoTela();
         for(Integer posicao : posicoesViewsSelecionadas){
             listView.getChildAt(posicao).setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
         }
+    }
+
+    private void adicionarPessoaExcluir(View view, int position){
+        view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.highlightList));
+        posicoesViewsSelecionadas.add(position);
+        pessoasParaExcluir.add(pessoas.get(position));
+    }
+
+    private void removerPessoaExcluir(View view, int position){
+        view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
+        posicoesViewsSelecionadas.remove(Integer.valueOf(position));
+        pessoasParaExcluir.remove(pessoas.get(position));
+    }
+
+    private void voltarEstadoTela(){
+        pessoasParaExcluir.clear();
+        posicoesViewsSelecionadas.clear();
+        itemExcluir.setVisible(false);
+        toolbar.setTitle(R.string.app_name);
+        toolbar.setDisplayHomeAsUpEnabled(false);
     }
 }
