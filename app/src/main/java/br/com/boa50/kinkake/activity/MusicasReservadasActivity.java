@@ -23,12 +23,6 @@ public class MusicasReservadasActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tb_fragmento);
         musicasPorPessoaFragment = new MusicasPorPessoaFragment();
 
-//        Pessoa pessoa = new Pessoa();
-//        Bundle extras = getIntent().getExtras();
-//        if(extras != null){
-//            pessoa.setNome(extras.getString(ExtrasNomes.NOME_PESSOA.getValor()));
-//            pessoa.setCodigosMusicas(extras.getIntegerArrayList(ExtrasNomes.LISTA_MUSICAS_PESSOA.getValor()));
-//        }
         Pessoa pessoa = PessoaUtil.getPessoaAtiva();
 
         toolbar.setTitle("Músicas de " + pessoa.getNome());

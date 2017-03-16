@@ -22,4 +22,7 @@
 
     <string name="erroAddPessoaSemNome">Insira um nome</string>
     <string name="erroAddPessoaNomeExistente">Esse nome já existe</string>
+
+    <string name="reservadasPessoasVazio">Insira uma pessoa</string>
+    <string name="reservadasMusicasVazio">Insira uma música</string>
 </resources>
