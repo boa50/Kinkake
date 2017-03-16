@@ -62,7 +62,7 @@ public class MusicasFragment extends Fragment {
         listView.setAdapter(adapter);
 
         if(databaseReference == null){
-            databaseReference = ConfiguracaoFirebase.getDatabaseReference();
+            databaseReference = ConfiguracaoFirebase.getReferenciaMusica();
             databaseReference.addChildEventListener(MusicaListeners.getListenerMusicas(adapter));
         }
 

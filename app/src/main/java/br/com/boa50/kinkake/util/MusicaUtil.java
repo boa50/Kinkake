@@ -24,7 +24,7 @@ public class MusicaUtil {
                 musica.setFavorito(!musica.isFavorito());
                 mudaIconeFavorito(td, musica.isFavorito());
 
-                DatabaseReference databaseReference = ConfiguracaoFirebase.getDatabaseReference();
+                DatabaseReference databaseReference = ConfiguracaoFirebase.getReferenciaMusica();
                 databaseReference.orderByChild("codigo").equalTo(musica.getCodigo())
                         .addListenerForSingleValueEvent(MusicaListeners.getListenerMusicaFavorito());
             }

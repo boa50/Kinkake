@@ -18,7 +18,7 @@ public class MusicaListeners {
         return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                DatabaseReference databaseReference = ConfiguracaoFirebase.getDatabaseReference();
+                DatabaseReference databaseReference = ConfiguracaoFirebase.getReferenciaMusica();
                 boolean favorito = false;
 
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){

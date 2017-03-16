@@ -16,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-        DatabaseReference databaseReference = ConfiguracaoFirebase.getDatabaseReference();
+        DatabaseReference databaseReference = ConfiguracaoFirebase.getReferenciaMusica();
         databaseReference.addListenerForSingleValueEvent(AppListeners.getListenerPreencher(intent, SplashActivity.this));
     }
 }
