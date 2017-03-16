@@ -3,7 +3,11 @@ package br.com.boa50.kinkake.util;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
+import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
+import br.com.boa50.kinkake.application.PessoaListeners;
 import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.model.Pessoa;
 
@@ -15,10 +19,22 @@ public class PessoaUtil {
     private static ArrayAdapter adapterPessoa;
 
     public static ArrayList<Pessoa> getTodasPessoas(){
-        if(todasPessoas == null)
-            todasPessoas = new ArrayList<>();
-
         return todasPessoas;
+    }
+
+    public static void preencherTodasPessoas(ArrayList<Pessoa> pessoas){
+        todasPessoas = new ArrayList<>();
+        todasPessoas.addAll(pessoas);
+    }
+
+    public static void ordenaPessoasPorNome(ArrayList<Pessoa> pessoas){
+        Collections.sort(pessoas, new Comparator<Pessoa>() {
+            @Override
+            public int compare(Pessoa p0, Pessoa p1) {
+                return StringUtil.removerAcentos(p0.getNome())
+                        .compareToIgnoreCase(StringUtil.removerAcentos(p1.getNome()));
+            }
+        });
     }
 
     public static void adicionaPessoa(Pessoa pessoa){
@@ -48,6 +64,16 @@ public class PessoaUtil {
         for(Musica musica : musicas){
             pessoaAtiva.getCodigosMusicas().remove(musica.getCodigo());
         }
+        atulizarListaMusicasPessoaAtiva();
+    }
+
+    public static void atulizarListaMusicasPessoaAtiva(){
+        ConfiguracaoFirebase.getReferenciaPessoa().orderByChild("nome").equalTo(pessoaAtiva.getNome())
+                .addListenerForSingleValueEvent(PessoaListeners.getListenerUpdateMusicasPessoaAtiva());
+    }
+
+    public static void atualizarListaPessoas(ArrayList<Pessoa> pessoasParaExcluir){
+        ConfiguracaoFirebase.getReferenciaPessoa().addListenerForSingleValueEvent(PessoaListeners.getListenerUpdateListaPessoas(pessoasParaExcluir));
     }
 
     public static void setPessoaAtiva(Pessoa pessoa){

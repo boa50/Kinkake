@@ -6,9 +6,7 @@ public class Pessoa {
     private String nome;
     private ArrayList<Integer> codigosMusicas;
 
-    public Pessoa(){
-
-    }
+    public Pessoa(){}
 
     public Pessoa(String nome){
         this.nome = nome;
@@ -24,10 +22,9 @@ public class Pessoa {
     }
 
     public ArrayList<Integer> getCodigosMusicas() {
-        return codigosMusicas;
-    }
+        if(codigosMusicas == null)
+            codigosMusicas = new ArrayList<>();
 
-    public void setCodigosMusicas(ArrayList<Integer> codigosMusicas) {
-        this.codigosMusicas = codigosMusicas;
+        return codigosMusicas;
     }
 }

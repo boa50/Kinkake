@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.activity.MusicasReservadasActivity;
 import br.com.boa50.kinkake.adapter.PessoaAdapter;
+import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
 import br.com.boa50.kinkake.model.Pessoa;
 import br.com.boa50.kinkake.util.PessoaUtil;
 
@@ -123,7 +124,9 @@ public class MusicasReservadasFragment extends Fragment {
                     Snackbar.make(getView(), R.string.erroAddPessoaNomeExistente, Snackbar.LENGTH_LONG).show();
                     textoNome.setText("");
                 }else if (textoNome.getText() != null && textoNome.getText().length() > 0) {
-                    pessoas.add(new Pessoa(textoNome.getText().toString()));
+                    Pessoa pessoa = new Pessoa(textoNome.getText().toString());
+                    pessoas.add(pessoa);
+                    ConfiguracaoFirebase.getReferenciaPessoa().push().setValue(pessoa);
                     adapter.notifyDataSetChanged();
                     textoNome.setText("");
                 }
@@ -171,6 +174,9 @@ public class MusicasReservadasFragment extends Fragment {
 
     private void removerPessoasSelecionadas(){
         pessoas.removeAll(pessoasParaExcluir);
+        ArrayList<Pessoa> teste = new ArrayList<>();
+        teste.addAll(pessoasParaExcluir);
+        PessoaUtil.atualizarListaPessoas(teste);
         adapter.notifyDataSetChanged();
         voltarEstadoTela();
     }

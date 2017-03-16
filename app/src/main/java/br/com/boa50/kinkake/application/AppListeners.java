@@ -2,6 +2,7 @@ package br.com.boa50.kinkake.application;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,11 +12,13 @@ import java.util.ArrayList;
 
 import br.com.boa50.kinkake.model.Cantor;
 import br.com.boa50.kinkake.model.Musica;
+import br.com.boa50.kinkake.model.Pessoa;
 import br.com.boa50.kinkake.util.CantorUtil;
 import br.com.boa50.kinkake.util.MusicaUtil;
+import br.com.boa50.kinkake.util.PessoaUtil;
 
 public class AppListeners {
-    public static ValueEventListener getListenerPreencher(final Intent intent, final Activity activity){
+    public static ValueEventListener getListenerPreencherMusicas(final Intent intent, final Activity activity){
         return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -53,6 +56,29 @@ public class AppListeners {
 
                 activity.startActivity(intent);
                 activity.finish();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+    }
+
+    public static ValueEventListener getListenerPreencherPessoas(){
+        return new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Pessoa> pessoas = new ArrayList<>();
+
+                if(dataSnapshot.getValue() != null){
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        Pessoa pessoa = snapshot.getValue(Pessoa.class);
+                        pessoas.add(pessoa);
+                    }
+                }
+
+                PessoaUtil.preencherTodasPessoas(pessoas);
             }
 
             @Override
