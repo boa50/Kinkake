@@ -15,8 +15,6 @@ import java.util.ArrayList;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.adapter.AdicionarMusicaAdapter;
-import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
-import br.com.boa50.kinkake.application.PessoaListeners;
 import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.model.MusicaSelecao;
 import br.com.boa50.kinkake.model.Pessoa;

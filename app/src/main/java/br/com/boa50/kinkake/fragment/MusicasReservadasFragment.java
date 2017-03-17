@@ -21,14 +21,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.activity.MusicasReservadasActivity;
 import br.com.boa50.kinkake.adapter.PessoaAdapter;
-import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
 import br.com.boa50.kinkake.model.Pessoa;
 import br.com.boa50.kinkake.util.PessoaUtil;
 
@@ -124,9 +122,7 @@ public class MusicasReservadasFragment extends Fragment {
                     Snackbar.make(getView(), R.string.erroAddPessoaNomeExistente, Snackbar.LENGTH_LONG).show();
                     textoNome.setText("");
                 }else if (textoNome.getText() != null && textoNome.getText().length() > 0) {
-                    Pessoa pessoa = new Pessoa(textoNome.getText().toString());
-                    pessoas.add(pessoa);
-                    ConfiguracaoFirebase.getReferenciaPessoa().push().setValue(pessoa);
+                    PessoaUtil.adicionarPessoa(new Pessoa(textoNome.getText().toString()));
                     adapter.notifyDataSetChanged();
                     textoNome.setText("");
                 }

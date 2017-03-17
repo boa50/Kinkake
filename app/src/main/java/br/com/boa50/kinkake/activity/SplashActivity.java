@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.google.firebase.database.DatabaseReference;
-
 import br.com.boa50.kinkake.application.AppListeners;
 import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
 

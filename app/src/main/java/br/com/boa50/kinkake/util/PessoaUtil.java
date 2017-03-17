@@ -24,10 +24,11 @@ public class PessoaUtil {
 
     public static void preencherTodasPessoas(ArrayList<Pessoa> pessoas){
         todasPessoas = new ArrayList<>();
+        ordenarPessoasPorNome(pessoas);
         todasPessoas.addAll(pessoas);
     }
 
-    public static void ordenaPessoasPorNome(ArrayList<Pessoa> pessoas){
+    public static void ordenarPessoasPorNome(ArrayList<Pessoa> pessoas){
         Collections.sort(pessoas, new Comparator<Pessoa>() {
             @Override
             public int compare(Pessoa p0, Pessoa p1) {
@@ -37,18 +38,10 @@ public class PessoaUtil {
         });
     }
 
-    public static void adicionaPessoa(Pessoa pessoa){
-        if(todasPessoas != null)
-            todasPessoas.add(pessoa);
-    }
-
-    public static Pessoa getPessoaPorNome(String nome){
-        for(Pessoa pessoa : todasPessoas){
-            if(pessoa.getNome().equalsIgnoreCase(nome))
-                return pessoa;
-        }
-
-        return null;
+    public static void adicionarPessoa(Pessoa pessoa){
+        todasPessoas.add(pessoa);
+        ordenarPessoasPorNome(todasPessoas);
+        ConfiguracaoFirebase.getReferenciaPessoa().push().setValue(pessoa);
     }
 
     public static boolean isNomePessoaExistente(String nome){
