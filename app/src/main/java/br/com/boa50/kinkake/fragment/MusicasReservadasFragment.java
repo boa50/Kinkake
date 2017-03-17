@@ -1,5 +1,6 @@
 package br.com.boa50.kinkake.fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,10 +18,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -35,6 +38,7 @@ public class MusicasReservadasFragment extends Fragment {
     private ListView listView;
     private ArrayAdapter adapter;
     private FloatingActionButton fabAddPessoa;
+    private TextView textViewVazio;
     private ArrayList<Pessoa> pessoas;
     private ArrayList<Pessoa> pessoasParaExcluir;
     private ArrayList<Integer> posicoesViewsSelecionadas;
@@ -51,6 +55,7 @@ public class MusicasReservadasFragment extends Fragment {
 
         listView = (ListView) view.findViewById(R.id.lv_fragmento);
         fabAddPessoa = (FloatingActionButton) view.findViewById(R.id.fab_add);
+        textViewVazio = (TextView) view.findViewById(R.id.tv_reservadas_vazio);
         pessoas = PessoaUtil.getTodasPessoas();
         adapter = new PessoaAdapter(getActivity(), pessoas);
         pessoasParaExcluir = new ArrayList<>();
@@ -60,6 +65,7 @@ public class MusicasReservadasFragment extends Fragment {
         PessoaUtil.setAdapterPessoa(adapter);
         listView.setAdapter(adapter);
         setHasOptionsMenu(true);
+        verificarListaPessoasVazia();
 
         fabAddPessoa.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +129,7 @@ public class MusicasReservadasFragment extends Fragment {
                     textoNome.setText("");
                 }else if (textoNome.getText() != null && textoNome.getText().length() > 0) {
                     PessoaUtil.adicionarPessoa(new Pessoa(textoNome.getText().toString()));
+                    verificarListaPessoasVazia();
                     adapter.notifyDataSetChanged();
                     textoNome.setText("");
                 }
@@ -173,6 +180,7 @@ public class MusicasReservadasFragment extends Fragment {
         ArrayList<Pessoa> teste = new ArrayList<>();
         teste.addAll(pessoasParaExcluir);
         PessoaUtil.atualizarListaPessoas(teste);
+        verificarListaPessoasVazia();
         adapter.notifyDataSetChanged();
         voltarEstadoTela();
     }
@@ -202,5 +210,12 @@ public class MusicasReservadasFragment extends Fragment {
         itemExcluir.setVisible(false);
         toolbar.setTitle(R.string.app_name);
         toolbar.setDisplayHomeAsUpEnabled(false);
+    }
+
+    private void verificarListaPessoasVazia(){
+        if(pessoas.isEmpty())
+            textViewVazio.setText(R.string.reservadasPessoasVazio);
+        else
+            textViewVazio.setText("");
     }
 }

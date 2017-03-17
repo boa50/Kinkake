@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public class MusicasPorPessoaFragment extends Fragment{
     private ListView listView;
     private ArrayAdapter adapter;
     private FloatingActionButton fabAddMusica;
+    private TextView textViewVazio;
     private static ArrayList<Musica> musicas;
     private ArrayList<Musica> musicasParaExcluir;
     private ArrayList<Integer> posicoesViewsSelecionadas;
@@ -47,6 +49,7 @@ public class MusicasPorPessoaFragment extends Fragment{
 
         listView = (ListView) view.findViewById(R.id.lv_fragmento);
         fabAddMusica = (FloatingActionButton) view.findViewById(R.id.fab_add);
+        textViewVazio = (TextView) view.findViewById(R.id.tv_reservadas_vazio);
         if(musicas == null)
             musicas = new ArrayList<>();
         adapter = new MusicaReservadaAdapter(getActivity(), musicas);
@@ -57,7 +60,6 @@ public class MusicasPorPessoaFragment extends Fragment{
 
         setHasOptionsMenu(true);
         PessoaUtil.setAdapterMusicasPessoa(adapter);
-
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -121,6 +123,7 @@ public class MusicasPorPessoaFragment extends Fragment{
     private void excluirMusicasSelecionadas(){
         musicas.removeAll(musicasParaExcluir);
         PessoaUtil.removerMusicasPessoaAtiva(musicasParaExcluir);
+        verificarListaMusicasVazia();
         adapter.notifyDataSetChanged();
         PessoaUtil.getAdapterPessoa().notifyDataSetChanged();
         voltarEstadoTela();
@@ -167,5 +170,18 @@ public class MusicasPorPessoaFragment extends Fragment{
             PessoaUtil.getAdapterMusicasPessoa().notifyDataSetChanged();
         if(PessoaUtil.getAdapterPessoa() != null)
             PessoaUtil.getAdapterPessoa().notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        verificarListaMusicasVazia();
+    }
+
+    private void verificarListaMusicasVazia(){
+        if(musicas.isEmpty())
+            textViewVazio.setText(R.string.reservadasMusicasVazio);
+        else
+            textViewVazio.setText("");
     }
 }
