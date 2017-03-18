@@ -14,9 +14,6 @@ import android.widget.CompoundButton;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.fragment.AdicionaMusicaPessoaFragment;
-import br.com.boa50.kinkake.fragment.CantoresFragment;
-import br.com.boa50.kinkake.fragment.MusicasFragment;
-import br.com.boa50.kinkake.util.FiltroUtil;
 
 public class MusicasAdicionarActivity extends AppCompatActivity {
 
