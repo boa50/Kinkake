@@ -26,7 +26,9 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
     private ListView listView;
     private ArrayAdapter adapter;
     private ArrayList<Musica> musicas;
+    private ArrayList<Musica> musicasFiltro;
     private ArrayList<MusicaSelecao> musicasSelecao;
+    private ArrayList<Integer> codigosMusicasAdicionar;
     private FloatingActionButton fabConfirma;
     private Pessoa pessoaAtiva;
 
@@ -40,11 +42,13 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
         listView = (ListView) view.findViewById(R.id.lv_fragmento);
         fabConfirma = (FloatingActionButton) view.findViewById(R.id.fab_confirma);
         musicasSelecao = new ArrayList<>();
+        musicasFiltro = new ArrayList<>();
+        codigosMusicasAdicionar = new ArrayList<>();
         pessoaAtiva = PessoaUtil.getPessoaAtiva();
 
         musicas = MusicaUtil.getMusicasDiferentesPorCodigos(pessoaAtiva.getCodigosMusicas());
-
-        preencherMusicasSelecao();
+        musicasFiltro.addAll(musicas);
+        atualizarMusicasSelecao();
 
         adapter = new AdicionarMusicaAdapter(getActivity(), musicasSelecao);
         listView.setAdapter(adapter);
@@ -52,11 +56,7 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
         fabConfirma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(MusicaSelecao selecao : musicasSelecao){
-                    if(selecao.isSelecao())
-                        pessoaAtiva.getCodigosMusicas().add(selecao.getMusica().getCodigo());
-                }
-
+                pessoaAtiva.getCodigosMusicas().addAll(codigosMusicasAdicionar);
                 PessoaUtil.atulizarListaMusicasPessoaAtiva();
                 MusicasPorPessoaFragment.setMusicas(pessoaAtiva.getCodigosMusicas());
                 getActivity().onBackPressed();
@@ -65,8 +65,9 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                musicasSelecao.get(i).setSelecao(!musicasSelecao.get(i).isSelecao());
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                musicasSelecao.get(position).setSelecao(!musicasSelecao.get(position).isSelecao());
+                atualizarMusicasAdicionar(position);
                 adapter.notifyDataSetChanged();
             }
         });
@@ -74,9 +75,39 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
         return view;
     }
 
-    private void preencherMusicasSelecao(){
+    private void atualizarMusicasSelecao(){
+        musicasSelecao.clear();
+
         for(Musica musica : musicas){
-            musicasSelecao.add(new MusicaSelecao(musica));
+            if(codigosMusicasAdicionar.contains(musica.getCodigo()))
+                musicasSelecao.add(new MusicaSelecao(musica, true));
+            else
+                musicasSelecao.add(new MusicaSelecao(musica));
         }
+    }
+
+    private void atualizarMusicasAdicionar(int position){
+        MusicaSelecao musicaSelecao = musicasSelecao.get(position);
+
+        if(musicaSelecao.isSelecao()){
+            codigosMusicasAdicionar.add(musicaSelecao.getMusica().getCodigo());
+        }else{
+            for(Integer codigo : codigosMusicasAdicionar){
+                if(codigo.equals(musicaSelecao.getMusica().getCodigo())){
+                    codigosMusicasAdicionar.remove(codigo);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void filtrar(String texto, boolean apenasFavoritas){
+        if(musicas == null)
+            musicas = new ArrayList<>();
+
+        musicas.clear();
+        musicas.addAll(MusicaUtil.filtrar(musicasFiltro, texto, apenasFavoritas));
+        atualizarMusicasSelecao();
+        adapter.notifyDataSetChanged();
     }
 }

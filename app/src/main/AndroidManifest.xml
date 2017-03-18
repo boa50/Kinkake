@@ -30,7 +30,9 @@
         <activity
             android:name=".activity.MusicasReservadasActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.MusicasAdicionarActivity"></activity>
+        <activity
+            android:name=".activity.MusicasAdicionarActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

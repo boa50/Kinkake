@@ -11,6 +11,11 @@ public class MusicaSelecao {
         this.selecao = false;
     }
 
+    public MusicaSelecao(Musica musica, boolean selecao){
+        this.musica = musica;
+        this.selecao = selecao;
+    }
+
     public Musica getMusica() {
         return musica;
     }

@@ -121,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
 
         favorito.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                FiltroUtil.setFavoritoFiltro(b);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                FiltroUtil.setFavoritoFiltro(isChecked);
                 gerenciarBusca(viewPager.getCurrentItem());
             }
         });
