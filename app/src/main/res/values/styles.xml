@@ -34,5 +34,4 @@
     <style name="FabConfirmaTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorAccent">@color/green800</item>
     </style>
-
 </resources>

@@ -20,7 +20,7 @@
     <string name="tituloMusicasPessoaExcluir">Músicas para excluir:</string>
     <string name="tituloMusicasPessoaAdicionar">Selecione as músicas:</string>
 
-    <string name="erroAddPessoaSemNome">Insira um nome</string>
+    <string name="erroAddPessoaSemNome">Insira um nome para a pessoa</string>
     <string name="erroAddPessoaNomeExistente">Esse nome já existe</string>
 
     <string name="reservadasPessoasVazio">Insira uma pessoa</string>

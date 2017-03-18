@@ -133,10 +133,10 @@ public class MusicasPorPessoaFragment extends Fragment{
         if(musicasParaExcluir.isEmpty()){
             getActivity().onBackPressed();
         }else{
-            voltarEstadoTela();
             for(Integer posicao : posicoesViewsSelecionadas){
                 listView.getChildAt(posicao).setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
             }
+            voltarEstadoTela();
         }
     }
 

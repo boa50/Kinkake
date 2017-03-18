@@ -18,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -123,9 +124,15 @@ public class MusicasReservadasFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(textoNome.getText() == null || textoNome.getText().toString().isEmpty()){
-                    Snackbar.make(getView(), R.string.erroAddPessoaSemNome, Snackbar.LENGTH_LONG).show();
+                    Snackbar snackbar = Snackbar.make(getView(), R.string.erroAddPessoaSemNome, Snackbar.LENGTH_LONG);
+                    ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text))
+                            .setTextColor(ContextCompat.getColor(getActivity(), R.color.yellow600));
+                    snackbar.show();
                 }else if(PessoaUtil.isNomePessoaExistente(textoNome.getText().toString())){
-                    Snackbar.make(getView(), R.string.erroAddPessoaNomeExistente, Snackbar.LENGTH_LONG).show();
+                    Snackbar snackbar = Snackbar.make(getView(), R.string.erroAddPessoaNomeExistente, Snackbar.LENGTH_LONG);
+                    ((TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text))
+                            .setTextColor(ContextCompat.getColor(getActivity(), R.color.yellow600));
+                    snackbar.show();
                     textoNome.setText("");
                 }else if (textoNome.getText() != null && textoNome.getText().length() > 0) {
                     PessoaUtil.adicionarPessoa(new Pessoa(textoNome.getText().toString()));
@@ -145,8 +152,8 @@ public class MusicasReservadasFragment extends Fragment {
 
         dialogAddPessoa.setView(viewAddPessoa);
         dialogAddPessoa.create();
-        dialogAddPessoa.show();
-
+        AlertDialog alertDialog = dialogAddPessoa.show();
+        alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
     @Override
@@ -186,10 +193,10 @@ public class MusicasReservadasFragment extends Fragment {
     }
 
     private void limparListaExclusao(){
-        voltarEstadoTela();
         for(Integer posicao : posicoesViewsSelecionadas){
             listView.getChildAt(posicao).setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
         }
+        voltarEstadoTela();
     }
 
     private void adicionarPessoaExcluir(View view, int position){
