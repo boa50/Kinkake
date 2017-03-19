@@ -17,7 +17,7 @@ import br.com.boa50.kinkake.fragment.MusicasReservadasFragment;
 
 public class TabAdapter extends FragmentStatePagerAdapter{
     private Context context;
-    private int[] icones = new int[]{R.drawable.ic_action_mic, R.drawable.ic_action_music_1, R.drawable.ic_people};
+    private int[] icones = new int[]{R.drawable.ic_action_mic, R.drawable.ic_action_music_1, R.drawable.account_multiple};
     private int tamanhoIcone;
     private CantoresFragment cantoresFragment;
     private MusicasFragment musicasFragment;

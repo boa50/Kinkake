@@ -13,7 +13,7 @@
     <item android:id="@+id/item_filtro"
         android:title="@string/filtro"
         android:orderInCategory="200"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         android:icon="@drawable/ic_action_filter"
         />
 

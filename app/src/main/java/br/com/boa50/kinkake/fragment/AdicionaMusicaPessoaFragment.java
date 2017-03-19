@@ -37,7 +37,7 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_adiciona_musica_pessoa, container, false);
         ListView listView;
-        FloatingActionButton fabConfirma;
+        final FloatingActionButton fabConfirma;
 
         listView = (ListView) view.findViewById(R.id.lv_fragmento);
         fabConfirma = (FloatingActionButton) view.findViewById(R.id.fab_confirma);
@@ -68,6 +68,10 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 musicasSelecao.get(position).setSelecao(!musicasSelecao.get(position).isSelecao());
                 atualizarMusicasAdicionar(position);
+                if(codigosMusicasAdicionar.isEmpty())
+                    fabConfirma.hide();
+                else
+                    fabConfirma.show();
                 adapter.notifyDataSetChanged();
             }
         });

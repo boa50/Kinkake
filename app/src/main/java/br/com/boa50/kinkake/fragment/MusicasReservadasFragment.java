@@ -3,6 +3,7 @@ package br.com.boa50.kinkake.fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,6 +39,7 @@ public class MusicasReservadasFragment extends Fragment {
     private ListView listView;
     private ArrayAdapter adapter;
     private TextView textViewVazio;
+    private FloatingActionButton fabAddPessoa;
     private ArrayList<Pessoa> pessoas;
     private ArrayList<Pessoa> pessoasParaExcluir;
     private ArrayList<Integer> posicoesViewsSelecionadas;
@@ -50,7 +53,7 @@ public class MusicasReservadasFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_musicas_reservadas, container, false);
-        FloatingActionButton fabAddPessoa;
+//        final FloatingActionButton fabAddPessoa;
 
         listView = (ListView) view.findViewById(R.id.lv_fragmento);
         fabAddPessoa = (FloatingActionButton) view.findViewById(R.id.fab_add);
@@ -222,5 +225,33 @@ public class MusicasReservadasFragment extends Fragment {
             textViewVazio.setText(R.string.reservadasPessoasVazio);
         else
             textViewVazio.setText("");
+    }
+
+    public void esconderFab(){
+        if(fabAddPessoa != null)
+            fabAddPessoa.hide();
+    }
+
+    public void mostrarFabDelay(){
+        Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fabAddPessoa.show();
+            }
+        }, 500);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        esconderFab();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mostrarFabDelay();
     }
 }

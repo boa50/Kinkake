@@ -2,6 +2,7 @@ package br.com.boa50.kinkake.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ public class MusicasPorPessoaFragment extends Fragment{
     private ListView listView;
     private ArrayAdapter adapter;
     private TextView textViewVazio;
+    private FloatingActionButton fabAddMusica;
     private static ArrayList<Musica> musicas;
     private ArrayList<Musica> musicasParaExcluir;
     private ArrayList<Integer> posicoesViewsSelecionadas;
@@ -45,7 +47,6 @@ public class MusicasPorPessoaFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_musicas_reservadas, container, false);
-        FloatingActionButton fabAddMusica;
 
         listView = (ListView) view.findViewById(R.id.lv_fragmento);
         fabAddMusica = (FloatingActionButton) view.findViewById(R.id.fab_add);
@@ -60,6 +61,7 @@ public class MusicasPorPessoaFragment extends Fragment{
 
         setHasOptionsMenu(true);
         PessoaUtil.setAdapterMusicasPessoa(adapter);
+        mostrarFabDelay();
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -172,16 +174,34 @@ public class MusicasPorPessoaFragment extends Fragment{
             PessoaUtil.getAdapterPessoa().notifyDataSetChanged();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        verificarListaMusicasVazia();
-    }
-
     private void verificarListaMusicasVazia(){
         if(musicas.isEmpty())
             textViewVazio.setText(R.string.reservadasMusicasVazio);
         else
             textViewVazio.setText("");
+    }
+
+    private void mostrarFabDelay(){
+        Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                fabAddMusica.show();
+            }
+        }, 500);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        fabAddMusica.hide();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        verificarListaMusicasVazia();
+        mostrarFabDelay();
     }
 }

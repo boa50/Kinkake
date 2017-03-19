@@ -28,10 +28,7 @@
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:background">@color/indigo50</item>
         <item name="colorAccent">@color/teal700</item>
+        <item name="android:textColor">@color/teal700</item>
         <item name="android:textSize">@dimen/font_size_dialog_button</item>
-    </style>
-
-    <style name="FabConfirmaTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorAccent">@color/green800</item>
     </style>
 </resources>

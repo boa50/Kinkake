@@ -17,6 +17,7 @@ import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.adapter.TabAdapter;
 import br.com.boa50.kinkake.fragment.CantoresFragment;
 import br.com.boa50.kinkake.fragment.MusicasFragment;
+import br.com.boa50.kinkake.fragment.MusicasReservadasFragment;
 import br.com.boa50.kinkake.util.FiltroUtil;
 import br.com.boa50.kinkake.util.SlidingTabLayout;
 
@@ -60,11 +61,15 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 MenuItem busca = toolbar.getMenu().findItem(R.id.item_busca);
                 MenuItem filtro = toolbar.getMenu().findItem(R.id.item_filtro);
+                MusicasReservadasFragment fragment = (MusicasReservadasFragment) adapter.getItem(2);
 
                 if(!((TabAdapter) viewPager.getAdapter()).getNomeFragment(position).equals("musicasReservadasFragment")){
                     busca.setVisible(true);
                     filtro.setVisible(true);
                     gerenciarBusca(position);
+                    fragment.esconderFab();
+                }else{
+                    fragment.mostrarFabDelay();
                 }
             }
 
