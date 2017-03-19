@@ -16,6 +16,7 @@
         app:srcCompat="@drawable/ic_check"
         app:backgroundTint="@color/green800"
         app:fabSize="normal"
+        android:scaleType="center"
         android:visibility="invisible"
         />
 
