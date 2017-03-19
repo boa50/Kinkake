@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -13,11 +14,11 @@
         android:text="00"
         android:width="30dp"
         android:textAlignment="textEnd"
-        android:paddingEnd="@dimen/padding_padrao"
+        android:layout_marginEnd="@dimen/padding_padrao"
         android:paddingTop="10dp"
         android:paddingBottom="9dp"
         android:layout_gravity="center|end"
-        />
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tv_lista_cantores_nome"
@@ -26,6 +27,6 @@
         android:text="testeNome"
         android:padding="@dimen/padding_padrao"
         android:layout_weight="1"
-        />
+        tools:ignore="HardcodedText" />
 
 </LinearLayout>

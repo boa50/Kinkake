@@ -17,7 +17,6 @@ import br.com.boa50.kinkake.fragment.AdicionaMusicaPessoaFragment;
 
 public class MusicasAdicionarActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     private AdicionaMusicaPessoaFragment adicionaMusicaPessoaFragment;
     private String buscaFiltro;
     private boolean favoritoFiltro;
@@ -27,7 +26,7 @@ public class MusicasAdicionarActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_fragment);
 
-        toolbar = (Toolbar) findViewById(R.id.tb_fragmento);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_fragmento);
         adicionaMusicaPessoaFragment = new AdicionaMusicaPessoaFragment();
         buscaFiltro = "";
         favoritoFiltro = false;

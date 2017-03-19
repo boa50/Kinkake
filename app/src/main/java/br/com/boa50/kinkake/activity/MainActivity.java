@@ -23,7 +23,6 @@ import br.com.boa50.kinkake.util.SlidingTabLayout;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private SlidingTabLayout slidingTabLayout;
     private ViewPager viewPager;
     private TabAdapter adapter;
 
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SlidingTabLayout slidingTabLayout;
 
         FiltroUtil.setFavoritoFiltro(false);
         buscaFiltro = "";

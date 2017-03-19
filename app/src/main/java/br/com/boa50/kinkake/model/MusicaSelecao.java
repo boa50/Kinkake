@@ -4,8 +4,6 @@ public class MusicaSelecao {
     private Musica musica;
     private boolean selecao;
 
-    public MusicaSelecao(){}
-
     public MusicaSelecao(Musica musica){
         this.musica = musica;
         this.selecao = false;

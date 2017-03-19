@@ -27,7 +27,6 @@ import br.com.boa50.kinkake.util.MusicaUtil;
 
 public class MusicasFragment extends Fragment {
 
-    private ListView listView;
     private static ArrayAdapter adapter;
     private static ArrayList<Musica> musicas;
     private Cantor cantor;
@@ -43,6 +42,7 @@ public class MusicasFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_musicas, container, false);
+        ListView listView;
 
         if(musicas == null){
             musicas = new ArrayList<>();

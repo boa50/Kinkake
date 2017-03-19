@@ -29,7 +29,7 @@ public class AdicionarMusicaAdapter extends ArrayAdapter<MusicaSelecao>{
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.lista_musicas_adicionar, parent, false);
 
         CheckBox checkBox = (CheckBox) view.findViewById(R.id.cb_musica_adicionar);

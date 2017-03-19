@@ -14,12 +14,11 @@ import br.com.boa50.kinkake.util.ExtrasNomes;
 
 public class DetalhamentoActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhamento);
+        Toolbar toolbar;
 
         toolbar = (Toolbar) findViewById(R.id.tb_detalhamento);
 

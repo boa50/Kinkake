@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -11,12 +12,12 @@
         android:id="@+id/tv_lista_musica_reservada_codigo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/padding_padrao"
+        android:layout_marginEnd="@dimen/padding_padrao"
         android:paddingTop="@dimen/padding_padrao"
         android:paddingBottom="@dimen/padding_padrao"
         android:text="00000"
         android:layout_gravity="center"
-        />
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tv_lista_musica_reservada_nome"
@@ -25,6 +26,6 @@
         android:padding="@dimen/padding_padrao"
         android:layout_weight="1"
         android:text="Algum nome legal"
-        />
+        tools:ignore="HardcodedText" />
 
 </LinearLayout>

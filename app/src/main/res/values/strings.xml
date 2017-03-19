@@ -12,7 +12,6 @@
     <string name="addPessoaLabelNome">Nome:</string>
     <string name="addPessoaHintNome">Seu nome</string>
 
-    <string name="btConfirmar">Ok</string>
     <string name="btAdicionar">Adicionar</string>
     <string name="btCancelar">Cancelar</string>
 
@@ -25,4 +24,6 @@
 
     <string name="reservadasPessoasVazio">Insira uma pessoa</string>
     <string name="reservadasMusicasVazio">Insira uma música</string>
+
+    <string name="descricaoIconeFavorito">Favorito</string>
 </resources>

@@ -23,13 +23,11 @@ import br.com.boa50.kinkake.util.PessoaUtil;
 
 public class AdicionaMusicaPessoaFragment extends Fragment{
 
-    private ListView listView;
     private ArrayAdapter adapter;
     private ArrayList<Musica> musicas;
     private ArrayList<Musica> musicasFiltro;
     private ArrayList<MusicaSelecao> musicasSelecao;
     private ArrayList<Integer> codigosMusicasAdicionar;
-    private FloatingActionButton fabConfirma;
     private Pessoa pessoaAtiva;
 
     public AdicionaMusicaPessoaFragment(){}
@@ -38,6 +36,8 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_adiciona_musica_pessoa, container, false);
+        ListView listView;
+        FloatingActionButton fabConfirma;
 
         listView = (ListView) view.findViewById(R.id.lv_fragmento);
         fabConfirma = (FloatingActionButton) view.findViewById(R.id.fab_confirma);

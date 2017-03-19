@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/indigo50"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
         android:elevation="2dp">
 
         <TextView
@@ -18,18 +19,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/padding_padrao"
-            android:paddingRight="@dimen/padding_padrao"
             android:paddingBottom="@dimen/padding_padrao"
-            />
+            android:layout_marginEnd="@dimen/padding_padrao"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tv_detalhamento_musica_codigo"
             android:text="00000"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_padrao"
             android:layout_weight="1"
-            />
+            tools:ignore="HardcodedText" />
 
         <ImageButton
             android:id="@+id/ib_detalhamento_musica_favorto"
@@ -39,6 +40,7 @@
             android:src="@drawable/transition_favorito"
             android:scaleType="fitCenter"
             android:background="@null"
+            android:contentDescription="@string/descricaoIconeFavorito"
             />
 
     </LinearLayout>
@@ -55,7 +57,7 @@
             android:text="letra da música"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            />
+            tools:ignore="HardcodedText" />
 
     </ScrollView>
 

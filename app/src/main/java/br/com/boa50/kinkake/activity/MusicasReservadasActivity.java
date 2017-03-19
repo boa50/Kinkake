@@ -12,13 +12,12 @@ import br.com.boa50.kinkake.util.PessoaUtil;
 
 public class MusicasReservadasActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
-    private MusicasPorPessoaFragment musicasPorPessoaFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_fragment);
+        Toolbar toolbar;
+        MusicasPorPessoaFragment musicasPorPessoaFragment;
 
         toolbar = (Toolbar) findViewById(R.id.tb_fragmento);
         musicasPorPessoaFragment = new MusicasPorPessoaFragment();

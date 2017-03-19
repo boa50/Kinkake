@@ -19,7 +19,6 @@ import br.com.boa50.kinkake.util.FiltroUtil;
 
 public class MusicasCantorActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     private MusicasFragment musicasFragment;
     private Integer idCantor;
 
@@ -27,6 +26,7 @@ public class MusicasCantorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_musicas_cantor);
+        Toolbar toolbar;
 
         Cantor cantor = new Cantor();
         Bundle extras = getIntent().getExtras();

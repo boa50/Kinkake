@@ -32,7 +32,6 @@ public class MusicasPorPessoaFragment extends Fragment{
 
     private ListView listView;
     private ArrayAdapter adapter;
-    private FloatingActionButton fabAddMusica;
     private TextView textViewVazio;
     private static ArrayList<Musica> musicas;
     private ArrayList<Musica> musicasParaExcluir;
@@ -46,6 +45,7 @@ public class MusicasPorPessoaFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_musicas_reservadas, container, false);
+        FloatingActionButton fabAddMusica;
 
         listView = (ListView) view.findViewById(R.id.lv_fragmento);
         fabAddMusica = (FloatingActionButton) view.findViewById(R.id.fab_add);

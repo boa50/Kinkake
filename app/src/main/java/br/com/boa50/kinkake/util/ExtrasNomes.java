@@ -8,7 +8,7 @@ public enum ExtrasNomes {
 
     private final String valor;
 
-    private ExtrasNomes(String valor){
+    ExtrasNomes(String valor){
         this.valor = valor;
     }
 

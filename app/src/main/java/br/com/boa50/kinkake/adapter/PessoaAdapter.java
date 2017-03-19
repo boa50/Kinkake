@@ -27,7 +27,7 @@ public class PessoaAdapter extends ArrayAdapter<Pessoa>{
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.lista_pessoas, parent, false);
 
         TextView quantidade = (TextView) view.findViewById(R.id.tv_lista_pessoas_quantidade);

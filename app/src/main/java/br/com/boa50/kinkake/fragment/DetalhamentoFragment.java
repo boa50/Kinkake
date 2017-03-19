@@ -16,9 +16,6 @@ import br.com.boa50.kinkake.util.MusicaUtil;
 
 public class DetalhamentoFragment extends Fragment {
 
-    private TextView codigo;
-    private TextView letra;
-    private ImageButton favorito;
     private Musica musica;
 
     public DetalhamentoFragment() {
@@ -31,9 +28,9 @@ public class DetalhamentoFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detalhamento, container, false);
 
-        codigo = (TextView) view.findViewById(R.id.tv_detalhamento_musica_codigo);
-        letra = (TextView) view.findViewById(R.id.tv_detalhamento_musica_letra);
-        favorito = (ImageButton) view.findViewById(R.id.ib_detalhamento_musica_favorto);
+        TextView codigo = (TextView) view.findViewById(R.id.tv_detalhamento_musica_codigo);
+        TextView letra = (TextView) view.findViewById(R.id.tv_detalhamento_musica_letra);
+        ImageButton favorito = (ImageButton) view.findViewById(R.id.ib_detalhamento_musica_favorto);
         TransitionDrawable td = (TransitionDrawable) favorito.getDrawable();
         favorito.setImageDrawable(td);
 

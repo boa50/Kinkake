@@ -22,7 +22,6 @@ import br.com.boa50.kinkake.util.ExtrasNomes;
 
 public class CantoresFragment extends Fragment {
 
-    private ListView listView;
     private ArrayAdapter adapter;
     private ArrayList<Cantor> cantores;
 
@@ -35,6 +34,7 @@ public class CantoresFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cantores, container, false);
+        ListView listView;
 
         cantores = new ArrayList<>();
         cantores.addAll(CantorUtil.getTodosCantores());

@@ -17,12 +17,10 @@ public class PessoaListeners {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> updateMusicas = new HashMap<>();
+                updateMusicas.put("codigosMusicas", PessoaUtil.getPessoaAtiva().getCodigosMusicas());
 
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    updateMusicas.put("codigosMusicas", PessoaUtil.getPessoaAtiva().getCodigosMusicas());
-                    ConfiguracaoFirebase.getReferenciaPessoa().child(snapshot.getKey()).updateChildren(updateMusicas);
-                    break;
-                }
+                DataSnapshot snapshot = dataSnapshot.getChildren().iterator().next();
+                ConfiguracaoFirebase.getReferenciaPessoa().child(snapshot.getKey()).updateChildren(updateMusicas);
             }
 
             @Override

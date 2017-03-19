@@ -12,8 +12,6 @@
 
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="bt_width">150dp</dimen>
-
     <dimen name="fab_size">56dp</dimen>
 
     <dimen name="toolbar_elevation">4dp</dimen>
