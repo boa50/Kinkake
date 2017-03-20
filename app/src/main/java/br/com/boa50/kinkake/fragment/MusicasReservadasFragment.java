@@ -39,7 +39,7 @@ public class MusicasReservadasFragment extends Fragment {
     private ListView listView;
     private ArrayAdapter adapter;
     private TextView textViewVazio;
-    private FloatingActionButton fabAddPessoa;
+    private static FloatingActionButton fabAddPessoa;
     private ArrayList<Pessoa> pessoas;
     private ArrayList<Pessoa> pessoasParaExcluir;
     private ArrayList<Integer> posicoesViewsSelecionadas;
@@ -232,7 +232,7 @@ public class MusicasReservadasFragment extends Fragment {
             fabAddPessoa.hide();
     }
 
-    public void mostrarFabDelay(){
+    public static void mostrarFabDelay(){
         Handler handler = new Handler();
 
         handler.postDelayed(new Runnable() {
@@ -247,11 +247,5 @@ public class MusicasReservadasFragment extends Fragment {
     public void onPause() {
         super.onPause();
         esconderFab();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mostrarFabDelay();
     }
 }

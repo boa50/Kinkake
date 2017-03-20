@@ -134,6 +134,7 @@ public class MusicasPorPessoaFragment extends Fragment{
     private void gerenciarVoltar(){
         if(musicasParaExcluir.isEmpty()){
             getActivity().onBackPressed();
+            MusicasReservadasFragment.mostrarFabDelay();
         }else{
             for(Integer posicao : posicoesViewsSelecionadas){
                 listView.getChildAt(posicao).setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
