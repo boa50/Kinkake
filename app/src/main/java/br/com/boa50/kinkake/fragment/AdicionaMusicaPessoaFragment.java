@@ -25,13 +25,13 @@ import br.com.boa50.kinkake.util.PessoaUtil;
 
 public class AdicionaMusicaPessoaFragment extends Fragment{
 
-//    private ArrayAdapter adapter;
     private RecyclerView.Adapter adapter;
     private ArrayList<Musica> musicas;
     private ArrayList<Musica> musicasFiltro;
     private ArrayList<MusicaSelecao> musicasSelecao;
     private ArrayList<Integer> codigosMusicasAdicionar;
     private Pessoa pessoaAtiva;
+    private FloatingActionButton fabConfirma;
 
     public AdicionaMusicaPessoaFragment(){}
 
@@ -39,8 +39,6 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_adiciona_musica_pessoa, container, false);
-//        ListView listView;
-        final FloatingActionButton fabConfirma;
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_fragmento);
         recyclerView.setHasFixedSize(true);
@@ -48,8 +46,6 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-
-//        listView = (ListView) view.findViewById(R.id.lv_fragmento);
         fabConfirma = (FloatingActionButton) view.findViewById(R.id.fab_confirma);
         musicasSelecao = new ArrayList<>();
         musicasFiltro = new ArrayList<>();
@@ -62,8 +58,6 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
 
         adapter = new AdicionarMusicaAdapter(musicasSelecao);
         recyclerView.setAdapter(adapter);
-//        adapter = new AdicionarMusicaAdapter(getActivity(), musicasSelecao);
-//        listView.setAdapter(adapter);
 
         fabConfirma.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,19 +68,6 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
                 getActivity().onBackPressed();
             }
         });
-
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                musicasSelecao.get(position).setSelecao(!musicasSelecao.get(position).isSelecao());
-//                atualizarMusicasAdicionar(position);
-//                if(codigosMusicasAdicionar.isEmpty())
-//                    fabConfirma.hide();
-//                else
-//                    fabConfirma.show();
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
 
         return view;
     }
@@ -102,7 +83,7 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
         }
     }
 
-    private void atualizarMusicasAdicionar(int position){
+    public void atualizarMusicasAdicionar(int position){
         MusicaSelecao musicaSelecao = musicasSelecao.get(position);
 
         if(musicaSelecao.isSelecao()){
@@ -115,6 +96,12 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
                 }
             }
         }
+
+        if(codigosMusicasAdicionar.isEmpty())
+            fabConfirma.hide();
+        else
+            fabConfirma.show();
+        adapter.notifyDataSetChanged();
     }
 
     public void filtrar(String texto, boolean apenasFavoritas){

@@ -106,4 +106,8 @@ public class MusicasAdicionarActivity extends AppCompatActivity {
     private void gerenciarBusca(){
         adicionaMusicaPessoaFragment.filtrar(buscaFiltro, favoritoFiltro);
     }
+
+    public AdicionaMusicaPessoaFragment getAdicionaMusicaPessoaFragment(){
+        return adicionaMusicaPessoaFragment;
+    }
 }
