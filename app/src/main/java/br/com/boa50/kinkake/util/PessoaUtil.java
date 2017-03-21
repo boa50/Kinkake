@@ -1,5 +1,6 @@
 package br.com.boa50.kinkake.util;
 
+import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class PessoaUtil {
     private static ArrayList<Pessoa> todasPessoas;
     private static Pessoa pessoaAtiva;
 
-    private static ArrayAdapter adapterMusicasPessoa;
+    private static RecyclerView.Adapter adapterMusicasPessoa;
     private static ArrayAdapter adapterPessoa;
 
     public static ArrayList<Pessoa> getTodasPessoas(){
@@ -28,7 +29,7 @@ public class PessoaUtil {
         todasPessoas.addAll(pessoas);
     }
 
-    public static void ordenarPessoasPorNome(ArrayList<Pessoa> pessoas){
+    private static void ordenarPessoasPorNome(ArrayList<Pessoa> pessoas){
         Collections.sort(pessoas, new Comparator<Pessoa>() {
             @Override
             public int compare(Pessoa p0, Pessoa p1) {
@@ -77,11 +78,11 @@ public class PessoaUtil {
         return pessoaAtiva;
     }
 
-    public static ArrayAdapter getAdapterMusicasPessoa() {
+    public static RecyclerView.Adapter getAdapterMusicasPessoa() {
         return adapterMusicasPessoa;
     }
 
-    public static void setAdapterMusicasPessoa(ArrayAdapter adapterMusicasPessoa) {
+    public static void setAdapterMusicasPessoa(RecyclerView.Adapter adapterMusicasPessoa) {
         PessoaUtil.adapterMusicasPessoa = adapterMusicasPessoa;
     }
 

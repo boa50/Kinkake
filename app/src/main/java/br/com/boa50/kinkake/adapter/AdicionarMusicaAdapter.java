@@ -14,7 +14,7 @@ import br.com.boa50.kinkake.activity.MusicasAdicionarActivity;
 import br.com.boa50.kinkake.fragment.AdicionaMusicaPessoaFragment;
 import br.com.boa50.kinkake.model.MusicaSelecao;
 
-public class AdicionarMusicaAdapter extends RecyclerView.Adapter<AdicionarMusicaAdapter.AdicionarMusicaViewHolder> /*ArrayAdapter<MusicaSelecao>*/{
+public class AdicionarMusicaAdapter extends RecyclerView.Adapter<AdicionarMusicaAdapter.AdicionarMusicaViewHolder>{
 
     private ArrayList<MusicaSelecao> musicasSelecao;
     private AdicionaMusicaPessoaFragment fragment;
@@ -52,7 +52,6 @@ public class AdicionarMusicaAdapter extends RecyclerView.Adapter<AdicionarMusica
 
 
     static class AdicionarMusicaViewHolder extends RecyclerView.ViewHolder{
-
         CheckBox checkBox;
         TextView textView;
 
