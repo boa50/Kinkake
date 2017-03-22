@@ -17,10 +17,10 @@ public class DetalhamentoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalhamento);
+        setContentView(R.layout.activity_one_fragment);
         Toolbar toolbar;
 
-        toolbar = (Toolbar) findViewById(R.id.tb_detalhamento);
+        toolbar = (Toolbar) findViewById(R.id.tb_fragmento);
 
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -37,7 +37,7 @@ public class DetalhamentoActivity extends AppCompatActivity {
 
         DetalhamentoFragment detalhamentoFragment = new DetalhamentoFragment();
         detalhamentoFragment.setMusica(musica);
-        fragmentTransaction.add(R.id.ll_detalhamento, detalhamentoFragment);
+        fragmentTransaction.add(R.id.fl_fragmento, detalhamentoFragment);
         fragmentTransaction.commit();
     }
 

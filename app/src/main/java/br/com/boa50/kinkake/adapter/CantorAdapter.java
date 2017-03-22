@@ -1,46 +1,62 @@
 package br.com.boa50.kinkake.adapter;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import br.com.boa50.kinkake.R;
+import br.com.boa50.kinkake.activity.MainActivity;
+import br.com.boa50.kinkake.fragment.CantoresFragment;
 import br.com.boa50.kinkake.model.Cantor;
 
-public class CantorAdapter extends ArrayAdapter<Cantor> {
-
-    private Context context;
+public class CantorAdapter extends RecyclerView.Adapter<CantorAdapter.CantorViewHolder> {
     private ArrayList<Cantor> cantores;
+    private CantoresFragment fragment;
 
-    public CantorAdapter(Context context, ArrayList<Cantor> objects) {
-        super(context, 0, objects);
-        this.context = context;
-        this.cantores = objects;
+    public CantorAdapter(ArrayList<Cantor> cantores) {
+        this.cantores = cantores;
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public CantorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_cantores, parent, false);
+        fragment = ((MainActivity) parent.getContext()).getCantoresFragment();
+        return new CantorViewHolder(view);
+    }
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View view = inflater.inflate(R.layout.lista_cantores, parent, false);
-
-        TextView quantidade = (TextView) view.findViewById(R.id.tv_lista_cantores_quantidade);
-        TextView nome = (TextView) view.findViewById(R.id.tv_lista_cantores_nome);
-
+    @Override
+    public void onBindViewHolder(CantorViewHolder holder, int position) {
         Cantor cantor = cantores.get(position);
+        final int posicao = position;
 
-        quantidade.setText(String.valueOf(cantor.getCodigosMusicas().size()));
-        nome.setText(cantor.getNome());
+        holder.quantidade.setText(String.valueOf(cantor.getCodigosMusicas().size()));
+        holder.nome.setText(cantor.getNome());
 
-        return view;
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment.itemClickListener(posicao);
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return cantores.size();
+    }
+
+    static class CantorViewHolder extends RecyclerView.ViewHolder{
+        TextView quantidade;
+        TextView nome;
+
+        CantorViewHolder(View itemView) {
+            super(itemView);
+            quantidade = (TextView) itemView.findViewById(R.id.tv_lista_cantores_quantidade);
+            nome = (TextView) itemView.findViewById(R.id.tv_lista_cantores_nome);
+        }
     }
 }

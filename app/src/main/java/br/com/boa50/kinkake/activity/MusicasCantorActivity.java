@@ -25,7 +25,7 @@ public class MusicasCantorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_musicas_cantor);
+        setContentView(R.layout.activity_one_fragment);
         Toolbar toolbar;
 
         Cantor cantor = new Cantor();
@@ -37,7 +37,7 @@ public class MusicasCantorActivity extends AppCompatActivity {
             cantor.setCodigosMusicas(extras.getIntegerArrayList(ExtrasNomes.LISTA_MUSICAS_CANTOR.getValor()));
         }
 
-        toolbar = (Toolbar) findViewById(R.id.tb_main);
+        toolbar = (Toolbar) findViewById(R.id.tb_fragmento);
         toolbar.setTitle(cantor.getNome());
         setSupportActionBar(toolbar);
 
@@ -47,7 +47,7 @@ public class MusicasCantorActivity extends AppCompatActivity {
         musicasFragment.setCantor(cantor);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.fl_fragmento_musicas_cantor, musicasFragment);
+        fragmentTransaction.add(R.id.fl_fragmento, musicasFragment);
         fragmentTransaction.commit();
     }
 

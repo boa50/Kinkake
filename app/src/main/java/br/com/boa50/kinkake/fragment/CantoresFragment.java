@@ -4,12 +4,11 @@ package br.com.boa50.kinkake.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -22,39 +21,28 @@ import br.com.boa50.kinkake.util.ExtrasNomes;
 
 public class CantoresFragment extends Fragment {
 
-    private ArrayAdapter adapter;
+    private RecyclerView.Adapter adapter;
     private ArrayList<Cantor> cantores;
 
-    public CantoresFragment() {
-        // Required empty public constructor
-    }
+    public CantoresFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_cantores, container, false);
-        ListView listView;
+        View view = inflater.inflate(R.layout.fragment_recycle, container, false);
+
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_fragment);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
 
         cantores = new ArrayList<>();
         cantores.addAll(CantorUtil.getTodosCantores());
 
-        listView = (ListView) view.findViewById(R.id.lv_cantores);
-        adapter = new CantorAdapter(getActivity(), cantores);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Cantor cantor = cantores.get(i);
-
-                Intent intent = new Intent(getActivity(), MusicasCantorActivity.class);
-                intent.putExtra(ExtrasNomes.ID_CANTOR.getValor(), cantor.getId());
-                intent.putExtra(ExtrasNomes.NOME_CANTOR.getValor(), cantor.getNome());
-                intent.putExtra(ExtrasNomes.LISTA_MUSICAS_CANTOR.getValor(), cantor.getCodigosMusicas());
-                startActivity(intent);
-            }
-        });
+        adapter = new CantorAdapter(cantores);
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
@@ -68,4 +56,12 @@ public class CantoresFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
+    public void itemClickListener(int position){
+        Cantor cantor = cantores.get(position);
+        Intent intent = new Intent(getActivity(), MusicasCantorActivity.class);
+        intent.putExtra(ExtrasNomes.ID_CANTOR.getValor(), cantor.getId());
+        intent.putExtra(ExtrasNomes.NOME_CANTOR.getValor(), cantor.getNome());
+        intent.putExtra(ExtrasNomes.LISTA_MUSICAS_CANTOR.getValor(), cantor.getCodigosMusicas());
+        startActivity(intent);
+    }
 }

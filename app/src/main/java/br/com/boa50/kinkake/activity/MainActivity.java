@@ -153,4 +153,7 @@ public class MainActivity extends AppCompatActivity {
     public MusicasFragment getMusicasFragment(){
         return (MusicasFragment) adapter.getItem(1);
     }
+    public CantoresFragment getCantoresFragment(){
+        return (CantoresFragment) adapter.getItem(0);
+    }
 }
