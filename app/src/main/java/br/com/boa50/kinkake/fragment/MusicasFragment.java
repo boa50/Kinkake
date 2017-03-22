@@ -4,12 +4,11 @@ package br.com.boa50.kinkake.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import com.google.firebase.database.DatabaseReference;
 
@@ -27,7 +26,7 @@ import br.com.boa50.kinkake.util.MusicaUtil;
 
 public class MusicasFragment extends Fragment {
 
-    private static ArrayAdapter adapter;
+    private static RecyclerView.Adapter adapter;
     private static ArrayList<Musica> musicas;
     private Cantor cantor;
 
@@ -41,8 +40,13 @@ public class MusicasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_musicas, container, false);
-        ListView listView;
+        View view = inflater.inflate(R.layout.fragment_recycle, container, false);
+
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_fragment);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
 
         if(musicas == null){
             musicas = new ArrayList<>();
@@ -56,28 +60,23 @@ public class MusicasFragment extends Fragment {
             musicas.addAll(MusicaUtil.getTodasMusicas());
         }
 
-        listView = (ListView) view.findViewById(R.id.lv_musicas);
         if(adapter == null)
-            adapter = new MusicaAdapter(getActivity(), musicas);
-        listView.setAdapter(adapter);
+            adapter = new MusicaAdapter(musicas);
+        recyclerView.setAdapter(adapter);
 
         if(databaseReference == null){
             databaseReference = ConfiguracaoFirebase.getReferenciaMusica();
             databaseReference.addChildEventListener(MusicaListeners.getListenerMusicas(adapter));
         }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Musica musica = musicas.get(i);
-
-                Intent intent = new Intent(getActivity(), DetalhamentoActivity.class);
-                intent.putExtra(ExtrasNomes.MUSICA.getValor(), musica);
-                startActivity(intent);
-            }
-        });
-
         return view;
+    }
+
+    public void itemClickListener(int position){
+        Musica musica = musicas.get(position);
+        Intent intent = new Intent(getActivity(), DetalhamentoActivity.class);
+        intent.putExtra(ExtrasNomes.MUSICA.getValor(), musica);
+        startActivity(intent);
     }
 
     public void filtrar(String texto, boolean apenasFavoritas){

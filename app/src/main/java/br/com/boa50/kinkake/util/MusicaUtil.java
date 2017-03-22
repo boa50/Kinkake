@@ -74,31 +74,6 @@ public class MusicaUtil {
     }
 
     public static ArrayList<Musica> filtrar(String texto, boolean apenasFavoritas){
-//        ArrayList<Musica> retorno = new ArrayList<>();
-//
-//        if(!texto.isEmpty())
-//            texto = StringUtil.removerAcentos(texto).toUpperCase();
-//
-//        if(texto.isEmpty() && !apenasFavoritas){
-//            return todasMusicas;
-//        }else if(texto.isEmpty() && apenasFavoritas){
-//            for(Musica musica : todasMusicas){
-//                if(musica.isFavorito())
-//                    retorno.add(musica);
-//            }
-//        }else if(!texto.isEmpty() && !apenasFavoritas){
-//            for(Musica musica : todasMusicas){
-//                if(StringUtil.removerAcentos(musica.getNome()).contains(texto))
-//                    retorno.add(musica);
-//            }
-//        }else{
-//            for(Musica musica : todasMusicas){
-//                if(StringUtil.removerAcentos(musica.getNome()).contains(texto))
-//                    if(musica.isFavorito())
-//                        retorno.add(musica);
-//            }
-//        }
-
         return filtrar(todasMusicas, texto, apenasFavoritas);
     }
 

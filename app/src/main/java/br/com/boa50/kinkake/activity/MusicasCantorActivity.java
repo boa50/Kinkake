@@ -99,4 +99,8 @@ public class MusicasCantorActivity extends AppCompatActivity {
         dialogFiltro.create();
         dialogFiltro.show();
     }
+
+    public MusicasFragment getMusicasFragment(){
+        return musicasFragment;
+    }
 }

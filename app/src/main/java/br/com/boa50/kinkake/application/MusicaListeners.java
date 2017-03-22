@@ -1,7 +1,7 @@
 package br.com.boa50.kinkake.application;
 
 
-import android.widget.ArrayAdapter;
+import android.support.v7.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -41,7 +41,7 @@ public class MusicaListeners {
         };
     }
 
-    public static ChildEventListener getListenerMusicas(final ArrayAdapter adapter){
+    public static ChildEventListener getListenerMusicas(final RecyclerView.Adapter adapter){
 
         return new ChildEventListener() {
             @Override

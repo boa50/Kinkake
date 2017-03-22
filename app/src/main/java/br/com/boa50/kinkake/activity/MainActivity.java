@@ -150,4 +150,7 @@ public class MainActivity extends AppCompatActivity {
     public MusicasReservadasFragment getMusicasReservadasFragment(){
         return (MusicasReservadasFragment) adapter.getItem(2);
     }
+    public MusicasFragment getMusicasFragment(){
+        return (MusicasFragment) adapter.getItem(1);
+    }
 }

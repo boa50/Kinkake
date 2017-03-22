@@ -1,7 +1,6 @@
 package br.com.boa50.kinkake.util;
 
 import android.support.v7.widget.RecyclerView;
-import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
