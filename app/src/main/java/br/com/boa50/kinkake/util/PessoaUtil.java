@@ -17,7 +17,7 @@ public class PessoaUtil {
     private static Pessoa pessoaAtiva;
 
     private static RecyclerView.Adapter adapterMusicasPessoa;
-    private static ArrayAdapter adapterPessoa;
+    private static RecyclerView.Adapter adapterPessoa;
 
     public static ArrayList<Pessoa> getTodasPessoas(){
         return todasPessoas;
@@ -86,11 +86,11 @@ public class PessoaUtil {
         PessoaUtil.adapterMusicasPessoa = adapterMusicasPessoa;
     }
 
-    public static ArrayAdapter getAdapterPessoa() {
+    public static RecyclerView.Adapter getAdapterPessoa() {
         return adapterPessoa;
     }
 
-    public static void setAdapterPessoa(ArrayAdapter adapterPessoa) {
+    public static void setAdapterPessoa(RecyclerView.Adapter adapterPessoa) {
         PessoaUtil.adapterPessoa = adapterPessoa;
     }
 }

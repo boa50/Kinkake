@@ -104,12 +104,6 @@ public class MusicasPorPessoaFragment extends Fragment{
         }
     }
 
-    public void itemLongClickListener(View view, int position){
-        adicionarMusicaExcluir(view, position);
-        itemExcluir.setVisible(true);
-        toolbar.setTitle(R.string.tituloMusicasPessoaExcluir);
-    }
-
     public void itemClickListener(View view, int position){
         if(!musicasParaExcluir.isEmpty()){
             if(posicoesViewsSelecionadas.contains(position)){
@@ -120,6 +114,12 @@ public class MusicasPorPessoaFragment extends Fragment{
                 adicionarMusicaExcluir(view, position);
             }
         }
+    }
+
+    public void itemLongClickListener(View view, int position){
+        adicionarMusicaExcluir(view, position);
+        itemExcluir.setVisible(true);
+        toolbar.setTitle(R.string.tituloMusicasPessoaExcluir);
     }
 
     private void excluirMusicasSelecionadas(){

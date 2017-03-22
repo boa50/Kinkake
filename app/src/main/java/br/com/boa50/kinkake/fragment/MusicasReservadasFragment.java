@@ -11,6 +11,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,8 +38,8 @@ import br.com.boa50.kinkake.util.PessoaUtil;
 
 public class MusicasReservadasFragment extends Fragment {
 
-    private ListView listView;
-    private ArrayAdapter adapter;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
     private TextView textViewVazio;
     private static FloatingActionButton fabAddPessoa;
     private ArrayList<Pessoa> pessoas;
@@ -52,20 +54,24 @@ public class MusicasReservadasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_musicas_reservadas_old, container, false);
-//        final FloatingActionButton fabAddPessoa;
+        View view = inflater.inflate(R.layout.fragment_recycle_fab, container, false);
 
-        listView = (ListView) view.findViewById(R.id.lv_fragmento);
-        fabAddPessoa = (FloatingActionButton) view.findViewById(R.id.fab_add);
-        textViewVazio = (TextView) view.findViewById(R.id.tv_reservadas_vazio);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_fragment_fab);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
+        fabAddPessoa = (FloatingActionButton) view.findViewById(R.id.fab_fragment_recycle);
+        textViewVazio = (TextView) view.findViewById(R.id.tv_fragment_recycle_fab);
         pessoas = PessoaUtil.getTodasPessoas();
-        adapter = new PessoaAdapter(getActivity(), pessoas);
+        adapter = new PessoaAdapter(pessoas);
         pessoasParaExcluir = new ArrayList<>();
         posicoesViewsSelecionadas = new ArrayList<>();
         toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 
         PessoaUtil.setAdapterPessoa(adapter);
-        listView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
         setHasOptionsMenu(true);
         verificarListaPessoasVazia();
 
@@ -73,38 +79,6 @@ public class MusicasReservadasFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 abrirDialogoAddPessoa();
-            }
-        });
-
-        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                adicionarPessoaExcluir(view, position);
-                itemExcluir.setVisible(true);
-                toolbar.setTitle(R.string.tituloPessoasExcluir);
-                toolbar.setDisplayHomeAsUpEnabled(true);
-                return true;
-            }
-        });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(pessoasParaExcluir.isEmpty()){
-                    Pessoa pessoa = pessoas.get(position);
-                    Intent intent = new Intent(getActivity(), MusicasReservadasActivity.class);
-                    MusicasPorPessoaFragment.setMusicas(pessoa.getCodigosMusicas());
-                    PessoaUtil.setPessoaAtiva(pessoa);
-                    startActivity(intent);
-                }else{
-                    if(posicoesViewsSelecionadas.contains(position)){
-                        removerPessoaExcluir(view, position);
-                        if(pessoasParaExcluir.isEmpty())
-                            voltarEstadoTela();
-                    }else{
-                        adicionarPessoaExcluir(view, position);
-                    }
-                }
             }
         });
 
@@ -176,11 +150,36 @@ public class MusicasReservadasFragment extends Fragment {
                 removerPessoasSelecionadas();
                 return true;
             case android.R.id.home:
-                limparListaExclusao();
+                voltarEstadoTela();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void itemClickListener(View view, int position){
+        if(pessoasParaExcluir.isEmpty()){
+            Pessoa pessoa = pessoas.get(position);
+            Intent intent = new Intent(getActivity(), MusicasReservadasActivity.class);
+            MusicasPorPessoaFragment.setMusicas(pessoa.getCodigosMusicas());
+            PessoaUtil.setPessoaAtiva(pessoa);
+            startActivity(intent);
+        }else{
+            if(posicoesViewsSelecionadas.contains(position)){
+                removerPessoaExcluir(view, position);
+                if(pessoasParaExcluir.isEmpty())
+                    voltarEstadoTela();
+            }else{
+                adicionarPessoaExcluir(view, position);
+            }
+        }
+    }
+
+    public void itemLongClickListener(View view, int position){
+        adicionarPessoaExcluir(view, position);
+        itemExcluir.setVisible(true);
+        toolbar.setTitle(R.string.tituloPessoasExcluir);
+        toolbar.setDisplayHomeAsUpEnabled(true);
     }
 
     private void removerPessoasSelecionadas(){
@@ -190,13 +189,6 @@ public class MusicasReservadasFragment extends Fragment {
         PessoaUtil.atualizarListaPessoas(teste);
         verificarListaPessoasVazia();
         adapter.notifyDataSetChanged();
-        voltarEstadoTela();
-    }
-
-    private void limparListaExclusao(){
-        for(Integer posicao : posicoesViewsSelecionadas){
-            listView.getChildAt(posicao).setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
-        }
         voltarEstadoTela();
     }
 
@@ -213,6 +205,9 @@ public class MusicasReservadasFragment extends Fragment {
     }
 
     private void voltarEstadoTela(){
+        for(Integer posicao : posicoesViewsSelecionadas){
+            recyclerView.getChildAt(posicao).setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
+        }
         pessoasParaExcluir.clear();
         posicoesViewsSelecionadas.clear();
         itemExcluir.setVisible(false);

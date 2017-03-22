@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabAdapter adapter;
-
     private String buscaFiltro;
 
     @Override
@@ -146,5 +145,9 @@ public class MainActivity extends AppCompatActivity {
         }else{
             musicasFragment.filtrar(buscaFiltro, FiltroUtil.isFavoritoFiltro());
         }
+    }
+
+    public MusicasReservadasFragment getMusicasReservadasFragment(){
+        return (MusicasReservadasFragment) adapter.getItem(2);
     }
 }
