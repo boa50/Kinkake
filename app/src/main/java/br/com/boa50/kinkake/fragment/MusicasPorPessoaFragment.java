@@ -33,7 +33,6 @@ import br.com.boa50.kinkake.util.PessoaUtil;
 
 public class MusicasPorPessoaFragment extends Fragment{
 
-//    private ListView listView;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private TextView textViewVazio;
@@ -49,21 +48,19 @@ public class MusicasPorPessoaFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_musicas_reservadas, container, false);
+        View view = inflater.inflate(R.layout.fragment_recycle_fab, container, false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.rv_fragmento);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_fragment_fab);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-//        listView = (ListView) view.findViewById(R.id.lv_fragmento);
-        fabAddMusica = (FloatingActionButton) view.findViewById(R.id.fab_add);
-        textViewVazio = (TextView) view.findViewById(R.id.tv_reservadas_vazio);
+        fabAddMusica = (FloatingActionButton) view.findViewById(R.id.fab_fragment_recycle);
+        textViewVazio = (TextView) view.findViewById(R.id.tv_fragment_recycle_fab);
         if(musicas == null)
             musicas = new ArrayList<>();
         adapter = new MusicaReservadaAdapter(musicas);
-//        listView.setAdapter(adapter);
         recyclerView.setAdapter(adapter);
         musicasParaExcluir = new ArrayList<>();
         posicoesViewsSelecionadas = new ArrayList<>();
@@ -72,31 +69,6 @@ public class MusicasPorPessoaFragment extends Fragment{
         setHasOptionsMenu(true);
         PessoaUtil.setAdapterMusicasPessoa(adapter);
         mostrarFabDelay();
-
-//        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                adicionarMusicaExcluir(view, position);
-//                itemExcluir.setVisible(true);
-//                toolbar.setTitle(R.string.tituloMusicasPessoaExcluir);
-//                return true;
-//            }
-//        });
-
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                if(!musicasParaExcluir.isEmpty()){
-//                    if(posicoesViewsSelecionadas.contains(position)){
-//                        removerPessoasExcluir(view, position);
-//                        if(musicasParaExcluir.isEmpty())
-//                            voltarEstadoTela();
-//                    }else{
-//                        adicionarMusicaExcluir(view, position);
-//                    }
-//                }
-//            }
-//        });
 
         fabAddMusica.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,13 +104,13 @@ public class MusicasPorPessoaFragment extends Fragment{
         }
     }
 
-    public void longClickListener(View view, int position){
+    public void itemLongClickListener(View view, int position){
         adicionarMusicaExcluir(view, position);
         itemExcluir.setVisible(true);
         toolbar.setTitle(R.string.tituloMusicasPessoaExcluir);
     }
 
-    public void clickListener(View view, int position){
+    public void itemClickListener(View view, int position){
         if(!musicasParaExcluir.isEmpty()){
             if(posicoesViewsSelecionadas.contains(position)){
                 removerPessoasExcluir(view, position);
@@ -164,15 +136,14 @@ public class MusicasPorPessoaFragment extends Fragment{
             getActivity().onBackPressed();
             MusicasReservadasFragment.mostrarFabDelay();
         }else{
-            for(Integer posicao : posicoesViewsSelecionadas){
-//                listView.getChildAt(posicao).setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
-                recyclerView.getChildAt(posicao).setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
-            }
             voltarEstadoTela();
         }
     }
 
     private void voltarEstadoTela(){
+        for(Integer posicao : posicoesViewsSelecionadas){
+            recyclerView.getChildAt(posicao).setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
+        }
         musicasParaExcluir.clear();
         posicoesViewsSelecionadas.clear();
         itemExcluir.setVisible(false);

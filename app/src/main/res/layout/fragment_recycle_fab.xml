@@ -6,19 +6,26 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_fragmento"
+        android:id="@+id/rv_fragment_fab"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_confirma"
+    <TextView
+        android:id="@+id/tv_fragment_recycle_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#BDBDBD"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_fragment_recycle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_check"
-        app:backgroundTint="@color/green800"
-        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_action_add"
         android:scaleType="center"
         android:visibility="invisible"
         />

@@ -1,9 +1,11 @@
 package br.com.boa50.kinkake.fragment;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,15 +40,18 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_adiciona_musica_pessoa, container, false);
+        View view = inflater.inflate(R.layout.fragment_recycle_fab, container, false);
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_fragmento);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_fragment_fab);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
 
-        fabConfirma = (FloatingActionButton) view.findViewById(R.id.fab_confirma);
+        fabConfirma = (FloatingActionButton) view.findViewById(R.id.fab_fragment_recycle);
+        fabConfirma.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getActivity(), R.color.green800)));
+        fabConfirma.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_check));
+
         musicasSelecao = new ArrayList<>();
         musicasFiltro = new ArrayList<>();
         codigosMusicasAdicionar = new ArrayList<>();
