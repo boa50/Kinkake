@@ -1,6 +1,6 @@
 package br.com.boa50.kinkake.adapter;
 
-import android.graphics.drawable.TransitionDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,11 +45,13 @@ public class MusicaAdapter extends RecyclerView.Adapter<MusicaAdapter.MusicaView
         holder.codigo.setText(MusicaUtil.transformaCodigoString(musica.getCodigo()));
         holder.nome.setText(musica.getNome());
         if(musica.isFavorito())
-            holder.td.startTransition(0);
+            holder.favorito.setImageDrawable(
+                    ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.ic_heart));
         else
-            holder.td.resetTransition();
+            holder.favorito.setImageDrawable(
+                    ContextCompat.getDrawable(holder.itemView.getContext(),R.drawable.ic_heart_outline));
 
-        holder.favorito.setOnClickListener(MusicaUtil.favoritoClickListener(musica, holder.td));
+        holder.favorito.setOnClickListener(MusicaUtil.favoritoClickListener(musica, holder.favorito));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,15 +70,12 @@ public class MusicaAdapter extends RecyclerView.Adapter<MusicaAdapter.MusicaView
         TextView codigo;
         TextView nome;
         ImageButton favorito;
-        TransitionDrawable td;
 
         MusicaViewHolder(View itemView) {
             super(itemView);
             codigo = (TextView) itemView.findViewById(R.id.tv_lista_musica_codigo);
             nome = (TextView) itemView.findViewById(R.id.tv_lista_musica_nome);
             favorito = (ImageButton) itemView.findViewById(R.id.ib_lista_musica_favorto);
-            td = (TransitionDrawable) favorito.getDrawable();
-            favorito.setImageDrawable(td);
         }
     }
 }

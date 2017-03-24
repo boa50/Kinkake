@@ -36,7 +36,7 @@
         android:layout_marginTop="@dimen/padding_padrao"
         android:layout_marginBottom="@dimen/padding_padrao"
         android:layout_gravity="center"
-        android:src="@drawable/transition_favorito"
+        android:src="@drawable/ic_heart_outline"
         android:scaleType="fitCenter"
         android:background="@null"
         android:contentDescription="@string/descricaoIconeFavorito"

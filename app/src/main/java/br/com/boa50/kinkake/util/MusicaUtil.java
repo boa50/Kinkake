@@ -1,12 +1,16 @@
 package br.com.boa50.kinkake.util;
 
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
+import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
 import br.com.boa50.kinkake.application.MusicaListeners;
 import br.com.boa50.kinkake.model.Cantor;
@@ -16,11 +20,17 @@ public class MusicaUtil {
 
     private static ArrayList<Musica> todasMusicas;
 
-    public static View.OnClickListener favoritoClickListener(final Musica musica, final TransitionDrawable td){
+    public static View.OnClickListener favoritoClickListener(final Musica musica, final ImageButton favorito){
 
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Drawable imagens[] = new Drawable[2];
+                imagens[0] = ContextCompat.getDrawable(favorito.getContext(), R.drawable.ic_heart_outline);
+                imagens[1] = ContextCompat.getDrawable(favorito.getContext(), R.drawable.ic_heart);
+                TransitionDrawable td = new TransitionDrawable(imagens);
+                favorito.setImageDrawable(td);
+
                 musica.setFavorito(!musica.isFavorito());
                 mudaIconeFavorito(td, musica.isFavorito());
 
@@ -37,6 +47,7 @@ public class MusicaUtil {
         if(favorito){
             td.startTransition(tempoTransition);
         }else{
+            td.startTransition(0);
             td.reverseTransition(tempoTransition);
         }
     }

@@ -36,7 +36,7 @@
             android:layout_width="@dimen/icone_quadrado_lado"
             android:layout_height="@dimen/icone_quadrado_lado"
             android:layout_margin="@dimen/padding_padrao"
-            android:src="@drawable/transition_favorito"
+            android:src="@drawable/ic_heart_outline"
             android:scaleType="fitCenter"
             android:background="@null"
             android:contentDescription="@string/descricaoIconeFavorito"
