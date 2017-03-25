@@ -186,12 +186,10 @@ public class MusicasReservadasFragment extends Fragment {
     }
 
     private void removerPessoasSelecionadas(){
-        pessoas.removeAll(pessoasParaExcluir);
         ArrayList<Pessoa> teste = new ArrayList<>();
         teste.addAll(pessoasParaExcluir);
         PessoaUtil.atualizarListaPessoas(teste);
         verificarListaPessoasVazia();
-        adapter.notifyDataSetChanged();
         voltarEstadoTela();
     }
 

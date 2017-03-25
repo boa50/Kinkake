@@ -63,8 +63,6 @@ public class PessoaUtil {
     }
 
     public static void adicionarPessoa(Pessoa pessoa){
-        todasPessoas.add(pessoa);
-        ordenarPessoasPorNome(todasPessoas);
         ConfiguracaoFirebase.getReferenciaPessoa().push().setValue(pessoa);
     }
 

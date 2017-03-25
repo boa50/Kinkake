@@ -77,7 +77,7 @@ public class PessoaListeners {
                 int indice = -1;
 
                 for(Pessoa pessoaObj : todasPessoas){
-                    if(pessoaObj.getNome().equalsIgnoreCase(pessoa.getNome())){
+                    if(pessoaObj.getNome().equals(pessoa.getNome())){
                         pessoaObj.getCodigosMusicas().clear();
                         pessoaObj.getCodigosMusicas().addAll(pessoa.getCodigosMusicas());
                         indice = todasPessoas.indexOf(pessoaObj);
@@ -95,7 +95,7 @@ public class PessoaListeners {
                 int indice = -1;
 
                 for(Pessoa pessoaObj : todasPessoas){
-                    if(pessoaObj.getNome().equalsIgnoreCase(pessoa.getNome())){
+                    if(pessoaObj.getNome().equals(pessoa.getNome())){
                         indice = todasPessoas.indexOf(pessoaObj);
                         todasPessoas.remove(pessoaObj);
                         break;
