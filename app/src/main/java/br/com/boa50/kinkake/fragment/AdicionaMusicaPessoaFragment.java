@@ -21,7 +21,6 @@ import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.model.MusicaSelecao;
 import br.com.boa50.kinkake.model.Pessoa;
 import br.com.boa50.kinkake.util.MusicaUtil;
-import br.com.boa50.kinkake.util.PessoaUtil;
 import br.com.boa50.kinkake.util.VariaveisEstaticas;
 
 public class AdicionaMusicaPessoaFragment extends Fragment{

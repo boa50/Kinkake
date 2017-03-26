@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,17 +24,11 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-
 import java.util.ArrayList;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.activity.MusicasReservadasActivity;
 import br.com.boa50.kinkake.adapter.PessoaAdapter;
-import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
 import br.com.boa50.kinkake.application.PessoaFirebase;
 import br.com.boa50.kinkake.model.Pessoa;
 import br.com.boa50.kinkake.util.PessoaUtil;
@@ -75,7 +68,6 @@ public class MusicasReservadasFragment extends Fragment {
         posicoesViewsSelecionadas = new ArrayList<>();
         toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 
-        VariaveisEstaticas.setAdapterPessoa(adapter);
         recyclerView.setAdapter(adapter);
         setHasOptionsMenu(true);
         verificarListaPessoasVazia();
@@ -251,11 +243,5 @@ public class MusicasReservadasFragment extends Fragment {
     public void onStart() {
         super.onStart();
         PessoaFirebase.adicionarListenerPessoas(adapter);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        PessoaFirebase.removerListenerPessoas();
     }
 }

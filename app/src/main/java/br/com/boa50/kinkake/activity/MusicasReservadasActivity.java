@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.fragment.MusicasPorPessoaFragment;
 import br.com.boa50.kinkake.model.Pessoa;
-import br.com.boa50.kinkake.util.PessoaUtil;
 import br.com.boa50.kinkake.util.VariaveisEstaticas;
 
 public class MusicasReservadasActivity extends AppCompatActivity {
@@ -23,7 +22,6 @@ public class MusicasReservadasActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.tb_fragmento);
         musicasPorPessoaFragment = new MusicasPorPessoaFragment();
 
-//        Pessoa pessoa = PessoaUtil.getPessoaAtiva();
         Pessoa pessoa = VariaveisEstaticas.getPessoaAtiva();
 
         toolbar.setTitle("Músicas de " + pessoa.getNome());

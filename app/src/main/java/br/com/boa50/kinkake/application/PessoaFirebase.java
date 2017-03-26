@@ -36,14 +36,14 @@ public class PessoaFirebase {
     public static void adicionarListenerPessoas(RecyclerView.Adapter adapter){
         verificarReferenciaNula();
 
+        if (listenerPessoas != null)
+            databaseReference.removeEventListener(listenerPessoas);
+
         listenerPessoas = PessoaListeners.getListenerTodasPessoas(
                 adapter, VariaveisEstaticas.getTodasPessoas(), VariaveisEstaticas.getNomesAdicionados()
         );
-        databaseReference.addChildEventListener(listenerPessoas);
-    }
 
-    public static void removerListenerPessoas(){
-        databaseReference.removeEventListener(listenerPessoas);
+        databaseReference.addChildEventListener(listenerPessoas);
     }
 
     public static void atulizarListaMusicasPessoaAtiva(){

@@ -27,7 +27,6 @@ import br.com.boa50.kinkake.adapter.MusicaReservadaAdapter;
 import br.com.boa50.kinkake.application.PessoaFirebase;
 import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.util.MusicaUtil;
-import br.com.boa50.kinkake.util.PessoaUtil;
 import br.com.boa50.kinkake.util.VariaveisEstaticas;
 
 public class MusicasPorPessoaFragment extends Fragment{
@@ -129,7 +128,6 @@ public class MusicasPorPessoaFragment extends Fragment{
         PessoaFirebase.atulizarListaMusicasPessoaAtiva();
         verificarListaMusicasVazia();
         adapter.notifyDataSetChanged();
-        VariaveisEstaticas.getAdapterPessoa().notifyDataSetChanged();
         voltarEstadoTela();
     }
 
@@ -173,8 +171,6 @@ public class MusicasPorPessoaFragment extends Fragment{
         musicas.addAll(MusicaUtil.getMusicasPorCodigos(codigosMusicas));
         if(VariaveisEstaticas.getAdapterMusicasPessoa() != null)
             VariaveisEstaticas.getAdapterMusicasPessoa().notifyDataSetChanged();
-        if(VariaveisEstaticas.getAdapterPessoa() != null)
-            VariaveisEstaticas.getAdapterPessoa().notifyDataSetChanged();
     }
 
     private void verificarListaMusicasVazia(){

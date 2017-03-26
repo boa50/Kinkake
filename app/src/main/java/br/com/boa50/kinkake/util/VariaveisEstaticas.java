@@ -12,7 +12,6 @@ public class VariaveisEstaticas{
     private static ArrayList<String> nomesAdicionados;
     private static Pessoa pessoaAtiva;
     private static RecyclerView.Adapter adapterMusicasPessoa;
-    private static RecyclerView.Adapter adapterPessoa;
 
 
 
@@ -46,13 +45,5 @@ public class VariaveisEstaticas{
 
     public static void setAdapterMusicasPessoa(RecyclerView.Adapter adapterMusicasPessoa) {
         VariaveisEstaticas.adapterMusicasPessoa = adapterMusicasPessoa;
-    }
-
-    public static RecyclerView.Adapter getAdapterPessoa() {
-        return adapterPessoa;
-    }
-
-    public static void setAdapterPessoa(RecyclerView.Adapter adapterPessoa) {
-        VariaveisEstaticas.adapterPessoa = adapterPessoa;
     }
 }
