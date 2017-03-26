@@ -24,9 +24,11 @@ import java.util.ArrayList;
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.activity.MusicasAdicionarActivity;
 import br.com.boa50.kinkake.adapter.MusicaReservadaAdapter;
+import br.com.boa50.kinkake.application.PessoaFirebase;
 import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.util.MusicaUtil;
 import br.com.boa50.kinkake.util.PessoaUtil;
+import br.com.boa50.kinkake.util.VariaveisEstaticas;
 
 public class MusicasPorPessoaFragment extends Fragment{
 
@@ -64,7 +66,7 @@ public class MusicasPorPessoaFragment extends Fragment{
         toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 
         setHasOptionsMenu(true);
-        PessoaUtil.setAdapterMusicasPessoa(adapter);
+        VariaveisEstaticas.setAdapterMusicasPessoa(adapter);
         mostrarFabDelay();
 
         fabAddMusica.setOnClickListener(new View.OnClickListener() {
@@ -121,10 +123,13 @@ public class MusicasPorPessoaFragment extends Fragment{
 
     private void excluirMusicasSelecionadas(){
         musicas.removeAll(musicasParaExcluir);
-        PessoaUtil.removerMusicasPessoaAtiva(musicasParaExcluir);
+        for (Musica musica : musicasParaExcluir){
+            VariaveisEstaticas.getPessoaAtiva().getCodigosMusicas().remove(musica.getCodigo());
+        }
+        PessoaFirebase.atulizarListaMusicasPessoaAtiva();
         verificarListaMusicasVazia();
         adapter.notifyDataSetChanged();
-        PessoaUtil.getAdapterPessoa().notifyDataSetChanged();
+        VariaveisEstaticas.getAdapterPessoa().notifyDataSetChanged();
         voltarEstadoTela();
     }
 
@@ -144,7 +149,7 @@ public class MusicasPorPessoaFragment extends Fragment{
         musicasParaExcluir.clear();
         posicoesViewsSelecionadas.clear();
         itemExcluir.setVisible(false);
-        toolbar.setTitle("Músicas de " + PessoaUtil.getPessoaAtiva().getNome());
+        toolbar.setTitle("Músicas de " + VariaveisEstaticas.getPessoaAtiva().getNome());
     }
 
     private void adicionarMusicaExcluir(View view, int position){
@@ -166,10 +171,10 @@ public class MusicasPorPessoaFragment extends Fragment{
             musicas.clear();
 
         musicas.addAll(MusicaUtil.getMusicasPorCodigos(codigosMusicas));
-        if(PessoaUtil.getAdapterMusicasPessoa() != null)
-            PessoaUtil.getAdapterMusicasPessoa().notifyDataSetChanged();
-        if(PessoaUtil.getAdapterPessoa() != null)
-            PessoaUtil.getAdapterPessoa().notifyDataSetChanged();
+        if(VariaveisEstaticas.getAdapterMusicasPessoa() != null)
+            VariaveisEstaticas.getAdapterMusicasPessoa().notifyDataSetChanged();
+        if(VariaveisEstaticas.getAdapterPessoa() != null)
+            VariaveisEstaticas.getAdapterPessoa().notifyDataSetChanged();
     }
 
     private void verificarListaMusicasVazia(){

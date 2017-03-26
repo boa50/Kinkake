@@ -16,11 +16,13 @@ import java.util.ArrayList;
 
 import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.adapter.AdicionarMusicaAdapter;
+import br.com.boa50.kinkake.application.PessoaFirebase;
 import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.model.MusicaSelecao;
 import br.com.boa50.kinkake.model.Pessoa;
 import br.com.boa50.kinkake.util.MusicaUtil;
 import br.com.boa50.kinkake.util.PessoaUtil;
+import br.com.boa50.kinkake.util.VariaveisEstaticas;
 
 public class AdicionaMusicaPessoaFragment extends Fragment{
 
@@ -52,7 +54,7 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
         musicasSelecao = new ArrayList<>();
         musicasFiltro = new ArrayList<>();
         codigosMusicasAdicionar = new ArrayList<>();
-        pessoaAtiva = PessoaUtil.getPessoaAtiva();
+        pessoaAtiva = VariaveisEstaticas.getPessoaAtiva();
 
         musicas = MusicaUtil.getMusicasDiferentesPorCodigos(pessoaAtiva.getCodigosMusicas());
         musicasFiltro.addAll(musicas);
@@ -65,7 +67,7 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 pessoaAtiva.getCodigosMusicas().addAll(codigosMusicasAdicionar);
-                PessoaUtil.atulizarListaMusicasPessoaAtiva();
+                PessoaFirebase.atulizarListaMusicasPessoaAtiva();
                 MusicasPorPessoaFragment.setMusicas(pessoaAtiva.getCodigosMusicas());
                 getActivity().onBackPressed();
             }

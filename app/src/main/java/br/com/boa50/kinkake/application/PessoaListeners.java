@@ -15,6 +15,7 @@ import java.util.Map;
 
 import br.com.boa50.kinkake.model.Pessoa;
 import br.com.boa50.kinkake.util.PessoaUtil;
+import br.com.boa50.kinkake.util.VariaveisEstaticas;
 
 public class PessoaListeners {
     public static ValueEventListener getListenerUpdateMusicasPessoaAtiva(){
@@ -22,7 +23,7 @@ public class PessoaListeners {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> updateMusicas = new HashMap<>();
-                updateMusicas.put("codigosMusicas", PessoaUtil.getPessoaAtiva().getCodigosMusicas());
+                updateMusicas.put("codigosMusicas", VariaveisEstaticas.getPessoaAtiva().getCodigosMusicas());
 
                 DataSnapshot snapshot = dataSnapshot.getChildren().iterator().next();
                 ConfiguracaoFirebase.getReferenciaPessoa().child(snapshot.getKey()).updateChildren(updateMusicas);
@@ -35,7 +36,7 @@ public class PessoaListeners {
         };
     }
 
-    public static ValueEventListener getListenerUpdateListaPessoas(final ArrayList<Pessoa> pessoasParaExcluir){
+    public static ValueEventListener getListenerRemoverPessoas(final ArrayList<Pessoa> pessoasParaExcluir){
         return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -98,6 +99,7 @@ public class PessoaListeners {
                     if(pessoaObj.getNome().equals(pessoa.getNome())){
                         indice = todasPessoas.indexOf(pessoaObj);
                         todasPessoas.remove(pessoaObj);
+                        nomesAdicionados.remove(pessoa.getNome());
                         break;
                     }
                 }

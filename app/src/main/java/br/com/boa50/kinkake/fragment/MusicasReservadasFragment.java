@@ -36,8 +36,10 @@ import br.com.boa50.kinkake.R;
 import br.com.boa50.kinkake.activity.MusicasReservadasActivity;
 import br.com.boa50.kinkake.adapter.PessoaAdapter;
 import br.com.boa50.kinkake.application.ConfiguracaoFirebase;
+import br.com.boa50.kinkake.application.PessoaFirebase;
 import br.com.boa50.kinkake.model.Pessoa;
 import br.com.boa50.kinkake.util.PessoaUtil;
+import br.com.boa50.kinkake.util.VariaveisEstaticas;
 
 public class MusicasReservadasFragment extends Fragment {
 
@@ -67,13 +69,13 @@ public class MusicasReservadasFragment extends Fragment {
 
         fabAddPessoa = (FloatingActionButton) view.findViewById(R.id.fab_fragment_recycle);
         textViewVazio = (TextView) view.findViewById(R.id.tv_fragment_recycle_fab);
-        pessoas = PessoaUtil.getTodasPessoas();
+        pessoas = VariaveisEstaticas.getTodasPessoas();
         adapter = new PessoaAdapter(pessoas);
         pessoasParaExcluir = new ArrayList<>();
         posicoesViewsSelecionadas = new ArrayList<>();
         toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 
-        PessoaUtil.setAdapterPessoa(adapter);
+        VariaveisEstaticas.setAdapterPessoa(adapter);
         recyclerView.setAdapter(adapter);
         setHasOptionsMenu(true);
         verificarListaPessoasVazia();
@@ -113,7 +115,7 @@ public class MusicasReservadasFragment extends Fragment {
                     snackbar.show();
                     textoNome.setText("");
                 }else if (textoNome.getText() != null && textoNome.getText().length() > 0) {
-                    PessoaUtil.adicionarPessoa(new Pessoa(textoNome.getText().toString()));
+                    PessoaFirebase.adicionarPessoa(new Pessoa(textoNome.getText().toString()));
                     verificarListaPessoasVazia();
                     adapter.notifyDataSetChanged();
                     textoNome.setText("");
@@ -165,7 +167,7 @@ public class MusicasReservadasFragment extends Fragment {
             Pessoa pessoa = pessoas.get(position);
             Intent intent = new Intent(getActivity(), MusicasReservadasActivity.class);
             MusicasPorPessoaFragment.setMusicas(pessoa.getCodigosMusicas());
-            PessoaUtil.setPessoaAtiva(pessoa);
+            VariaveisEstaticas.setPessoaAtiva(pessoa);
             startActivity(intent);
         }else{
             if(posicoesViewsSelecionadas.contains(position)){
@@ -188,7 +190,7 @@ public class MusicasReservadasFragment extends Fragment {
     private void removerPessoasSelecionadas(){
         ArrayList<Pessoa> teste = new ArrayList<>();
         teste.addAll(pessoasParaExcluir);
-        PessoaUtil.atualizarListaPessoas(teste);
+        PessoaFirebase.removerPessoas(teste);
         verificarListaPessoasVazia();
         voltarEstadoTela();
     }
@@ -248,12 +250,12 @@ public class MusicasReservadasFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        PessoaUtil.adicionarListenerPessoas(adapter);
+        PessoaFirebase.adicionarListenerPessoas(adapter);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        PessoaUtil.removerListenerPessoas();
+        PessoaFirebase.removerListenerPessoas();
     }
 }
