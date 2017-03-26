@@ -31,6 +31,7 @@ import br.com.boa50.kinkake.activity.MusicasReservadasActivity;
 import br.com.boa50.kinkake.adapter.PessoaAdapter;
 import br.com.boa50.kinkake.application.PessoaFirebase;
 import br.com.boa50.kinkake.model.Pessoa;
+import br.com.boa50.kinkake.util.ItemClickSupport;
 import br.com.boa50.kinkake.util.PessoaUtil;
 import br.com.boa50.kinkake.util.VariaveisEstaticas;
 
@@ -76,6 +77,38 @@ public class MusicasReservadasFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 abrirDialogoAddPessoa();
+            }
+        });
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener(){
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                if(pessoasParaExcluir.isEmpty()){
+                    Pessoa pessoa = pessoas.get(position);
+                    Intent intent = new Intent(getActivity(), MusicasReservadasActivity.class);
+                    MusicasPorPessoaFragment.setMusicas(pessoa.getCodigosMusicas());
+                    VariaveisEstaticas.setPessoaAtiva(pessoa);
+                    startActivity(intent);
+                }else{
+                    if(posicoesViewsSelecionadas.contains(position)){
+                        removerPessoaExcluir(v, position);
+                        if(pessoasParaExcluir.isEmpty())
+                            voltarEstadoTela();
+                    }else{
+                        adicionarPessoaExcluir(v, position);
+                    }
+                }
+            }
+        });
+
+        ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
+                adicionarPessoaExcluir(v, position);
+                itemExcluir.setVisible(true);
+                toolbar.setTitle(R.string.tituloPessoasExcluir);
+                toolbar.setDisplayHomeAsUpEnabled(true);
+                return true;
             }
         });
 
@@ -154,31 +187,6 @@ public class MusicasReservadasFragment extends Fragment {
         }
     }
 
-    public void itemClickListener(View view, int position){
-        if(pessoasParaExcluir.isEmpty()){
-            Pessoa pessoa = pessoas.get(position);
-            Intent intent = new Intent(getActivity(), MusicasReservadasActivity.class);
-            MusicasPorPessoaFragment.setMusicas(pessoa.getCodigosMusicas());
-            VariaveisEstaticas.setPessoaAtiva(pessoa);
-            startActivity(intent);
-        }else{
-            if(posicoesViewsSelecionadas.contains(position)){
-                removerPessoaExcluir(view, position);
-                if(pessoasParaExcluir.isEmpty())
-                    voltarEstadoTela();
-            }else{
-                adicionarPessoaExcluir(view, position);
-            }
-        }
-    }
-
-    public void itemLongClickListener(View view, int position){
-        adicionarPessoaExcluir(view, position);
-        itemExcluir.setVisible(true);
-        toolbar.setTitle(R.string.tituloPessoasExcluir);
-        toolbar.setDisplayHomeAsUpEnabled(true);
-    }
-
     private void removerPessoasSelecionadas(){
         ArrayList<Pessoa> teste = new ArrayList<>();
         teste.addAll(pessoasParaExcluir);
@@ -187,19 +195,19 @@ public class MusicasReservadasFragment extends Fragment {
         voltarEstadoTela();
     }
 
-    private void adicionarPessoaExcluir(View view, int position){
+    public void adicionarPessoaExcluir(View view, int position){
         view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.highlightList));
         posicoesViewsSelecionadas.add(position);
         pessoasParaExcluir.add(pessoas.get(position));
     }
 
-    private void removerPessoaExcluir(View view, int position){
+    public void removerPessoaExcluir(View view, int position){
         view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
         posicoesViewsSelecionadas.remove(Integer.valueOf(position));
         pessoasParaExcluir.remove(pessoas.get(position));
     }
 
-    private void voltarEstadoTela(){
+    public void voltarEstadoTela(){
         for(Integer posicao : posicoesViewsSelecionadas){
             recyclerView.getChildAt(posicao).setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.background));
         }
