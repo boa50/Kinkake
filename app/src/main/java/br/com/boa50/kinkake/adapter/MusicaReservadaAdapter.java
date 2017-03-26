@@ -16,7 +16,6 @@ import br.com.boa50.kinkake.util.MusicaUtil;
 
 public class MusicaReservadaAdapter extends RecyclerView.Adapter<MusicaReservadaAdapter.MusicaReservadaViewHolder>{
     private ArrayList<Musica> musicas;
-    private MusicasPorPessoaFragment fragment;
 
     public MusicaReservadaAdapter(ArrayList<Musica> musicas) {
         this.musicas = musicas;
@@ -25,32 +24,15 @@ public class MusicaReservadaAdapter extends RecyclerView.Adapter<MusicaReservada
     @Override
     public MusicaReservadaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.lista_musicas_reservadas, parent, false);
-        fragment = ((MusicasReservadasActivity) parent.getContext()).getMusicasPorPessoaFragment();
         return new MusicaReservadaViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MusicaReservadaViewHolder holder, int position) {
         Musica musica = musicas.get(position);
-        final int posicao = position;
 
         holder.codigo.setText(MusicaUtil.transformaCodigoString(musica.getCodigo()));
         holder.nome.setText(musica.getNome());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragment.itemClickListener(v, posicao);
-            }
-        });
-
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                fragment.itemLongClickListener(v, posicao);
-                return true;
-            }
-        });
     }
 
     @Override

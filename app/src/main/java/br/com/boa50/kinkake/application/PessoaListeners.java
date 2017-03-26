@@ -1,10 +1,12 @@
 package br.com.boa50.kinkake.application;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -103,6 +105,56 @@ public class PessoaListeners {
                 }
 
                 adapter.notifyItemRemoved(indice);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+    }
+
+    public static ChildEventListener getListenerMusicasPessoa(final RecyclerView.Adapter adapter, final Pessoa pessoa, final ArrayList<Integer> codigosMusicasAdicionadas){
+        return new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.i("qwerty", dataSnapshot.getValue().toString() + " added");
+
+                DatabaseReference reference = ConfiguracaoFirebase.getReferenciaPessoa().child(dataSnapshot.getKey()).child("codigosMusicas");
+
+                reference.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Log.i("qwerty", dataSnapshot.getValue() + " added child");
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        Log.i("qwerty", dataSnapshot.getValue() + " changed child");
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        Log.i("qwerty", dataSnapshot.getValue() + " removed child");
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.i("qwerty", dataSnapshot.getValue().toString() + " changed");
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.i("qwerty", dataSnapshot.getValue().toString() + " removed");
             }
 
             @Override

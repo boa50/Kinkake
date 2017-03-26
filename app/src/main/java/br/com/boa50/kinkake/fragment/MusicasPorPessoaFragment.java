@@ -26,6 +26,7 @@ import br.com.boa50.kinkake.activity.MusicasAdicionarActivity;
 import br.com.boa50.kinkake.adapter.MusicaReservadaAdapter;
 import br.com.boa50.kinkake.application.PessoaFirebase;
 import br.com.boa50.kinkake.model.Musica;
+import br.com.boa50.kinkake.util.ItemClickSupport;
 import br.com.boa50.kinkake.util.MusicaUtil;
 import br.com.boa50.kinkake.util.VariaveisEstaticas;
 
@@ -68,6 +69,31 @@ public class MusicasPorPessoaFragment extends Fragment{
         VariaveisEstaticas.setAdapterMusicasPessoa(adapter);
         mostrarFabDelay();
 
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                if(!musicasParaExcluir.isEmpty()){
+                    if(posicoesViewsSelecionadas.contains(position)){
+                        removerPessoasExcluir(v, position);
+                        if(musicasParaExcluir.isEmpty())
+                            voltarEstadoTela();
+                    }else{
+                        adicionarMusicaExcluir(v, position);
+                    }
+                }
+            }
+        });
+
+        ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
+                adicionarMusicaExcluir(v, position);
+                itemExcluir.setVisible(true);
+                toolbar.setTitle(R.string.tituloMusicasPessoaExcluir);
+                return true;
+            }
+        });
+
         fabAddMusica.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,24 +126,6 @@ public class MusicasPorPessoaFragment extends Fragment{
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    public void itemClickListener(View view, int position){
-        if(!musicasParaExcluir.isEmpty()){
-            if(posicoesViewsSelecionadas.contains(position)){
-                removerPessoasExcluir(view, position);
-                if(musicasParaExcluir.isEmpty())
-                    voltarEstadoTela();
-            }else{
-                adicionarMusicaExcluir(view, position);
-            }
-        }
-    }
-
-    public void itemLongClickListener(View view, int position){
-        adicionarMusicaExcluir(view, position);
-        itemExcluir.setVisible(true);
-        toolbar.setTitle(R.string.tituloMusicasPessoaExcluir);
     }
 
     private void excluirMusicasSelecionadas(){
@@ -202,5 +210,11 @@ public class MusicasPorPessoaFragment extends Fragment{
         super.onResume();
         verificarListaMusicasVazia();
         mostrarFabDelay();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        PessoaFirebase.adicionarListenerMusicasPessoa(adapter, VariaveisEstaticas.getPessoaAtiva());
     }
 }

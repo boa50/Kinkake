@@ -13,6 +13,7 @@ import br.com.boa50.kinkake.util.VariaveisEstaticas;
 public class PessoaFirebase {
     private static DatabaseReference databaseReference;
     private static ChildEventListener listenerPessoas;
+    private static ChildEventListener listenerMusicasPessoas;
 
 
     private static void verificarReferenciaNula(){
@@ -44,6 +45,20 @@ public class PessoaFirebase {
         );
 
         databaseReference.addChildEventListener(listenerPessoas);
+    }
+
+    public static void adicionarListenerMusicasPessoa(RecyclerView.Adapter adapter, Pessoa pessoa){
+        verificarReferenciaNula();
+
+        if (listenerMusicasPessoas != null)
+            databaseReference.removeEventListener(listenerMusicasPessoas);
+
+        listenerMusicasPessoas = PessoaListeners.getListenerMusicasPessoa(
+                adapter, pessoa, pessoa.getCodigosMusicas()
+        );
+
+        databaseReference.orderByChild("nome").equalTo(pessoa.getNome())
+                .addChildEventListener(listenerMusicasPessoas);
     }
 
     public static void atulizarListaMusicasPessoaAtiva(){
