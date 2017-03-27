@@ -120,31 +120,6 @@ public class PessoaListeners {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.i("qwerty", dataSnapshot.getValue().toString() + " added");
-
-                DatabaseReference reference = ConfiguracaoFirebase.getReferenciaPessoa().child(dataSnapshot.getKey()).child("codigosMusicas");
-
-                reference.addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Log.i("qwerty", dataSnapshot.getValue() + " added child");
-                    }
-
-                    @Override
-                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                        Log.i("qwerty", dataSnapshot.getValue() + " changed child");
-                    }
-
-                    @Override
-                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-                        Log.i("qwerty", dataSnapshot.getValue() + " removed child");
-                    }
-
-                    @Override
-                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {}
-                });
             }
 
             @Override

@@ -3,7 +3,10 @@ package br.com.boa50.kinkake.application;
 import android.support.v7.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -47,18 +50,28 @@ public class PessoaFirebase {
         databaseReference.addChildEventListener(listenerPessoas);
     }
 
-    public static void adicionarListenerMusicasPessoa(RecyclerView.Adapter adapter, Pessoa pessoa){
+    public static void adicionarListenerMusicasPessoa(final RecyclerView.Adapter adapter, final Pessoa pessoa){
         verificarReferenciaNula();
 
-        if (listenerMusicasPessoas != null)
-            databaseReference.removeEventListener(listenerMusicasPessoas);
-
-        listenerMusicasPessoas = PessoaListeners.getListenerMusicasPessoa(
-                adapter, pessoa, pessoa.getCodigosMusicas()
-        );
-
         databaseReference.orderByChild("nome").equalTo(pessoa.getNome())
-                .addChildEventListener(listenerMusicasPessoas);
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (listenerMusicasPessoas != null)
+                            databaseReference.child(dataSnapshot.getChildren().iterator().next().getKey()).child("codigosMusicas")
+                                    .removeEventListener(listenerMusicasPessoas);
+
+                        listenerMusicasPessoas = PessoaListeners.getListenerMusicasPessoa(
+                                adapter, pessoa, pessoa.getCodigosMusicas()
+                        );
+
+                        databaseReference.child(dataSnapshot.getChildren().iterator().next().getKey()).child("codigosMusicas")
+                                .addChildEventListener(listenerMusicasPessoas);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
     }
 
     public static void atulizarListaMusicasPessoaAtiva(){

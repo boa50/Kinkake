@@ -14,7 +14,6 @@ public class VariaveisEstaticas{
     private static RecyclerView.Adapter adapterMusicasPessoa;
 
 
-
     public static ArrayList<Pessoa> getTodasPessoas(){
         return todasPessoas;
     }
@@ -45,5 +44,17 @@ public class VariaveisEstaticas{
 
     public static void setAdapterMusicasPessoa(RecyclerView.Adapter adapterMusicasPessoa) {
         VariaveisEstaticas.adapterMusicasPessoa = adapterMusicasPessoa;
+    }
+
+
+    //Musicas
+    private static ArrayList<Integer> codigosMusicasAdicionar;
+
+    public static ArrayList<Integer> getCodigosMusicasAdicionar() {
+        return codigosMusicasAdicionar;
+    }
+
+    public static void setCodigosMusicasAdicionar(ArrayList<Integer> codigosMusicasAdicionar) {
+        VariaveisEstaticas.codigosMusicasAdicionar = codigosMusicasAdicionar;
     }
 }
