@@ -19,6 +19,7 @@ import br.com.boa50.kinkake.model.Musica;
 public class MusicaUtil {
 
     private static ArrayList<Musica> todasMusicas;
+    private static ArrayList<Integer> codigosTodasMusicas;
 
     public static View.OnClickListener favoritoClickListener(final Musica musica, final ImageButton favorito){
 
@@ -82,6 +83,26 @@ public class MusicaUtil {
     public static void preencheTodasMusicas(ArrayList<Musica> musicas){
         todasMusicas = new ArrayList<>();
         todasMusicas.addAll(musicas);
+
+        codigosTodasMusicas = new ArrayList<>();
+        for (Musica musica : todasMusicas){
+            codigosTodasMusicas.add(musica.getCodigo());
+        }
+    }
+
+    public static void ordenarCodigosMusicasPorNome(ArrayList<Integer> codigosMusicas){
+        if (!codigosMusicas.isEmpty()){
+            ArrayList<Integer> codigosMusicasOrdenadas = new ArrayList<>();
+
+            for (Integer i : codigosTodasMusicas){
+                int indice = codigosMusicas.indexOf(i);
+                if (indice >= 0)
+                    codigosMusicasOrdenadas.add(i);
+            }
+
+            codigosMusicas.clear();
+            codigosMusicas.addAll(codigosMusicasOrdenadas);
+        }
     }
 
     public static ArrayList<Musica> filtrar(String texto, boolean apenasFavoritas){

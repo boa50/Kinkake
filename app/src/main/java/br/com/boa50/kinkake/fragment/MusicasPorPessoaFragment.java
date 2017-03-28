@@ -129,13 +129,16 @@ public class MusicasPorPessoaFragment extends Fragment{
     }
 
     private void excluirMusicasSelecionadas(){
-        musicas.removeAll(musicasParaExcluir);
+//        musicas.removeAll(musicasParaExcluir);
+        ArrayList<Integer> codigosMusicasExcluir = new ArrayList<>();
         for (Musica musica : musicasParaExcluir){
-            VariaveisEstaticas.getPessoaAtiva().getCodigosMusicas().remove(musica.getCodigo());
+//            VariaveisEstaticas.getPessoaAtiva().getCodigosMusicas().remove(musica.getCodigo());
+            codigosMusicasExcluir.add(musica.getCodigo());
         }
-        PessoaFirebase.atulizarListaMusicasPessoaAtiva();
+//        PessoaFirebase.atulizarListaMusicasPessoaAtiva();
+        PessoaFirebase.removerMusicasPessoaAtiva(codigosMusicasExcluir);
         verificarListaMusicasVazia();
-        adapter.notifyDataSetChanged();
+//        adapter.notifyDataSetChanged();
         voltarEstadoTela();
     }
 
@@ -177,8 +180,8 @@ public class MusicasPorPessoaFragment extends Fragment{
             musicas.clear();
 
         musicas.addAll(MusicaUtil.getMusicasPorCodigos(codigosMusicas));
-        if(VariaveisEstaticas.getAdapterMusicasPessoa() != null)
-            VariaveisEstaticas.getAdapterMusicasPessoa().notifyDataSetChanged();
+//        if(VariaveisEstaticas.getAdapterMusicasPessoa() != null)
+//            VariaveisEstaticas.getAdapterMusicasPessoa().notifyDataSetChanged();
     }
 
     private void verificarListaMusicasVazia(){

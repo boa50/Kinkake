@@ -74,11 +74,27 @@ public class PessoaFirebase {
                 });
     }
 
-    public static void atulizarListaMusicasPessoaAtiva(){
+    public static void removerMusicasPessoaAtiva(ArrayList<Integer> codigosMusicasExcluir){
+        ArrayList<Integer> codigosMusicasPessoa = new ArrayList<>();
+        codigosMusicasPessoa.addAll(VariaveisEstaticas.getPessoaAtiva().getCodigosMusicas());
+        codigosMusicasPessoa.removeAll(codigosMusicasExcluir);
+
+        atulizarListaMusicasPessoaAtiva(codigosMusicasPessoa);
+    }
+
+    public static void adicionarMusicasPessoaAtiva(ArrayList<Integer> codigosMusicasAdicionar){
+        ArrayList<Integer> codigosMusicasPessoa = new ArrayList<>();
+        codigosMusicasPessoa.addAll(VariaveisEstaticas.getPessoaAtiva().getCodigosMusicas());
+        codigosMusicasPessoa.addAll(codigosMusicasAdicionar);
+
+        atulizarListaMusicasPessoaAtiva(codigosMusicasPessoa);
+    }
+
+    private static void atulizarListaMusicasPessoaAtiva(ArrayList<Integer> codigosMusicasPessoa){
         verificarReferenciaNula();
 
         databaseReference.orderByChild("nome").equalTo(VariaveisEstaticas.getPessoaAtiva().getNome())
-                .addListenerForSingleValueEvent(PessoaListeners.getListenerUpdateMusicasPessoaAtiva());
+                .addListenerForSingleValueEvent(PessoaListeners.getListenerUpdateMusicasPessoaAtiva(codigosMusicasPessoa));
     }
 
 }

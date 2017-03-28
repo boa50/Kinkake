@@ -13,17 +13,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.com.boa50.kinkake.fragment.MusicasPorPessoaFragment;
 import br.com.boa50.kinkake.model.Pessoa;
+import br.com.boa50.kinkake.util.MusicaUtil;
 import br.com.boa50.kinkake.util.PessoaUtil;
 import br.com.boa50.kinkake.util.VariaveisEstaticas;
 
 public class PessoaListeners {
-    public static ValueEventListener getListenerUpdateMusicasPessoaAtiva(){
+    public static ValueEventListener getListenerUpdateMusicasPessoaAtiva(final ArrayList<Integer> codigosMusicasAdicionar){
         return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> updateMusicas = new HashMap<>();
-                updateMusicas.put("codigosMusicas", VariaveisEstaticas.getPessoaAtiva().getCodigosMusicas());
+                updateMusicas.put("codigosMusicas", codigosMusicasAdicionar);
 
                 DataSnapshot snapshot = dataSnapshot.getChildren().iterator().next();
                 ConfiguracaoFirebase.getReferenciaPessoa().child(snapshot.getKey()).updateChildren(updateMusicas);
@@ -115,21 +117,34 @@ public class PessoaListeners {
         };
     }
 
-    public static ChildEventListener getListenerMusicasPessoa(final RecyclerView.Adapter adapter, final Pessoa pessoa, final ArrayList<Integer> codigosMusicasAdicionadas){
+    public static ChildEventListener getListenerMusicasPessoa(final RecyclerView.Adapter adapter, final Pessoa pessoa, final ArrayList<Integer> codigosMusicasPessoa){
         return new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.i("qwerty", dataSnapshot.getValue().toString() + " added");
+                Integer codigoMusicaAdicionada = dataSnapshot.getValue(Integer.class);
+
+                if (!codigosMusicasPessoa.contains(codigoMusicaAdicionada)){
+                    codigosMusicasPessoa.add(codigoMusicaAdicionada);
+                    MusicaUtil.ordenarCodigosMusicasPorNome(codigosMusicasPessoa);
+                    int indice = codigosMusicasPessoa.indexOf(codigoMusicaAdicionada);
+
+                    MusicasPorPessoaFragment.setMusicas(codigosMusicasPessoa);
+                    adapter.notifyItemInserted(indice);
+                }
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Log.i("qwerty", dataSnapshot.getValue().toString() + " changed");
-            }
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Log.i("qwerty", dataSnapshot.getValue().toString() + " removed");
+                Integer codigoMusicaRemovida = dataSnapshot.getValue(Integer.class);
+                MusicaUtil.ordenarCodigosMusicasPorNome(codigosMusicasPessoa);
+                int indice = codigosMusicasPessoa.indexOf(codigoMusicaRemovida);
+
+                codigosMusicasPessoa.remove(indice);
+                MusicasPorPessoaFragment.setMusicas(codigosMusicasPessoa);
+                adapter.notifyItemRemoved(indice);
             }
 
             @Override

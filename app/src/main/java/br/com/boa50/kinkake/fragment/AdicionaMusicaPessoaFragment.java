@@ -65,9 +65,10 @@ public class AdicionaMusicaPessoaFragment extends Fragment{
         fabConfirma.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pessoaAtiva.getCodigosMusicas().addAll(codigosMusicasAdicionar);
-                PessoaFirebase.atulizarListaMusicasPessoaAtiva();
-                MusicasPorPessoaFragment.setMusicas(pessoaAtiva.getCodigosMusicas());
+//                pessoaAtiva.getCodigosMusicas().addAll(codigosMusicasAdicionar);
+//                PessoaFirebase.atulizarListaMusicasPessoaAtiva();
+                PessoaFirebase.adicionarMusicasPessoaAtiva(codigosMusicasAdicionar);
+//                MusicasPorPessoaFragment.setMusicas(pessoaAtiva.getCodigosMusicas());
                 getActivity().onBackPressed();
             }
         });
