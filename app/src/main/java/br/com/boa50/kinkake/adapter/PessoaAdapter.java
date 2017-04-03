@@ -1,6 +1,5 @@
 package br.com.boa50.kinkake.adapter;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import br.com.boa50.kinkake.R;
-import br.com.boa50.kinkake.activity.MainActivity;
-import br.com.boa50.kinkake.activity.MusicasReservadasActivity;
-import br.com.boa50.kinkake.fragment.MusicasPorPessoaFragment;
-import br.com.boa50.kinkake.fragment.MusicasReservadasFragment;
 import br.com.boa50.kinkake.model.Pessoa;
-import br.com.boa50.kinkake.util.VariaveisEstaticas;
 
 public class PessoaAdapter extends RecyclerView.Adapter<PessoaAdapter.PessoaViewHolder>{
     private ArrayList<Pessoa> pessoas;

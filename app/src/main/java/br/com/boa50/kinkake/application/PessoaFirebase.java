@@ -62,7 +62,7 @@ public class PessoaFirebase {
                                     .removeEventListener(listenerMusicasPessoas);
 
                         listenerMusicasPessoas = PessoaListeners.getListenerMusicasPessoa(
-                                adapter, pessoa, pessoa.getCodigosMusicas()
+                                adapter, pessoa.getCodigosMusicas()
                         );
 
                         databaseReference.child(dataSnapshot.getChildren().iterator().next().getKey()).child("codigosMusicas")

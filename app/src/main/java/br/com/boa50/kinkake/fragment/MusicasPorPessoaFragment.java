@@ -66,7 +66,6 @@ public class MusicasPorPessoaFragment extends Fragment{
         toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 
         setHasOptionsMenu(true);
-        VariaveisEstaticas.setAdapterMusicasPessoa(adapter);
         mostrarFabDelay();
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
@@ -129,16 +128,12 @@ public class MusicasPorPessoaFragment extends Fragment{
     }
 
     private void excluirMusicasSelecionadas(){
-//        musicas.removeAll(musicasParaExcluir);
         ArrayList<Integer> codigosMusicasExcluir = new ArrayList<>();
         for (Musica musica : musicasParaExcluir){
-//            VariaveisEstaticas.getPessoaAtiva().getCodigosMusicas().remove(musica.getCodigo());
             codigosMusicasExcluir.add(musica.getCodigo());
         }
-//        PessoaFirebase.atulizarListaMusicasPessoaAtiva();
         PessoaFirebase.removerMusicasPessoaAtiva(codigosMusicasExcluir);
         verificarListaMusicasVazia();
-//        adapter.notifyDataSetChanged();
         voltarEstadoTela();
     }
 
@@ -180,15 +175,20 @@ public class MusicasPorPessoaFragment extends Fragment{
             musicas.clear();
 
         musicas.addAll(MusicaUtil.getMusicasPorCodigos(codigosMusicas));
-//        if(VariaveisEstaticas.getAdapterMusicasPessoa() != null)
-//            VariaveisEstaticas.getAdapterMusicasPessoa().notifyDataSetChanged();
     }
 
     private void verificarListaMusicasVazia(){
-        if(musicas.isEmpty())
-            textViewVazio.setText(R.string.reservadasMusicasVazio);
-        else
-            textViewVazio.setText("");
+        Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(musicas.isEmpty())
+                    textViewVazio.setText(R.string.reservadasMusicasVazio);
+                else
+                    textViewVazio.setText("");
+            }
+        }, 50);
     }
 
     private void mostrarFabDelay(){

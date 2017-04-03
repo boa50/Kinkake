@@ -1,7 +1,5 @@
 package br.com.boa50.kinkake.util;
 
-import android.support.v7.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 import br.com.boa50.kinkake.model.Pessoa;
@@ -11,7 +9,6 @@ public class VariaveisEstaticas{
     private static ArrayList<Pessoa> todasPessoas;
     private static ArrayList<String> nomesAdicionados;
     private static Pessoa pessoaAtiva;
-    private static RecyclerView.Adapter adapterMusicasPessoa;
 
 
     public static ArrayList<Pessoa> getTodasPessoas(){
@@ -36,14 +33,6 @@ public class VariaveisEstaticas{
 
     public static void setPessoaAtiva(Pessoa pessoaAtiva) {
         VariaveisEstaticas.pessoaAtiva = pessoaAtiva;
-    }
-
-    public static RecyclerView.Adapter getAdapterMusicasPessoa() {
-        return adapterMusicasPessoa;
-    }
-
-    public static void setAdapterMusicasPessoa(RecyclerView.Adapter adapterMusicasPessoa) {
-        VariaveisEstaticas.adapterMusicasPessoa = adapterMusicasPessoa;
     }
 
 

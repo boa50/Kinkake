@@ -33,8 +33,4 @@ public class MusicasReservadasActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.fl_fragmento, musicasPorPessoaFragment);
         fragmentTransaction.commit();
     }
-
-    public MusicasPorPessoaFragment getMusicasPorPessoaFragment(){
-        return musicasPorPessoaFragment;
-    }
 }

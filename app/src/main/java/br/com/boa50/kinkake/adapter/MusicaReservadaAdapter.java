@@ -9,8 +9,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import br.com.boa50.kinkake.R;
-import br.com.boa50.kinkake.activity.MusicasReservadasActivity;
-import br.com.boa50.kinkake.fragment.MusicasPorPessoaFragment;
 import br.com.boa50.kinkake.model.Musica;
 import br.com.boa50.kinkake.util.MusicaUtil;
 

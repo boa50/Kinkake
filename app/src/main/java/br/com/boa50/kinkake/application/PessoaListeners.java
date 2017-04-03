@@ -1,12 +1,10 @@
 package br.com.boa50.kinkake.application;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -17,7 +15,6 @@ import br.com.boa50.kinkake.fragment.MusicasPorPessoaFragment;
 import br.com.boa50.kinkake.model.Pessoa;
 import br.com.boa50.kinkake.util.MusicaUtil;
 import br.com.boa50.kinkake.util.PessoaUtil;
-import br.com.boa50.kinkake.util.VariaveisEstaticas;
 
 public class PessoaListeners {
     public static ValueEventListener getListenerUpdateMusicasPessoaAtiva(final ArrayList<Integer> codigosMusicasAdicionar){
@@ -117,7 +114,7 @@ public class PessoaListeners {
         };
     }
 
-    public static ChildEventListener getListenerMusicasPessoa(final RecyclerView.Adapter adapter, final Pessoa pessoa, final ArrayList<Integer> codigosMusicasPessoa){
+    public static ChildEventListener getListenerMusicasPessoa(final RecyclerView.Adapter adapter, final ArrayList<Integer> codigosMusicasPessoa){
         return new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
