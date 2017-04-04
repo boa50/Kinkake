@@ -118,16 +118,18 @@ public class PessoaListeners {
         return new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Integer codigoMusicaAdicionada = dataSnapshot.getValue(Integer.class);
+                //TODO verificar um modo para tratar as listas
+//                Integer codigoMusicaAdicionada = dataSnapshot.getValue(Integer.class);
 
-                if (!codigosMusicasPessoa.contains(codigoMusicaAdicionada)){
-                    codigosMusicasPessoa.add(codigoMusicaAdicionada);
-                    MusicaUtil.ordenarCodigosMusicasPorNome(codigosMusicasPessoa);
-                    int indice = codigosMusicasPessoa.indexOf(codigoMusicaAdicionada);
-
-                    MusicasPorPessoaFragment.setMusicas(codigosMusicasPessoa);
-                    adapter.notifyItemInserted(indice);
-                }
+//                if (!codigosMusicasPessoa.contains(codigoMusicaAdicionada)){
+//                    codigosMusicasPessoa.add(codigoMusicaAdicionada);
+//                    MusicaUtil.ordenarCodigosMusicasPorNome(codigosMusicasPessoa);
+//                    int indice = codigosMusicasPessoa.indexOf(codigoMusicaAdicionada);
+//
+//                    MusicasPorPessoaFragment.setMusicas(codigosMusicasPessoa);
+//                    adapter.notifyItemInserted(indice);
+//                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -135,13 +137,15 @@ public class PessoaListeners {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Integer codigoMusicaRemovida = dataSnapshot.getValue(Integer.class);
-                MusicaUtil.ordenarCodigosMusicasPorNome(codigosMusicasPessoa);
-                int indice = codigosMusicasPessoa.indexOf(codigoMusicaRemovida);
+                //TODO verificar um modo para tratar as listas
+//                Integer codigoMusicaRemovida = dataSnapshot.getValue(Integer.class);
+//                MusicaUtil.ordenarCodigosMusicasPorNome(codigosMusicasPessoa);
+//                int indice = codigosMusicasPessoa.indexOf(codigoMusicaRemovida);
 
-                codigosMusicasPessoa.remove(indice);
-                MusicasPorPessoaFragment.setMusicas(codigosMusicasPessoa);
-                adapter.notifyItemRemoved(indice);
+//                codigosMusicasPessoa.remove(indice);
+//                MusicasPorPessoaFragment.setMusicas(codigosMusicasPessoa);
+//                adapter.notifyItemRemoved(indice);
+                adapter.notifyDataSetChanged();
             }
 
             @Override

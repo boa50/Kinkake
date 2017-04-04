@@ -10,7 +10,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import br.com.boa50.kinkake.fragment.MusicasPorPessoaFragment;
 import br.com.boa50.kinkake.model.Pessoa;
+import br.com.boa50.kinkake.util.MusicaUtil;
 import br.com.boa50.kinkake.util.VariaveisEstaticas;
 
 public class PessoaFirebase {
@@ -92,6 +94,9 @@ public class PessoaFirebase {
 
     private static void atulizarListaMusicasPessoaAtiva(ArrayList<Integer> codigosMusicasPessoa){
         verificarReferenciaNula();
+
+        //TODO remover quando o listener estiver em ordem
+        MusicasPorPessoaFragment.setMusicas(codigosMusicasPessoa);
 
         databaseReference.orderByChild("nome").equalTo(VariaveisEstaticas.getPessoaAtiva().getNome())
                 .addListenerForSingleValueEvent(PessoaListeners.getListenerUpdateMusicasPessoaAtiva(codigosMusicasPessoa));
