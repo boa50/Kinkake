@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/indigo50">
+
+    <include
+        android:id="@+id/tb_dialog_reserva"
+        layout="@layout/toolbar"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_dialog_reserva"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding_padrao"
+        android:layout_marginBottom="@dimen/padding_padrao"
+        android:layout_below="@id/tb_dialog_reserva"
+        />
+
+
+</RelativeLayout>

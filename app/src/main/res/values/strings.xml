@@ -4,6 +4,7 @@
     <string name="busca">Busca</string>
     <string name="filtro">Filtro</string>
     <string name="excluir">Excluir</string>
+    <string name="reservar">Reservar</string>
 
     <string name="filtroTitulo">Filtro</string>
     <string name="filtroFavorito">Apenas Favoritas:</string>
@@ -24,6 +25,10 @@
 
     <string name="reservadasPessoasVazio">Insira uma pessoa</string>
     <string name="reservadasMusicasVazio">Insira uma música</string>
+
+    <string name="musicaReservadaSucesso">Música resevada com sucesso</string>
+    <string name="musicaReservarSemPessoaCadastrada">Não há pessoas cadastradas</string>
+    <string name="musicaReservarSemPessoaDisponivel">Todas as pessoas já possuem essa música</string>
 
     <string name="descricaoIconeFavorito">Favorito</string>
 </resources>

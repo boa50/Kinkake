@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import br.com.boa50.kinkake.fragment.MusicasPorPessoaFragment;
 import br.com.boa50.kinkake.model.Pessoa;
-import br.com.boa50.kinkake.util.MusicaUtil;
 import br.com.boa50.kinkake.util.PessoaUtil;
 
 public class PessoaListeners {

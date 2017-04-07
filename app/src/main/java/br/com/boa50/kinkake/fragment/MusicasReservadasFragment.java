@@ -219,10 +219,17 @@ public class MusicasReservadasFragment extends Fragment {
     }
 
     private void verificarListaPessoasVazia(){
-        if(pessoas.isEmpty())
-            textViewVazio.setText(R.string.reservadasPessoasVazio);
-        else
-            textViewVazio.setText("");
+        Handler handler = new Handler();
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(pessoas.isEmpty())
+                    textViewVazio.setText(R.string.reservadasPessoasVazio);
+                else
+                    textViewVazio.setText("");
+            }
+        }, 50);
     }
 
     public void esconderFab(){

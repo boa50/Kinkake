@@ -32,4 +32,15 @@ public class PessoaUtil {
         return VariaveisEstaticas.getNomesAdicionados().contains(nome);
 
     }
+
+    public static ArrayList<Pessoa> getPessoasSemMusicaPorCodigo(Integer codigoMusica){
+        ArrayList<Pessoa> retorno = new ArrayList<>();
+
+        for (Pessoa pessoa : VariaveisEstaticas.getTodasPessoas()){
+            if (!pessoa.getCodigosMusicas().contains(codigoMusica))
+                retorno.add(pessoa);
+        }
+
+        return retorno;
+    }
 }
