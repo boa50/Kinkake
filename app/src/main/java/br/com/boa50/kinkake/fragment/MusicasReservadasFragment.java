@@ -40,7 +40,7 @@ public class MusicasReservadasFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private TextView textViewVazio;
-    private static FloatingActionButton fabAddPessoa;
+    private FloatingActionButton fabAddPessoa;
     private ArrayList<Pessoa> pessoas;
     private ArrayList<Pessoa> pessoasParaExcluir;
     private ArrayList<Integer> posicoesViewsSelecionadas;
@@ -237,9 +237,11 @@ public class MusicasReservadasFragment extends Fragment {
             fabAddPessoa.hide();
     }
 
-    public static void mostrarFabDelay(){
-        Handler handler = new Handler();
+    public void mostrarFabDelay(){
+        if (fabAddPessoa.isShown())
+            fabAddPessoa.hide();
 
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -258,5 +260,6 @@ public class MusicasReservadasFragment extends Fragment {
     public void onStart() {
         super.onStart();
         PessoaFirebase.adicionarListenerPessoas(adapter);
+        mostrarFabDelay();
     }
 }

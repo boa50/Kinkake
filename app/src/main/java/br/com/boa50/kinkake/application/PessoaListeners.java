@@ -14,8 +14,8 @@ import java.util.Map;
 import br.com.boa50.kinkake.model.Pessoa;
 import br.com.boa50.kinkake.util.PessoaUtil;
 
-public class PessoaListeners {
-    public static ValueEventListener getListenerUpdateMusicasPessoaAtiva(final ArrayList<Integer> codigosMusicasAdicionar){
+class PessoaListeners {
+    static ValueEventListener getListenerUpdateMusicasPessoaAtiva(final ArrayList<Integer> codigosMusicasAdicionar){
         return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -33,7 +33,7 @@ public class PessoaListeners {
         };
     }
 
-    public static ValueEventListener getListenerRemoverPessoas(final ArrayList<Pessoa> pessoasParaExcluir){
+    static ValueEventListener getListenerRemoverPessoas(final ArrayList<Pessoa> pessoasParaExcluir){
         return new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -54,7 +54,7 @@ public class PessoaListeners {
         };
     }
 
-    public static ChildEventListener getListenerTodasPessoas(final RecyclerView.Adapter adapter, final ArrayList<Pessoa> todasPessoas, final ArrayList<String> nomesAdicionados){
+    static ChildEventListener getListenerTodasPessoas(final RecyclerView.Adapter adapter, final ArrayList<Pessoa> todasPessoas, final ArrayList<String> nomesAdicionados){
         return new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -112,7 +112,7 @@ public class PessoaListeners {
         };
     }
 
-    public static ChildEventListener getListenerMusicasPessoa(final RecyclerView.Adapter adapter, final ArrayList<Integer> codigosMusicasPessoa){
+    static ChildEventListener getListenerMusicasPessoa(final RecyclerView.Adapter adapter, final ArrayList<Integer> codigosMusicasPessoa){
         return new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

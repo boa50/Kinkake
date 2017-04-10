@@ -113,7 +113,7 @@ public class DetalhamentoActivity extends AppCompatActivity {
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                ArrayList<Integer> codigoMusicaAdicionar = new ArrayList<Integer>();
+                ArrayList<Integer> codigoMusicaAdicionar = new ArrayList<>();
                 codigoMusicaAdicionar.add(musica.getCodigo());
 
                 VariaveisEstaticas.setPessoaAtiva(pessoas.get(position));

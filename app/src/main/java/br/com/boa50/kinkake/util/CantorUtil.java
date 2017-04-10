@@ -92,7 +92,7 @@ public class CantorUtil {
         todosCantores.addAll(ordenaCantoresPorNome(cantores));
     }
 
-    public static Cantor getCantorPorId(Integer id){
+    static Cantor getCantorPorId(Integer id){
         for(Cantor cantor : todosCantores){
             if(id.intValue() == cantor.getId().intValue())
                 return cantor;

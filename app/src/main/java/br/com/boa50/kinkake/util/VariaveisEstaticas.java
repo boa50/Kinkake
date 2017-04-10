@@ -15,7 +15,7 @@ public class VariaveisEstaticas{
         return todasPessoas;
     }
 
-    public static void setTodasPessoas(ArrayList<Pessoa> pessoas){
+    static void setTodasPessoas(ArrayList<Pessoa> pessoas){
         todasPessoas = pessoas;
     }
 
@@ -23,7 +23,7 @@ public class VariaveisEstaticas{
         return nomesAdicionados;
     }
 
-    public static void setNomesAdicionados(ArrayList<String> nomesAdicionados) {
+    static void setNomesAdicionados(ArrayList<String> nomesAdicionados) {
         VariaveisEstaticas.nomesAdicionados = nomesAdicionados;
     }
 

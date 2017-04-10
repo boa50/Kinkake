@@ -42,7 +42,7 @@ public class MusicaUtil {
         };
     }
 
-    public static void mudaIconeFavorito(TransitionDrawable td, boolean favorito){
+    private static void mudaIconeFavorito(TransitionDrawable td, boolean favorito){
         int tempoTransition = 500;
 
         if(favorito){
@@ -156,7 +156,7 @@ public class MusicaUtil {
         return retorno;
     }
 
-    public static Musica getMusicaPorCodigo(Integer codigo){
+    static Musica getMusicaPorCodigo(Integer codigo){
         for(Musica musica : todasMusicas){
             if(codigo.intValue() == musica.getCodigo().intValue())
                 return musica;
