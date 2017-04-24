@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+import br.com.boa50.kinkake.adapter.PessoaAdapter;
+import br.com.boa50.kinkake.application.PessoaFirebase;
 import br.com.boa50.kinkake.model.Pessoa;
 
 public class PessoaUtil {
@@ -16,6 +18,8 @@ public class PessoaUtil {
         for(Pessoa pessoa : VariaveisEstaticas.getTodasPessoas()){
             VariaveisEstaticas.getNomesAdicionados().add(pessoa.getNome());
         }
+
+        PessoaFirebase.adicionarListenerPessoas(new PessoaAdapter(VariaveisEstaticas.getTodasPessoas()));
     }
 
     public static void ordenarPessoasPorNome(ArrayList<Pessoa> pessoas){
